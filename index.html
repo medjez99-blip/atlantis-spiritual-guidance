@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlantis | Spiritual Guidance</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button id="lang-en" class="lang-btn active">EN</button>
+        <button id="lang-ar" class="lang-btn">العربية</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1 data-i18n="site_name">Atlantis</h1>
+                <span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" data-i18n="nav_home">Home</a></li>
+                <li><a href="#meditations" data-i18n="nav_meditations">Meditations</a></li>
+                <li><a href="#wisdom" data-i18n="nav_wisdom">Wisdom Library</a></li>
+                <li><a href="#community" data-i18n="nav_community">Community</a></li>
+                <li class="nav-auth">
+                    <a href="pages/login.html" data-i18n="nav_login">Login</a>
+                    <button id="logout-btn" class="btn-outline" style="display: none;" data-i18n="nav_logout">Logout</button>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h2 data-i18n="hero_title">Find Your Inner Peace</h2>
+            <p data-i18n="hero_subtitle">Journey through ancient wisdom and modern spiritual practices</p>
+            <a href="pages/login.html" class="btn-primary" data-i18n="hero_cta">Begin Your Journey</a>
+        </div>
+        <div class="hero-image">
+    <div class="sacred-geometry">
+        <img src="assets/icons/icon-152x152.png" alt="Atlantis Spiritual Icon" class="sacred-geometry-icon">
+    </div>
+</div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h3 data-i18n="features_title">Our Spiritual Offerings</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-moon"></i>
+                    <h4 data-i18n="feature1_title">Guided Meditations</h4>
+                    <p data-i18n="feature1_desc">Daily mindfulness sessions for inner peace</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-book-open"></i>
+                    <h4 data-i18n="feature2_title">Sacred Texts</h4>
+                    <p data-i18n="feature2_desc">Access to wisdom from spiritual traditions</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h4 data-i18n="feature3_title">Community Circles</h4>
+                    <p data-i18n="feature3_desc">Connect with like-minded seekers</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h4 data-i18n="feature4_title">Spiritual Growth Tracking</h4>
+                    <p data-i18n="feature4_desc">Monitor your spiritual journey</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Wisdom -->
+    <section class="daily-wisdom">
+        <div class="container">
+            <h3 data-i18n="wisdom_title">Wisdom of the Day</h3>
+            <div class="wisdom-card">
+                <p id="wisdom-text" data-i18n="daily_wisdom">"The soul always knows what to do to heal itself. The challenge is to silence the mind."</p>
+                <p class="wisdom-author" data-i18n="wisdom_author">— Caroline Myss</p>
+            </div>
+            <div class="user-status" id="user-status">
+                <p data-i18n="guest_message">You are browsing as a guest. <a href="pages/login.html" data-i18n="login_link">Login</a> for personalized guidance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 data-i18n="site_name">Atlantis</h4>
+                    <p data-i18n="footer_tagline">A sanctuary for spiritual growth</p>
+                </div>
+                <div class="footer-section">
+                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
+                    <ul>
+                        <li><a href="#" data-i18n="nav_meditations">Meditations</a></li>
+                        <li><a href="#" data-i18n="nav_wisdom">Wisdom Library</a></li>
+                        <li><a href="pages/login.html" data-i18n="nav_login">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-i18n="footer_contact">Contact</h4>
+                    <p data-i18n="footer_email">contact@atlantis-spiritual.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> Atlantis Spiritual Guidance. <span data-i18n="footer_rights">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/forms.js"></script>
+<script>
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Wait a bit for auth to initialize, then update UI
+        setTimeout(() => {
+            if (window.auth && typeof window.auth.updateAuthUI === 'function') {
+                window.auth.updateAuthUI();
+            } else {
+                console.warn('Auth not initialized properly');
+                // Fallback: update the user status manually
+                const userStatus = document.getElementById('user-status');
+                if (userStatus) {
+                    userStatus.innerHTML = '<p>' + window.t('guest_message') + '</p>';
+                }
+            }
+        }, 500);
+    });
+    </script>
+</body>
+</html>

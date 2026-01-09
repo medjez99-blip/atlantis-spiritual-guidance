@@ -1,0 +1,1193 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #9b59b6;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --spiritual-gold: #d4af37;
+    --spiritual-purple: #8e44ad;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Poppins', sans-serif;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+    text-align: right;
+}
+
+[dir="rtl"] .hamburger {
+    margin-left: 1rem;
+    margin-right: 0;
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--dark-color);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+/* Language Switcher */
+.language-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 5px;
+}
+
+.lang-btn {
+    padding: 5px 15px;
+    border: 2px solid var(--light-color);
+    background: transparent;
+    color: var(--light-color);
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.lang-btn.active {
+    background: var(--light-color);
+    color: var(--primary-color);
+}
+
+/* Navigation */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-family: var(--font-heading);
+    color: var(--spiritual-purple);
+    font-size: 2rem;
+    margin-bottom: 0.2rem;
+}
+
+.subtitle {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--dark-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-menu a:hover {
+    color: var(--spiritual-purple);
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--spiritual-purple);
+    transition: width 0.3s ease;
+}
+
+.nav-menu a:hover::after {
+    width: 100%;
+}
+
+.nav-auth {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 100px 2rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.hero-content {
+    flex: 1;
+    padding-right: 3rem;
+}
+
+.hero-content h2 {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: white;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-image {
+    flex: 1;
+    position: relative;
+}
+
+.sacred-geometry {
+    width: 400px;
+    height: 400px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 70%, transparent 100%);
+    overflow: hidden;
+}
+
+.sacred-geometry::before,
+.sacred-geometry::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+}
+
+.sacred-geometry::before {
+    transform: rotate(45deg);
+}
+
+.sacred-geometry::after {
+    transform: rotate(90deg);
+}
+
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0) rotate(0deg); 
+    }
+    50% { 
+        transform: translateY(-20px) rotate(5deg); 
+    }
+}
+
+.sacred-geometry-icon {
+    width: 180px; /* Adjust size as needed */
+    height: 180px;
+    object-fit: contain;
+    border-radius: 50%;
+    z-index: 2;
+    position: relative;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    transition: all 0.5s ease;
+}
+
+.sacred-geometry-icon:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+}
+
+/* Animation for the icon */
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1); 
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1.05); 
+        opacity: 0.9;
+    }
+}
+
+.sacred-geometry-icon {
+    animation: pulse 8s ease-in-out infinite;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(142, 68, 173, 0.3);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--spiritual-purple);
+    padding: 10px 25px;
+    border: 2px solid var(--spiritual-purple);
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background: var(--spiritual-purple);
+    color: white;
+}
+
+/* Features Section */
+.features {
+    padding: 5rem 2rem;
+    background: white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.features h3 {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--dark-color);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-card i {
+    font-size: 2.5rem;
+    color: var(--spiritual-purple);
+    margin-bottom: 1rem;
+}
+
+.feature-card h4 {
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+/* Daily Wisdom */
+.daily-wisdom {
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.wisdom-card {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 3rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+.wisdom-card::before {
+    content: '"';
+    font-size: 8rem;
+    color: var(--spiritual-purple);
+    opacity: 0.1;
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-heading);
+}
+
+#wisdom-text {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+.wisdom-author {
+    font-style: italic;
+    color: var(--accent-color);
+}
+
+.user-status {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Footer */
+footer {
+    background: var(--dark-color);
+    color: white;
+    padding: 3rem 2rem 1rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+    margin-bottom: 1rem;
+    color: var(--spiritual-gold);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+    color: var(--light-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: var(--spiritual-gold);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Auth Pages */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.auth-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    margin-bottom: 1rem;
+}
+
+.auth-tabs {
+    display: flex;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #eee;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 1rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    position: relative;
+}
+
+.auth-tab.active {
+    color: var(--spiritual-purple);
+}
+
+.auth-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--spiritual-purple);
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--dark-color);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--spiritual-purple);
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 40px;
+    cursor: pointer;
+    color: #666;
+}
+
+.auth-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.auth-footer a {
+    color: var(--spiritual-purple);
+    text-decoration: none;
+}
+
+/* Dashboard Styles */
+.dashboard-page {
+    display: flex;
+    min-height: 100vh;
+    background: #f5f7fa;
+}
+
+.dashboard-sidebar {
+    width: 280px;
+    background: white;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.user-profile {
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 1rem 0;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav li.active a {
+    background: linear-gradient(90deg, rgba(142, 68, 173, 0.1), transparent);
+    color: var(--spiritual-purple);
+    border-left: 4px solid var(--spiritual-purple);
+}
+
+.sidebar-footer {
+    padding: 2rem;
+    border-top: 1px solid #eee;
+}
+
+.dashboard-main {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.card-badge {
+    background: var(--success-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.meditation-player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border-radius: 10px;
+    color: white;
+}
+
+.play-btn {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    color: var(--spiritual-purple);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.journal-entry textarea {
+    width: 100%;
+    height: 150px;
+    padding: 1rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    resize: none;
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+}
+
+.mood-selector {
+    margin-top: 1rem;
+}
+
+.mood-options {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.mood-btn {
+    background: none;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mood-btn:hover,
+.mood-btn.active {
+    border-color: var(--spiritual-purple);
+    background: rgba(142, 68, 173, 0.1);
+}
+
+.stats-card {
+    grid-column: 1 / -1;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--spiritual-purple);
+    margin-bottom: 0.5rem;
+}
+
+.wisdom-list {
+    margin-top: 1rem;
+}
+
+.wisdom-item {
+    padding: 1rem;
+    border-left: 3px solid var(--spiritual-purple);
+    margin-bottom: 1rem;
+    background: #f9f9f9;
+}
+
+/* Admin Styles */
+.admin-page {
+    display: flex;
+    min-height: 100vh;
+    background: #f5f7fa;
+}
+
+.admin-container {
+    display: flex;
+    width: 100%;
+}
+
+.admin-sidebar {
+    width: 250px;
+    background: var(--dark-color);
+    color: white;
+}
+
+.admin-logo {
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-logo h2 {
+    color: var(--spiritual-gold);
+    margin-bottom: 0.5rem;
+}
+
+.admin-nav {
+    padding: 1rem 0;
+}
+
+.admin-nav ul {
+    list-style: none;
+}
+
+.admin-nav li {
+    margin-bottom: 0.5rem;
+}
+
+.admin-nav a {
+    display: block;
+    padding: 1rem 2rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.admin-nav a:hover,
+.admin-nav li.active a {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-left: 4px solid var(--spiritual-gold);
+}
+
+.admin-user {
+    padding: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin-avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--spiritual-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.admin-main {
+    flex: 1;
+    padding: 2rem;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #eee;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.admin-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+#users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#users-table th,
+#users-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+#users-table th {
+    background: #f9f9f9;
+    font-weight: 600;
+}
+
+.content-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btn-sm {
+    padding: 5px 15px;
+    font-size: 0.9rem;
+}
+
+.language-management {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.language-tags {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.language-tag {
+    background: var(--light-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tag-close {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.add-language-form {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.add-language-form input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: 2px solid #eee;
+    border-radius: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+    
+    .hamburger {
+        display: block;
+        cursor: pointer;
+    }
+    
+    .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: var(--dark-color);
+        margin: 5px 0;
+    }
+    
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 120px;
+    }
+    
+    .hero-content {
+        padding-right: 0;
+        margin-bottom: 3rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 2.5rem;
+    }
+    
+    .sacred-geometry {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .sacred-geometry-icon {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .dashboard-sidebar {
+        width: 70px;
+    }
+    
+    .dashboard-sidebar .logo,
+    .dashboard-sidebar .user-profile h3,
+    .dashboard-sidebar .user-email,
+    .dashboard-sidebar .sidebar-nav span,
+    .dashboard-sidebar .sidebar-footer span {
+        display: none;
+    }
+    
+    .avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .sidebar-nav a {
+        justify-content: center;
+        padding: 1rem;
+    }
+    
+    .admin-container {
+        flex-direction: column;
+    }
+    
+    .admin-sidebar {
+        width: 100%;
+    }
+    
+    .language-management {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.p-1 { padding: 1rem; }
+.p-2 { padding: 2rem; }
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Loading Spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--spiritual-purple);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error Messages */
+.error-message {
+    background: #fee;
+    color: var(--danger-color);
+    padding: 1rem;
+    border-radius: 5px;
+    border-left: 4px solid var(--danger-color);
+    margin: 1rem 0;
+}
+
+.success-message {
+    background: #efc;
+    color: var(--success-color);
+    padding: 1rem;
+    border-radius: 5px;
+    border-left: 4px solid var(--success-color);
+    margin: 1rem 0;
+}
+
+/* Notification Badge */
+.notifications {
+    position: relative;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #666;
+    cursor: pointer;
+}
+
+.notifications::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 10px;
+    height: 10px;
+    background: var(--danger-color);
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+/* Translation notification styles */
+.translation-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--success-color);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 9999;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Loading spinner with translated text */
+.loading-with-text {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.loading-with-text .spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--spiritual-purple);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.success-icon {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.success-icon i {
+    font-size: 4rem;
+    color: var(--success-color);
+    animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+/* Style for the reset success state */
+#reset-success {
+    text-align: center;
+}
+
+#reset-success .btn-primary {
+    margin-top: 1rem;
+}

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Atlantis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-page">
+    <div class="admin-container">
+        <!-- Admin Sidebar -->
+        <div class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>Atlantis</h2>
+                <span>Admin Panel</span>
+            </div>
+            
+            <nav class="admin-nav">
+                <ul>
+                    <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#users"><i class="fas fa-users"></i> Users</a></li>
+                    <li><a href="#content"><i class="fas fa-book"></i> Content</a></li>
+                    <li><a href="#meditations"><i class="fas fa-moon"></i> Meditations</a></li>
+                    <li><a href="#translations"><i class="fas fa-language"></i> Translations</a></li>
+                    <li><a href="#analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                </ul>
+            </nav>
+            
+            <div class="admin-user">
+                <div class="admin-avatar">A</div>
+                <div class="admin-user-info">
+                    <span id="admin-email">admin@atlantis.com</span>
+                    <button id="admin-logout" class="btn-sm">Logout</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Main Content -->
+        <div class="admin-main">
+            <div class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <div class="admin-actions">
+                    <button class="btn-primary" id="refresh-data">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-users">0</h3>
+                        <p>Total Users</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="active-sessions">0</h3>
+                        <p>Active Sessions</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-content">0</h3>
+                        <p>Content Items</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="languages-count">2</h3>
+                        <p>Languages</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Users Table -->
+            <div class="admin-section">
+                <h2>Recent Users</h2>
+                <div class="table-container">
+                    <table id="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Joined</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Users will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Content Management -->
+            <div class="admin-section">
+                <h2>Content Management</h2>
+                <div class="content-controls">
+                    <button class="btn-primary" id="add-content">
+                        <i class="fas fa-plus"></i> Add New Content
+                    </button>
+                    <button class="btn-outline" id="refresh-content">
+                        <i class="fas fa-redo"></i> Refresh
+                    </button>
+                </div>
+                
+                <div class="content-list" id="content-list">
+                    <!-- Content items will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Language Management -->
+            <div class="admin-section">
+                <h2>Language Management</h2>
+                <div class="language-management">
+                    <div class="current-languages">
+                        <h3>Current Languages</h3>
+                        <div class="language-tags">
+                            <span class="language-tag">
+                                English (EN)
+                                <button class="tag-close">&times;</button>
+                            </span>
+                            <span class="language-tag">
+                                العربية (AR)
+                                <button class="tag-close">&times;</button>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="add-language">
+                        <h3>Add New Language</h3>
+                        <div class="add-language-form">
+                            <input type="text" id="new-language-name" placeholder="Language Name">
+                            <input type="text" id="new-language-code" placeholder="Language Code (e.g., ES)">
+                            <button id="add-language-btn" class="btn-primary">Add Language</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check admin privileges
+            checkAdminAccess();
+            
+            // Load admin data
+            loadAdminData();
+            
+            // Event listeners
+            document.getElementById('refresh-data').addEventListener('click', loadAdminData);
+            document.getElementById('add-language-btn').addEventListener('click', addNewLanguage);
+            document.getElementById('admin-logout').addEventListener('click', logout);
+        });
+    </script>
+</body>
+</html>

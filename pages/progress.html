@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress | Atlantis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <div class="dashboard-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h1 data-i18n="site_name">Atlantis</h1>
+                <span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <div class="avatar" id="user-avatar">S</div>
+            <h3 id="user-name">Loading...</h3>
+            <p class="user-email" id="user-email">loading@example.com</p>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> <span data-i18n="dashboard_home">Dashboard</span></a></li>
+                <li><a href="meditations.html"><i class="fas fa-moon"></i> <span data-i18n="nav_meditations">Meditations</span></a></li>
+                <li><a href="journal.html"><i class="fas fa-book"></i> <span data-i18n="journal_title">Spiritual Journal</span></a></li>
+                <li class="active"><a href="#"><i class="fas fa-chart-line"></i> <span data-i18n="progress_title">Progress</span></a></li>
+                <li><a href="community.html"><i class="fas fa-users"></i> <span data-i18n="nav_community">Community</span></a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="dashboard-logout" class="btn-outline">
+                <i class="fas fa-sign-out-alt"></i>
+                <span data-i18n="nav_logout">Logout</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="dashboard-main">
+        <div class="dashboard-header">
+            <div class="header-left">
+                <h2 data-i18n="progress_title">Progress</h2>
+                <p data-i18n="track_your_journey">Track your spiritual journey</p>
+            </div>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button id="progress-lang-en" class="lang-btn active">EN</button>
+                    <button id="progress-lang-ar" class="lang-btn">العربية</button>
+                </div>
+                <select id="time-range" class="time-selector">
+                    <option value="7" data-i18n="last_7_days">Last 7 days</option>
+                    <option value="30" selected data-i18n="last_30_days">Last 30 days</option>
+                    <option value="90" data-i18n="last_90_days">Last 90 days</option>
+                    <option value="365" data-i18n="last_year">Last year</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="progress-container">
+            <!-- Stats Overview -->
+            <div class="stats-overview">
+                <div class="stat-card-large">
+                    <div class="stat-icon-large">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="current-streak">0</h3>
+                        <p data-i18n="day_streak">Day Streak</p>
+                        <div class="streak-bar">
+                            <div class="streak-fill" id="streak-fill"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card-large">
+                    <div class="stat-icon-large">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-time">0</h3>
+                        <p data-i18n="total_meditation_time">Total Meditation Time</p>
+                        <div class="time-breakdown">
+                            <span data-i18n="avg_daily">Avg: <strong id="avg-daily">0</strong> min/day</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card-large">
+                    <div class="stat-icon-large">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="journal-count">0</h3>
+                        <p data-i18n="journal_entries">Journal Entries</p>
+                        <div class="journal-stats">
+                            <span data-i18n="last_entry">Last: <strong id="last-entry-date">-</strong></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card-large">
+                    <div class="stat-icon-large">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="consistency-score">0%</h3>
+                        <p data-i18n="consistency_score">Consistency Score</p>
+                        <div class="score-progress">
+                            <span id="score-text" data-i18n="improving">Improving</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 data-i18n="meditation_frequency">Meditation Frequency</h3>
+                        <div class="chart-legend">
+                            <span class="legend-item">
+                                <span class="legend-color" style="background: #9b59b6;"></span>
+                                <span data-i18n="meditation_sessions">Sessions</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="frequency-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 data-i18n="mood_tracker">Mood Tracker</h3>
+                        <div class="chart-legend" id="mood-legend">
+                            <!-- Legend will be generated here -->
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="mood-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Activity Calendar -->
+            <div class="activity-section">
+                <div class="section-header">
+                    <h3 data-i18n="activity_calendar">Activity Calendar</h3>
+                    <div class="calendar-nav">
+                        <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                        <span id="current-month"></span>
+                        <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="calendar-container" id="calendar">
+                    <!-- Calendar will be generated here -->
+                </div>
+                <div class="calendar-legend">
+                    <span class="legend-item">
+                        <span class="legend-color level-0"></span>
+                        <span data-i18n="no_activity">No activity</span>
+                    </span>
+                    <span class="legend-item">
+                        <span class="legend-color level-1"></span>
+                        <span data-i18n="light">Light</span>
+                    </span>
+                    <span class="legend-item">
+                        <span class="legend-color level-2"></span>
+                        <span data-i18n="moderate">Moderate</span>
+                    </span>
+                    <span class="legend-item">
+                        <span class="legend-color level-3"></span>
+                        <span data-i18n="active">Active</span>
+                    </span>
+                    <span class="legend-item">
+                        <span class="legend-color level-4"></span>
+                        <span data-i18n="very_active">Very Active</span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Achievements -->
+            <div class="achievements-section">
+                <div class="section-header">
+                    <h3 data-i18n="achievements">Achievements</h3>
+                    <span class="achievements-count" data-i18n="unlocked">Unlocked: <strong id="unlocked-count">0</strong>/12</span>
+                </div>
+                <div class="achievements-grid" id="achievements-grid">
+                    <!-- Achievements will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Insights -->
+            <div class="insights-section">
+                <div class="section-header">
+                    <h3 data-i18n="insights">Personal Insights</h3>
+                </div>
+                <div class="insights-content" id="insights-content">
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="insight-text">
+                            <h4 data-i18n="weekly_pattern">Weekly Pattern</h4>
+                            <p id="weekly-pattern">Your meditation sessions are most consistent on Monday and Friday.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="insight-text">
+                            <h4 data-i18n="mood_insight">Mood Insight</h4>
+                            <p id="mood-insight">You tend to feel most peaceful after morning meditation sessions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="insight-text">
+                            <h4 data-i18n="next_milestone">Next Milestone</h4>
+                            <p id="next-milestone">You're 3 days away from reaching a 30-day meditation streak!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        let frequencyChart, moodChart;
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Load user data
+            await loadUserData();
+            
+            // Set up language switcher
+            const langBtns = document.querySelectorAll('.lang-btn');
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.id.includes('en') ? 'en' : 'ar';
+                    i18n.changeLanguage(lang);
+                });
+            });
+            
+            // Time range selector
+            document.getElementById('time-range').addEventListener('change', loadProgressData);
+            
+            // Calendar navigation
+            document.getElementById('prev-month').addEventListener('click', () => {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                generateCalendar();
+            });
+            
+            document.getElementById('next-month').addEventListener('click', () => {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                generateCalendar();
+            });
+            
+            // Load initial data
+            await loadProgressData();
+            generateCalendar();
+            
+            // Logout
+            document.getElementById('dashboard-logout').addEventListener('click', logout);
+        });
+        
+        async function loadProgressData() {
+            const timeRange = parseInt(document.getElementById('time-range').value);
+            
+            try {
+                // Load meditation data
+                const { data: meditationData, error: medError } = await supabase
+                    .from('meditation_sessions')
+                    .select('*')
+                    .eq('user_id', auth.currentUser.id)
+                    .gte('created_at', getDateRange(timeRange));
+                
+                if (medError) throw medError;
+                
+                // Load journal data
+                const { data: journalData, error: journalError } = await supabase
+                    .from('journal_entries')
+                    .select('*')
+                    .eq('user_id', auth.currentUser.id)
+                    .gte('created_at', getDateRange(timeRange))
+                    .order('created_at', { ascending: false });
+                
+                if (journalError) throw journalError;
+                
+                // Update stats
+                updateStats(meditationData, journalData, timeRange);
+                
+                // Create charts
+                createCharts(meditationData, journalData);
+                
+                // Load achievements
+                loadAchievements();
+                
+            } catch (error) {
+                console.error('Load progress error:', error);
+                utils.showNotification('Failed to load progress data', 'error');
+            }
+        }
+        
+        function getDateRange(days) {
+            const date = new Date();
+            date.setDate(date.getDate() - days);
+            return date.toISOString();
+        }
+        
+        function updateStats(meditationData, journalData, timeRange) {
+            // Calculate streak
+            const today = new Date().toDateString();
+            let streak = 0;
+            const dates = meditationData.map(m => new Date(m.created_at).toDateString());
+            
+            for (let i = 0; i < dates.length; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toDateString();
+                
+                if (dates.includes(dateStr)) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            
+            document.getElementById('current-streak').textContent = streak;
+            document.getElementById('streak-fill').style.width = `${Math.min(streak / 30 * 100, 100)}%`;
+            
+            // Calculate total meditation time
+            const totalTime = meditationData.reduce((sum, session) => sum + (session.duration || 0), 0);
+            const avgDaily = timeRange > 0 ? Math.round(totalTime / timeRange) : 0;
+            
+            document.getElementById('total-time').textContent = `${Math.round(totalTime / 60)}h`;
+            document.getElementById('avg-daily').textContent = avgDaily;
+            
+            // Journal stats
+            document.getElementById('journal-count').textContent = journalData.length;
+            if (journalData.length > 0) {
+                const lastEntry = new Date(journalData[0].created_at);
+                document.getElementById('last-entry-date').textContent = 
+                    lastEntry.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            }
+            
+            // Consistency score
+            const consistency = meditationData.length / timeRange * 100;
+            const consistencyScore = Math.min(Math.round(consistency), 100);
+            document.getElementById('consistency-score').textContent = `${consistencyScore}%`;
+            
+            const scoreText = document.getElementById('score-text');
+            if (consistencyScore >= 80) {
+                scoreText.textContent = i18n.translations['excellent'] || 'Excellent';
+                scoreText.style.color = '#27ae60';
+            } else if (consistencyScore >= 60) {
+                scoreText.textContent = i18n.translations['good'] || 'Good';
+                scoreText.style.color = '#f39c12';
+            } else {
+                scoreText.textContent = i18n.translations['needs_improvement'] || 'Needs improvement';
+                scoreText.style.color = '#e74c3c';
+            }
+        }
+        
+        function createCharts(meditationData, journalData) {
+            // Prepare data for frequency chart
+            const last7Days = [];
+            const sessionCounts = [];
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toLocaleDateString('en-US', { weekday: 'short' });
+                last7Days.push(dateStr);
+                
+                const dayCount = meditationData.filter(session => {
+                    const sessionDate = new Date(session.created_at);
+                    return sessionDate.toDateString() === date.toDateString();
+                }).length;
+                
+                sessionCounts.push(dayCount);
+            }
+            
+            // Frequency Chart
+            const freqCtx = document.getElementById('frequency-chart').getContext('2d');
+            if (frequencyChart) frequencyChart.destroy();
+            
+            frequencyChart = new Chart(freqCtx, {
+                type: 'bar',
+                data: {
+                    labels: last7Days,
+                    datasets: [{
+                        label: i18n.translations['meditation_sessions'] || 'Sessions',
+                        data: sessionCounts,
+                        backgroundColor: '#9b59b6',
+                        borderColor: '#8e44ad',
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Mood Chart
+            const moodCounts = {};
+            journalData.forEach(entry => {
+                moodCounts[entry.mood] = (moodCounts[entry.mood] || 0) + 1;
+            });
+            
+            const moodLabels = Object.keys(moodCounts);
+            const moodData = Object.values(moodCounts);
+            const moodColors = {
+                peaceful: '#2ecc71',
+                grateful: '#3498db',
+                reflective: '#9b59b6',
+                energized: '#f39c12',
+                challenged: '#e74c3c'
+            };
+            
+            const moodBackgrounds = moodLabels.map(mood => moodColors[mood] || '#95a5a6');
+            
+            // Update mood legend
+            const moodLegend = document.getElementById('mood-legend');
+            moodLegend.innerHTML = moodLabels.map(mood => `
+                <span class="legend-item">
+                    <span class="legend-color" style="background: ${moodColors[mood] || '#95a5a6'}"></span>
+                    <span>${mood.charAt(0).toUpperCase() + mood.slice(1)}</span>
+                </span>
+            `).join('');
+            
+            const moodCtx = document.getElementById('mood-chart').getContext('2d');
+            if (moodChart) moodChart.destroy();
+            
+            moodChart = new Chart(moodCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: moodLabels.map(m => m.charAt(0).toUpperCase() + m.slice(1)),
+                    datasets: [{
+                        data: moodData,
+                        backgroundColor: moodBackgrounds,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+        
+        function generateCalendar() {
+            const calendar = document.getElementById('calendar');
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            
+            document.getElementById('current-month').textContent = 
+                `${monthNames[currentMonth]} ${currentYear}`;
+            
+            // Generate calendar grid
+            const firstDay = new Date(currentYear, currentMonth, 1);
+            const lastDay = new Date(currentYear, currentMonth + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay();
+            
+            let calendarHTML = '<div class="calendar-weekdays">';
+            const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            weekdays.forEach(day => {
+                calendarHTML += `<div class="weekday">${day}</div>`;
+            });
+            calendarHTML += '</div><div class="calendar-days">';
+            
+            // Empty cells for days before the first day of month
+            for (let i = 0; i < startingDay; i++) {
+                calendarHTML += '<div class="calendar-day empty"></div>';
+            }
+            
+            // Days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(currentYear, currentMonth, day);
+                const activityLevel = Math.floor(Math.random() * 5); // Simulated data
+                calendarHTML += `
+                    <div class="calendar-day activity-level-${activityLevel}">
+                        <span class="day-number">${day}</span>
+                    </div>
+                `;
+            }
+            
+            calendarHTML += '</div>';
+            calendar.innerHTML = calendarHTML;
+        }
+        
+        function loadAchievements() {
+            const achievements = [
+                { id: 1, name: 'First Steps', desc: 'Complete your first meditation', icon: 'fa-star', unlocked: true },
+                { id: 2, name: 'Week Warrior', desc: 'Meditate for 7 consecutive days', icon: 'fa-fire', unlocked: true },
+                { id: 3, name: 'Mindful Writer', desc: 'Write 5 journal entries', icon: 'fa-pen', unlocked: false },
+                { id: 4, name: 'Early Bird', desc: 'Complete 5 morning meditations', icon: 'fa-sun', unlocked: true },
+                { id: 5, name: 'Consistency King', desc: '30-day meditation streak', icon: 'fa-crown', unlocked: false },
+                { id: 6, name: 'Reflection Master', desc: '10 journal entries in a month', icon: 'fa-book', unlocked: false },
+                { id: 7, name: 'Weekend Warrior', desc: 'Meditate every weekend for a month', icon: 'fa-calendar', unlocked: false },
+                { id: 8, name: 'Peace Seeker', desc: 'Record peaceful mood 10 times', icon: 'fa-dove', unlocked: true },
+                { id: 9, name: 'Time Traveler', desc: '100 hours of meditation', icon: 'fa-clock', unlocked: false },
+                { id: 10, name: 'Wisdom Keeper', desc: 'Write 50 journal entries', icon: 'fa-brain', unlocked: false },
+                { id: 11, name: 'Balance Achiever', desc: 'Meditate for 30 consecutive days', icon: 'fa-balance-scale', unlocked: false },
+                { id: 12, name: 'Spiritual Guide', desc: 'Share 5 insights with community', icon: 'fa-users', unlocked: false }
+            ];
+            
+            const unlockedCount = achievements.filter(a => a.unlocked).length;
+            document.getElementById('unlocked-count').textContent = unlockedCount;
+            
+            const grid = document.getElementById('achievements-grid');
+            grid.innerHTML = achievements.map(achievement => `
+                <div class="achievement-card ${achievement.unlocked ? 'unlocked' : 'locked'}">
+                    <div class="achievement-icon">
+                        <i class="fas ${achievement.icon}"></i>
+                        ${achievement.unlocked ? '' : '<i class="fas fa-lock lock-icon"></i>'}
+                    </div>
+                    <div class="achievement-info">
+                        <h4>${achievement.name}</h4>
+                        <p>${achievement.desc}</p>
+                    </div>
+                    <div class="achievement-status">
+                        ${achievement.unlocked ? 
+                            '<i class="fas fa-check-circle"></i>' : 
+                            '<i class="far fa-circle"></i>'}
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+    <style>
+        .progress-container {
+            padding: 1rem;
+        }
+        
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card-large {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-icon-large {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .stat-content {
+            flex: 1;
+        }
+        
+        .stat-content h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--spiritual-purple);
+        }
+        
+        .streak-bar {
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .streak-fill {
+            height: 100%;
+            background: var(--spiritual-purple);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        .time-breakdown, .journal-stats, .score-progress {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chart-legend {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+        
+        .chart-wrapper {
+            height: 250px;
+            position: relative;
+        }
+        
+        .activity-section {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .calendar-nav button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--spiritual-purple);
+            cursor: pointer;
+        }
+        
+        .calendar-container {
+            margin-bottom: 1rem;
+        }
+        
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .weekday {
+            text-align: center;
+            font-weight: 600;
+            color: #666;
+            padding: 0.5rem;
+        }
+        
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .calendar-day.empty {
+            background: transparent;
+        }
+        
+        .activity-level-0 { background: #f0f0f0; }
+        .activity-level-1 { background: #d4edda; }
+        .activity-level-2 { background: #c3e6cb; }
+        .activity-level-3 { background: #8fd19e; }
+        .activity-level-4 { background: #28a745; }
+        
+        .calendar-legend {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .legend-color.level-0 { background: #f0f0f0; }
+        .legend-color.level-1 { background: #d4edda; }
+        .legend-color.level-2 { background: #c3e6cb; }
+        .legend-color.level-3 { background: #8fd19e; }
+        .legend-color.level-4 { background: #28a745; }
+        
+        .achievements-section {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .achievements-count {
+            color: #666;
+        }
+        
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        
+        .achievement-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-card.unlocked {
+            border-color: var(--spiritual-purple);
+            background: rgba(142, 68, 173, 0.05);
+        }
+        
+        .achievement-card.locked {
+            opacity: 0.7;
+        }
+        
+        .achievement-icon {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .lock-icon {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: white;
+            color: #666;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .achievement-info {
+            flex: 1;
+        }
+        
+        .achievement-info h4 {
+            margin-bottom: 0.3rem;
+        }
+        
+        .achievement-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .achievement-status {
+            color: var(--spiritual-purple);
+        }
+        
+        .insights-section {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .insights-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .insight-card {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .insight-card:hover {
+            border-color: var(--spiritual-purple);
+            transform: translateY(-2px);
+        }
+        
+        .insight-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .insight-text h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .insight-text p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .time-selector {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            color: #333;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-overview {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .insights-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-legend {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</body>
+</html>

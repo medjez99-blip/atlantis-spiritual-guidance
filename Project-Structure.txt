@@ -1,0 +1,3888 @@
+## Project Structure
+### 1. **index.html** (Main Page)
+```html
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlantis | Spiritual Guidance</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button id="lang-en" class="lang-btn active">EN</button>
+        <button id="lang-ar" class="lang-btn">العربية</button>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1 data-i18n="site_name">Atlantis</h1>
+                <span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" data-i18n="nav_home">Home</a></li>
+                <li><a href="#meditations" data-i18n="nav_meditations">Meditations</a></li>
+                <li><a href="#wisdom" data-i18n="nav_wisdom">Wisdom Library</a></li>
+                <li><a href="#community" data-i18n="nav_community">Community</a></li>
+                <li class="nav-auth">
+                    <a href="pages/login.html" data-i18n="nav_login">Login</a>
+                    <button id="logout-btn" class="btn-outline" style="display: none;" data-i18n="nav_logout">Logout</button>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h2 data-i18n="hero_title">Find Your Inner Peace</h2>
+            <p data-i18n="hero_subtitle">Journey through ancient wisdom and modern spiritual practices</p>
+            <a href="pages/login.html" class="btn-primary" data-i18n="hero_cta">Begin Your Journey</a>
+        </div>
+        <div class="hero-image">
+    <div class="sacred-geometry">
+        <img src="assets/icons/icon-152x152.png" alt="Atlantis Spiritual Icon" class="sacred-geometry-icon">
+    </div>
+</div>
+    </header>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h3 data-i18n="features_title">Our Spiritual Offerings</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-moon"></i>
+                    <h4 data-i18n="feature1_title">Guided Meditations</h4>
+                    <p data-i18n="feature1_desc">Daily mindfulness sessions for inner peace</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-book-open"></i>
+                    <h4 data-i18n="feature2_title">Sacred Texts</h4>
+                    <p data-i18n="feature2_desc">Access to wisdom from spiritual traditions</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h4 data-i18n="feature3_title">Community Circles</h4>
+                    <p data-i18n="feature3_desc">Connect with like-minded seekers</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h4 data-i18n="feature4_title">Spiritual Growth Tracking</h4>
+                    <p data-i18n="feature4_desc">Monitor your spiritual journey</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Daily Wisdom -->
+    <section class="daily-wisdom">
+        <div class="container">
+            <h3 data-i18n="wisdom_title">Wisdom of the Day</h3>
+            <div class="wisdom-card">
+                <p id="wisdom-text" data-i18n="daily_wisdom">"The soul always knows what to do to heal itself. The challenge is to silence the mind."</p>
+                <p class="wisdom-author" data-i18n="wisdom_author">— Caroline Myss</p>
+            </div>
+            <div class="user-status" id="user-status">
+                <p data-i18n="guest_message">You are browsing as a guest. <a href="pages/login.html" data-i18n="login_link">Login</a> for personalized guidance.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 data-i18n="site_name">Atlantis</h4>
+                    <p data-i18n="footer_tagline">A sanctuary for spiritual growth</p>
+                </div>
+                <div class="footer-section">
+                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
+                    <ul>
+                        <li><a href="#" data-i18n="nav_meditations">Meditations</a></li>
+                        <li><a href="#" data-i18n="nav_wisdom">Wisdom Library</a></li>
+                        <li><a href="pages/login.html" data-i18n="nav_login">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-i18n="footer_contact">Contact</h4>
+                    <p data-i18n="footer_email">contact@atlantis-spiritual.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> Atlantis Spiritual Guidance. <span data-i18n="footer_rights">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/forms.js"></script>
+<script>
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        // Wait a bit for auth to initialize, then update UI
+        setTimeout(() => {
+            if (window.auth && typeof window.auth.updateAuthUI === 'function') {
+                window.auth.updateAuthUI();
+            } else {
+                console.warn('Auth not initialized properly');
+                // Fallback: update the user status manually
+                const userStatus = document.getElementById('user-status');
+                if (userStatus) {
+                    userStatus.innerHTML = '<p>' + window.t('guest_message') + '</p>';
+                }
+            }
+        }, 500);
+    });
+    </script>
+</body>
+</html>
+```
+### 2. **pages/login.html**
+```html
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Atlantis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-header">
+            <a href="../index.html" class="back-home">
+                <i class="fas fa-arrow-left"></i>
+                <span data-i18n="back_home">Back Home</span>
+            </a>
+            <div class="logo">
+                <h1 data-i18n="site_name">Atlantis</h1>
+                <span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
+            </div>
+        </div>
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="login-tab" data-i18n="login_tab">Login</button>
+            <button class="auth-tab" id="signup-tab" data-i18n="signup_tab">Sign Up</button>
+        </div>
+        <!-- Login Form -->
+        <div class="auth-form active" id="login-form">
+            <h2 data-i18n="login_title">Welcome Back, Seeker</h2>
+            <form id="login-form-element">
+                <div class="form-group">
+                    <label for="login-email" data-i18n="email_label">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+    <label for="login-password" data-i18n="password_label">Password</label>
+    <input type="password" id="login-password" required autocomplete="current-password">
+    <span class="toggle-password" id="toggle-login-password">
+        <i class="fas fa-eye"></i>
+    </span>
+</div>
+                <button type="submit" class="btn-primary" data-i18n="login_button">Login</button>
+            </form>
+            <div class="auth-footer">
+    <p>
+        <span data-i18n="forgot_password">Forgot password?</span> 
+        <a href="reset-password.html" id="reset-password-link">
+            <span data-i18n="reset_here">Reset here</span>
+        </a>
+    </p>
+</div>
+        </div>
+        <!-- Signup Form -->
+        <div class="auth-form" id="signup-form">
+            <h2 data-i18n="signup_title">Begin Your Spiritual Journey</h2>
+            <form id="signup-form-element">
+                <div class="form-group">
+                    <label for="signup-name" data-i18n="name_label">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email" data-i18n="email_label">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+    <label for="signup-password" data-i18n="password_label">Password</label>
+    <input type="password" id="signup-password" required autocomplete="new-password">
+    <span class="toggle-password" id="toggle-signup-password">
+        <i class="fas fa-eye"></i>
+    </span>
+</div>
+                <div class="form-group">
+    <label for="signup-confirm" data-i18n="confirm_password_label">Confirm Password</label>
+    <input type="password" id="signup-confirm" required autocomplete="new-password">
+</div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="terms" required>
+                        <span data-i18n="accept_terms">I accept the Terms and Conditions</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn-primary" data-i18n="signup_button">Create Account</button>
+            </form>
+        </div>
+        <!-- Reset Password Form -->
+        <div class="auth-form" id="reset-form">
+            <h2 data-i18n="reset_title">Reset Password</h2>
+            <form id="reset-form-element">
+                <div class="form-group">
+                    <label for="reset-email" data-i18n="email_label">Email</label>
+                    <input type="email" id="reset-email" required>
+                </div>
+                <button type="submit" class="btn-primary" data-i18n="reset_button">Send Reset Link</button>
+            </form>
+            <div class="auth-footer">
+                <p><a href="#" id="back-to-login" data-i18n="back_to_login">Back to Login</a></p>
+            </div>
+        </div>
+        <div class="language-switcher auth-language">
+            <button id="auth-lang-en" class="lang-btn active">EN</button>
+            <button id="auth-lang-ar" class="lang-btn">العربية</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/forms.js"></script>
+</body>
+</html>
+```
+### 3. **pages/dashboard.html**
+```html
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Atlantis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <div class="dashboard-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h1 data-i18n="site_name">Atlantis</h1>
+                <span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <div class="avatar" id="user-avatar">S</div>
+            <h3 id="user-name">Loading...</h3>
+            <p class="user-email" id="user-email">loading@example.com</p>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="active"><a href="#"><i class="fas fa-home"></i> <span data-i18n="dashboard_home">Dashboard</span></a></li>
+                <li><a href="#meditations"><i class="fas fa-moon"></i> <span data-i18n="nav_meditations">Meditations</span></a></li>
+                <li><a href="#journal"><i class="fas fa-book"></i> <span data-i18n="journal_title">Spiritual Journal</span></a></li>
+                <li><a href="#progress"><i class="fas fa-chart-line"></i> <span data-i18n="progress_title">Progress</span></a></li>
+                <li><a href="#community"><i class="fas fa-users"></i> <span data-i18n="nav_community">Community</span></a></li>
+                <li><a href="#settings"><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="dashboard-logout" class="btn-outline">
+                <i class="fas fa-sign-out-alt"></i>
+                <span data-i18n="nav_logout">Logout</span>
+            </button>
+        </div>
+    </div>
+    <!-- Main Content -->
+    <div class="dashboard-main">
+        <div class="dashboard-header">
+            <div class="header-left">
+                <h2 data-i18n="dashboard_welcome">Welcome, <span id="welcome-name">Seeker</span></h2>
+                <p data-i18n="dashboard_date" id="current-date"></p>
+            </div>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button id="dashboard-lang-en" class="lang-btn active">EN</button>
+                    <button id="dashboard-lang-ar" class="lang-btn">العربية</button>
+                </div>
+                <button class="notifications">
+                    <i class="fas fa-bell"></i>
+                </button>
+            </div>
+        </div>
+        <div class="dashboard-content">
+            <!-- Daily Meditation -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 data-i18n="daily_meditation_title">Daily Meditation</h3>
+                    <span class="card-badge" data-i18n="recommended">Recommended</span>
+                </div>
+                <div class="meditation-player">
+                    <div class="meditation-info">
+                        <h4 data-i18n="morning_mindfulness">Morning Mindfulness</h4>
+                        <p data-i18n="meditation_duration">10 minutes</p>
+                    </div>
+                    <button class="play-btn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                <div class="card-footer">
+                    <a href="#" data-i18n="view_all_meditations">View All Meditations →</a>
+                </div>
+            </div>
+            <!-- Spiritual Journal -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 data-i18n="today_journal_title">Today's Journal</h3>
+                </div>
+                <div class="journal-entry">
+                    <textarea id="journal-text" placeholder="Write your spiritual reflections here..." data-i18n="journal_placeholder"></textarea>
+                    <button id="save-journal" class="btn-primary" data-i18n="save_journal">Save Entry</button>
+                </div>
+                <div class="mood-selector">
+                    <span data-i18n="mood_label">Today's Mood:</span>
+                    <div class="mood-options">
+                        <button class="mood-btn" data-mood="peaceful">😌</button>
+                        <button class="mood-btn" data-mood="grateful">🙏</button>
+                        <button class="mood-btn" data-mood="reflective">🤔</button>
+                        <button class="mood-btn" data-mood="energized">⚡</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Progress Stats -->
+            <div class="dashboard-card stats-card">
+                <h3 data-i18n="spiritual_progress">Your Spiritual Progress</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="meditation-streak">0</div>
+                        <div class="stat-label" data-i18n="day_streak">Day Streak</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="total-meditations">0</div>
+                        <div class="stat-label" data-i18n="total_meditations">Total Meditations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="journal-entries">0</div>
+                        <div class="stat-label" data-i18n="journal_entries">Journal Entries</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Wisdom -->
+            <div class="dashboard-card">
+                <h3 data-i18n="recent_wisdom_title">Recent Wisdom</h3>
+                <div class="wisdom-list">
+                    <div class="wisdom-item">
+                        <p>"The only journey is the journey within."</p>
+                        <small>— Rainer Maria Rilke</small>
+                    </div>
+                    <div class="wisdom-item">
+                        <p>"Peace comes from within. Do not seek it without."</p>
+                        <small>— Buddha</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Set current date
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
+            // Load user data
+            await loadUserData();
+        });
+    </script>
+</body>
+</html>
+```
+### 4. **pages/admin.html**
+```html
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Atlantis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-page">
+    <div class="admin-container">
+        <!-- Admin Sidebar -->
+        <div class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>Atlantis</h2>
+                <span>Admin Panel</span>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#users"><i class="fas fa-users"></i> Users</a></li>
+                    <li><a href="#content"><i class="fas fa-book"></i> Content</a></li>
+                    <li><a href="#meditations"><i class="fas fa-moon"></i> Meditations</a></li>
+                    <li><a href="#translations"><i class="fas fa-language"></i> Translations</a></li>
+                    <li><a href="#analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                </ul>
+            </nav>
+            <div class="admin-user">
+                <div class="admin-avatar">A</div>
+                <div class="admin-user-info">
+                    <span id="admin-email">admin@atlantis.com</span>
+                    <button id="admin-logout" class="btn-sm">Logout</button>
+                </div>
+            </div>
+        </div>
+        <!-- Admin Main Content -->
+        <div class="admin-main">
+            <div class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <div class="admin-actions">
+                    <button class="btn-primary" id="refresh-data">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+            <!-- Stats Overview -->
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-users">0</h3>
+                        <p>Total Users</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="active-sessions">0</h3>
+                        <p>Active Sessions</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-content">0</h3>
+                        <p>Content Items</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="languages-count">2</h3>
+                        <p>Languages</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Users Table -->
+            <div class="admin-section">
+                <h2>Recent Users</h2>
+                <div class="table-container">
+                    <table id="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Joined</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Users will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Content Management -->
+            <div class="admin-section">
+                <h2>Content Management</h2>
+                <div class="content-controls">
+                    <button class="btn-primary" id="add-content">
+                        <i class="fas fa-plus"></i> Add New Content
+                    </button>
+                    <button class="btn-outline" id="refresh-content">
+                        <i class="fas fa-redo"></i> Refresh
+                    </button>
+                </div>
+                <div class="content-list" id="content-list">
+                    <!-- Content items will be loaded here -->
+                </div>
+            </div>
+            <!-- Language Management -->
+            <div class="admin-section">
+                <h2>Language Management</h2>
+                <div class="language-management">
+                    <div class="current-languages">
+                        <h3>Current Languages</h3>
+                        <div class="language-tags">
+                            <span class="language-tag">
+                                English (EN)
+                                <button class="tag-close">&times;</button>
+                            </span>
+                            <span class="language-tag">
+                                العربية (AR)
+                                <button class="tag-close">&times;</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="add-language">
+                        <h3>Add New Language</h3>
+                        <div class="add-language-form">
+                            <input type="text" id="new-language-name" placeholder="Language Name">
+                            <input type="text" id="new-language-code" placeholder="Language Code (e.g., ES)">
+                            <button id="add-language-btn" class="btn-primary">Add Language</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check admin privileges
+            checkAdminAccess();
+            // Load admin data
+            loadAdminData();
+            // Event listeners
+            document.getElementById('refresh-data').addEventListener('click', loadAdminData);
+            document.getElementById('add-language-btn').addEventListener('click', addNewLanguage);
+            document.getElementById('admin-logout').addEventListener('click', logout);
+        });
+    </script>
+</body>
+</html>
+```
+### 5. **css/style.css**
+```css
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #9b59b6;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --spiritual-gold: #d4af37;
+    --spiritual-purple: #8e44ad;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Poppins', sans-serif;
+}
+/* RTL Support */
+[dir="rtl"] {
+    text-align: right;
+}
+[dir="rtl"] .hamburger {
+    margin-left: 1rem;
+    margin-right: 0;
+}
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--dark-color);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+/* Language Switcher */
+.language-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 5px;
+}
+.lang-btn {
+    padding: 5px 15px;
+    border: 2px solid var(--light-color);
+    background: transparent;
+    color: var(--light-color);
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.lang-btn.active {
+    background: var(--light-color);
+    color: var(--primary-color);
+}
+/* Navigation */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo h1 {
+    font-family: var(--font-heading);
+    color: var(--spiritual-purple);
+    font-size: 2rem;
+    margin-bottom: 0.2rem;
+}
+.subtitle {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+.nav-menu a {
+    text-decoration: none;
+    color: var(--dark-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+}
+.nav-menu a:hover {
+    color: var(--spiritual-purple);
+}
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--spiritual-purple);
+    transition: width 0.3s ease;
+}
+.nav-menu a:hover::after {
+    width: 100%;
+}
+.nav-auth {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 100px 2rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+.hero-content {
+    flex: 1;
+    padding-right: 3rem;
+}
+.hero-content h2 {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: white;
+    line-height: 1.2;
+}
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+.hero-image {
+    flex: 1;
+    position: relative;
+}
+.sacred-geometry {
+    width: 400px;
+    height: 400px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 70%, transparent 100%);
+    overflow: hidden;
+}
+.sacred-geometry::before,
+.sacred-geometry::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+}
+.sacred-geometry::before {
+    transform: rotate(45deg);
+}
+.sacred-geometry::after {
+    transform: rotate(90deg);
+}
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0) rotate(0deg); 
+    }
+    50% { 
+        transform: translateY(-20px) rotate(5deg); 
+    }
+}
+.sacred-geometry-icon {
+    width: 180px; /* Adjust size as needed */
+    height: 180px;
+    object-fit: contain;
+    border-radius: 50%;
+    z-index: 2;
+    position: relative;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    transition: all 0.5s ease;
+}
+.sacred-geometry-icon:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+}
+/* Animation for the icon */
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1); 
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1.05); 
+        opacity: 0.9;
+    }
+}
+.sacred-geometry-icon {
+    animation: pulse 8s ease-in-out infinite;
+}
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(142, 68, 173, 0.3);
+}
+.btn-outline {
+    background: transparent;
+    color: var(--spiritual-purple);
+    padding: 10px 25px;
+    border: 2px solid var(--spiritual-purple);
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-outline:hover {
+    background: var(--spiritual-purple);
+    color: white;
+}
+/* Features Section */
+.features {
+    padding: 5rem 2rem;
+    background: white;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.features h3 {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--dark-color);
+}
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+.feature-card i {
+    font-size: 2.5rem;
+    color: var(--spiritual-purple);
+    margin-bottom: 1rem;
+}
+.feature-card h4 {
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+/* Daily Wisdom */
+.daily-wisdom {
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+.wisdom-card {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 3rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+.wisdom-card::before {
+    content: '"';
+    font-size: 8rem;
+    color: var(--spiritual-purple);
+    opacity: 0.1;
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-heading);
+}
+#wisdom-text {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+.wisdom-author {
+    font-style: italic;
+    color: var(--accent-color);
+}
+.user-status {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+/* Footer */
+footer {
+    background: var(--dark-color);
+    color: white;
+    padding: 3rem 2rem 1rem;
+}
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+.footer-section h4 {
+    margin-bottom: 1rem;
+    color: var(--spiritual-gold);
+}
+.footer-section ul {
+    list-style: none;
+}
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+.footer-section a {
+    color: var(--light-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.footer-section a:hover {
+    color: var(--spiritual-gold);
+}
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* Auth Pages */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.auth-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    margin-bottom: 1rem;
+}
+.auth-tabs {
+    display: flex;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #eee;
+}
+.auth-tab {
+    flex: 1;
+    padding: 1rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    position: relative;
+}
+.auth-tab.active {
+    color: var(--spiritual-purple);
+}
+.auth-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--spiritual-purple);
+}
+.auth-form {
+    display: none;
+}
+.auth-form.active {
+    display: block;
+}
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--dark-color);
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+    font-weight: 500;
+}
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: var(--spiritual-purple);
+}
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 40px;
+    cursor: pointer;
+    color: #666;
+}
+.auth-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+.auth-footer a {
+    color: var(--spiritual-purple);
+    text-decoration: none;
+}
+/* Dashboard Styles */
+.dashboard-page {
+    display: flex;
+    min-height: 100vh;
+    background: #f5f7fa;
+}
+.dashboard-sidebar {
+    width: 280px;
+    background: white;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+.sidebar-header {
+    padding: 2rem;
+    border-bottom: 1px solid #eee;
+}
+.user-profile {
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+.avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+}
+.sidebar-nav {
+    flex: 1;
+    padding: 1rem 0;
+}
+.sidebar-nav ul {
+    list-style: none;
+}
+.sidebar-nav li {
+    margin-bottom: 0.5rem;
+}
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.sidebar-nav a:hover,
+.sidebar-nav li.active a {
+    background: linear-gradient(90deg, rgba(142, 68, 173, 0.1), transparent);
+    color: var(--spiritual-purple);
+    border-left: 4px solid var(--spiritual-purple);
+}
+.sidebar-footer {
+    padding: 2rem;
+    border-top: 1px solid #eee;
+}
+.dashboard-main {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+.dashboard-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+.card-badge {
+    background: var(--success-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+.meditation-player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border-radius: 10px;
+    color: white;
+}
+.play-btn {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    color: var(--spiritual-purple);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.journal-entry textarea {
+    width: 100%;
+    height: 150px;
+    padding: 1rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    resize: none;
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+}
+.mood-selector {
+    margin-top: 1rem;
+}
+.mood-options {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+.mood-btn {
+    background: none;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.mood-btn:hover,
+.mood-btn.active {
+    border-color: var(--spiritual-purple);
+    background: rgba(142, 68, 173, 0.1);
+}
+.stats-card {
+    grid-column: 1 / -1;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-top: 1rem;
+}
+.stat-item {
+    text-align: center;
+}
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--spiritual-purple);
+    margin-bottom: 0.5rem;
+}
+.wisdom-list {
+    margin-top: 1rem;
+}
+.wisdom-item {
+    padding: 1rem;
+    border-left: 3px solid var(--spiritual-purple);
+    margin-bottom: 1rem;
+    background: #f9f9f9;
+}
+/* Admin Styles */
+.admin-page {
+    display: flex;
+    min-height: 100vh;
+    background: #f5f7fa;
+}
+.admin-container {
+    display: flex;
+    width: 100%;
+}
+.admin-sidebar {
+    width: 250px;
+    background: var(--dark-color);
+    color: white;
+}
+.admin-logo {
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.admin-logo h2 {
+    color: var(--spiritual-gold);
+    margin-bottom: 0.5rem;
+}
+.admin-nav {
+    padding: 1rem 0;
+}
+.admin-nav ul {
+    list-style: none;
+}
+.admin-nav li {
+    margin-bottom: 0.5rem;
+}
+.admin-nav a {
+    display: block;
+    padding: 1rem 2rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.admin-nav a:hover,
+.admin-nav li.active a {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-left: 4px solid var(--spiritual-gold);
+}
+.admin-user {
+    padding: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.admin-avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--spiritual-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+.admin-main {
+    flex: 1;
+    padding: 2rem;
+}
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #eee;
+}
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+}
+.admin-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+.table-container {
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+#users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+#users-table th,
+#users-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+#users-table th {
+    background: #f9f9f9;
+    font-weight: 600;
+}
+.content-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.btn-sm {
+    padding: 5px 15px;
+    font-size: 0.9rem;
+}
+.language-management {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+.language-tags {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+.language-tag {
+    background: var(--light-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.tag-close {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+.add-language-form {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.add-language-form input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: 2px solid #eee;
+    border-radius: 5px;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+    .hamburger {
+        display: block;
+        cursor: pointer;
+    }
+    .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: var(--dark-color);
+        margin: 5px 0;
+    }
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 120px;
+    }
+    .hero-content {
+        padding-right: 0;
+        margin-bottom: 3rem;
+    }
+    .hero-content h2 {
+        font-size: 2.5rem;
+    }
+    .sacred-geometry {
+        width: 280px;
+        height: 280px;
+    }
+    .sacred-geometry-icon {
+        width: 120px;
+        height: 120px;
+    }
+    .dashboard-sidebar {
+        width: 70px;
+    }
+    .dashboard-sidebar .logo,
+    .dashboard-sidebar .user-profile h3,
+    .dashboard-sidebar .user-email,
+    .dashboard-sidebar .sidebar-nav span,
+    .dashboard-sidebar .sidebar-footer span {
+        display: none;
+    }
+    .avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    .sidebar-nav a {
+        justify-content: center;
+        padding: 1rem;
+    }
+    .admin-container {
+        flex-direction: column;
+    }
+    .admin-sidebar {
+        width: 100%;
+    }
+    .language-management {
+        grid-template-columns: 1fr;
+    }
+}
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+.text-center {
+    text-align: center;
+}
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.p-1 { padding: 1rem; }
+.p-2 { padding: 2rem; }
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+/* Loading Spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--spiritual-purple);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/* Error Messages */
+.error-message {
+    background: #fee;
+    color: var(--danger-color);
+    padding: 1rem;
+    border-radius: 5px;
+    border-left: 4px solid var(--danger-color);
+    margin: 1rem 0;
+}
+.success-message {
+    background: #efc;
+    color: var(--success-color);
+    padding: 1rem;
+    border-radius: 5px;
+    border-left: 4px solid var(--success-color);
+    margin: 1rem 0;
+}
+/* Notification Badge */
+.notifications {
+    position: relative;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #666;
+    cursor: pointer;
+}
+.notifications::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 10px;
+    height: 10px;
+    background: var(--danger-color);
+    border-radius: 50%;
+    border: 2px solid white;
+}
+.success-icon {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.success-icon i {
+    font-size: 4rem;
+    color: var(--success-color);
+    animation: scaleIn 0.5s ease-out;
+}
+@keyframes scaleIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.auth-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+/* Style for the reset success state */
+#reset-success {
+    text-align: center;
+}
+#reset-success .btn-primary {
+    margin-top: 1rem;
+}
+```
+### 6. **js/supabase.js**
+```javascript
+// Supabase configuration
+const SUPABASE_URL = 'https://revdnghkdjfxuxiqjddk.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJldmRuZ2hrZGpmeHV4aXFqZGRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3NjkzMTcsImV4cCI6MjA4MzM0NTMxN30.ytyzor-EvXbZ67NkC_o9Jaj5CH4dk3iVqxM411Xf5X4'
+// Initialize Supabase client only once
+if (!window.supabaseClient) {
+    // Check if supabase library is loaded
+    if (!window.supabase) {
+        console.error('Supabase library not loaded. Make sure @supabase/supabase-js is loaded first.');
+    } else {
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Test connection
+        async function testSupabaseConnection() {
+            try {
+                const { data, error } = await supabase.auth.getSession();
+                if (error) {
+                    console.error(window.t('supabase_connection_error') + ':', error);
+                    return false;
+                }
+                console.log('Supabase connected successfully');
+                return true;
+            } catch (error) {
+                console.error('Supabase connection failed:', error);
+                return false;
+            }
+        }
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            testSupabaseConnection();
+        });
+        // Export supabase client
+        window.supabaseClient = supabase;
+        console.log('Supabase client initialized');
+    }
+}
+// Global access - this won't redeclare if already defined
+if (!window.supabaseClient) {
+    console.warn('Supabase client not initialized. Creating dummy client.');
+    window.supabaseClient = {
+        auth: {
+            getSession: () => Promise.resolve({ data: { session: null }, error: null }),
+            signUp: () => Promise.reject(new Error('Supabase not initialized')),
+            signInWithPassword: () => Promise.reject(new Error('Supabase not initialized')),
+            signOut: () => Promise.reject(new Error('Supabase not initialized')),
+            resetPasswordForEmail: () => Promise.reject(new Error('Supabase not initialized')),
+            updateUser: () => Promise.reject(new Error('Supabase not initialized')),
+            onAuthStateChange: () => ({})
+        },
+        from: () => ({
+            insert: () => ({ select: () => ({ single: () => Promise.reject(new Error('Supabase not initialized')) }) }),
+            select: () => ({ eq: () => ({ single: () => Promise.reject(new Error('Supabase not initialized')) }) }),
+            update: () => ({ eq: () => Promise.reject(new Error('Supabase not initialized')) })
+        })
+    };
+}
+```
+### 7. **js/auth.js**
+```javascript
+// Authentication functions
+if (!window.supabaseClient || !window.supabaseClient.auth) {
+    console.error('Supabase is not properly initialized.');
+}
+class AuthManager {
+    constructor() {
+        this.currentUser = null;
+        this.supabase = window.supabaseClient;
+        this.init();
+    }
+    async init() {
+        // Check existing session
+        const { data: { session } } = await this.supabase.auth.getSession();
+        this.currentUser = session?.user || null;
+        // Listen for auth changes
+        this.supabase.auth.onAuthStateChange((event, session) => {
+            this.currentUser = session?.user || null;
+            this.updateAuthUI();
+            if (event === 'SIGNED_IN') {
+                this.showSuccessMessage(this.translate('welcome_back'));
+                // Redirect to dashboard if we're on login page
+                if (window.location.pathname.includes('login.html')) {
+                    setTimeout(() => {
+                        window.location.href = '../pages/dashboard.html';
+                    }, 1000);
+                }
+            } else if (event === 'SIGNED_OUT') {
+                this.showInfoMessage(this.translate('logout_success'));
+            }
+        });
+        // Initial UI update
+        this.updateAuthUI();
+    }
+// translation helper
+translate(key, defaultText = '') {
+    if (window.i18n && window.i18n.translate) {
+        return window.i18n.translate(key, defaultText);
+    }
+    return defaultText || key;
+}
+    // Sign up new user - NO EMAIL CONFIRMATION NEEDED
+    async signUp(email, password, name) {
+        try {
+            console.log('Starting signup for:', email);
+            // Sign up with Supabase Auth WITHOUT email confirmation
+            const { data, error } = await this.supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: {
+                        name: name,
+                        created_at: new Date().toISOString()
+                    }
+                    // REMOVED emailRedirectTo - no confirmation needed
+                }
+            });
+            if (error) {
+                console.error('Auth signup error:', error);
+                throw error;
+            }
+            console.log('Auth signup successful, user:', data.user);
+            // Auto sign in after signup
+            const { data: signInData, error: signInError } = await this.supabase.auth.signInWithPassword({
+                email,
+                password
+            });
+            if (signInError) {
+                console.error('Auto signin error:', signInError);
+                return { 
+                    success: false, 
+                    error: signInError.message 
+                };
+            }
+            console.log('Auto signin successful');
+            this.currentUser = signInData.user;
+            return { 
+                success: true, 
+                data: signInData,
+                message: 'Account created successfully!'
+            };
+        } catch (error) {
+            console.error('Sign up error:', error);
+            return { 
+                success: false, 
+                error: error.message,
+                code: error.code
+            };
+        }
+    }
+    // Sign in user (no changes needed)
+    async signIn(email, password) {
+        try {
+            const { data, error } = await this.supabase.auth.signInWithPassword({
+                email,
+                password
+            });
+            if (error) throw error;
+            return { success: true, data };
+        } catch (error) {
+            console.error('Sign in error:', error);
+            return { success: false, error: error.message };
+        }
+    }
+    // Sign out user
+    async signOut() {
+        try {
+            const { error } = await this.supabase.auth.signOut();
+            if (error) throw error;
+            // Redirect based on current page
+            if (window.location.pathname.includes('dashboard.html') || 
+                window.location.pathname.includes('admin.html')) {
+                window.location.href = '../index.html';
+            } else {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Sign out error:', error);
+        }
+    }
+    // Reset password
+    async resetPassword(email) {
+    try {
+        // Get the current origin (domain)
+        const currentOrigin = window.location.origin;
+        
+        const { error } = await this.supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: `${currentOrigin}/pages/reset-password.html`,
+        });
+        
+        if (error) {
+            console.error('Password reset request error:', error);
+            throw error;
+        }
+        
+        return { success: true };
+    } catch (error) {
+        console.error('Password reset request failed:', error);
+        return { 
+            success: false, 
+            error: error.message || 'Failed to send reset email' 
+        };
+    }
+}
+    // Check if user is admin
+    async isAdmin() {
+        if (!this.currentUser) return false;
+        try {
+            const { data, error } = await this.supabase
+                .from('users')
+                .select('role')
+                .eq('id', this.currentUser.id)
+                .single();
+            if (error || !data) return false;
+            return data.role === 'admin';
+        } catch (error) {
+            console.error('Admin check error:', error);
+            return false;
+        }
+    }
+    // Get user data
+    async getUserData() {
+        if (!this.currentUser) return null;
+        try {
+            const { data, error } = await this.supabase
+                .from('users')
+                .select('*')
+                .eq('id', this.currentUser.id)
+                .single();
+            if (error) {
+                // If user doesn't exist in users table, create it
+                console.log('Creating user profile...');
+                await this.createUserProfile(this.currentUser);
+                return {
+                    id: this.currentUser.id,
+                    email: this.currentUser.email,
+                    name: this.currentUser.user_metadata?.name || this.currentUser.email.split('@')[0],
+                    role: 'user',
+                    meditation_streak: 0,
+                    total_meditations: 0,
+                    journal_entries: 0
+                };
+            }
+            return data;
+        } catch (error) {
+            console.error('Get user data error:', error);
+            return null;
+        }
+    }
+    // Create user profile if missing
+    async createUserProfile(user) {
+        try {
+            const { error } = await this.supabase
+                .from('users')
+                .insert([
+                    {
+                        id: user.id,
+                        email: user.email,
+                        name: user.user_metadata?.name || user.email.split('@')[0],
+                        created_at: new Date().toISOString(),
+                        role: 'user'
+                    }
+                ]);
+            if (error && error.code !== '23505') { // Ignore duplicate key errors
+                console.error('Profile creation error:', error);
+            }
+        } catch (error) {
+            console.error('Error creating profile:', error);
+        }
+    }
+    // Update auth UI
+    updateAuthUI() {
+    const loginBtn = document.querySelector('.nav-auth a[href*="login"]');
+    const logoutBtn = document.getElementById('logout-btn');
+    const userStatus = document.getElementById('user-status');
+    if (this.currentUser) {
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'inline-block';
+        if (userStatus) {
+            // Use translation for welcome message
+            const welcomeMessage = window.t('welcome_user', 'Welcome back, ') + this.currentUser.email;
+            userStatus.innerHTML = `<p>${welcomeMessage}</p>`;
+        }
+    } else {
+        if (loginBtn) loginBtn.style.display = 'inline-block';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (userStatus) {
+            // Use translation key for guest message
+            userStatus.innerHTML = `<p>${window.t('guest_message', 'You are browsing as a guest. <a href="pages/login.html">Login</a> for personalized guidance.')}</p>`;
+        }
+    }
+}
+    // Show message functions (keep as is)
+    showSuccessMessage(message) {
+        this.showMessage(message, 'success');
+    }
+    showErrorMessage(message) {
+        this.showMessage(message, 'error');
+    }
+    showInfoMessage(message) {
+        this.showMessage(message, 'info');
+    }
+showMessage(message, type = 'info') {
+    // Check if message is a translation key
+    let displayMessage;
+    if (window.t && typeof window.t === 'function') {
+        // Try to translate the message
+        displayMessage = window.t(message, message);
+    } else if (window.i18n && window.i18n.translate) {
+        // Fallback to i18n instance
+        displayMessage = window.i18n.translate(message, message);
+    } else {
+        // Use message as-is
+        displayMessage = message;
+    }
+    const existing = document.querySelector('.auth-message');
+    if (existing) existing.remove();
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `auth-message ${type}-message fade-in`;
+    // Check if it contains HTML
+    if (displayMessage.includes('<') && displayMessage.includes('>')) {
+        messageDiv.innerHTML = displayMessage;
+    } else {
+        messageDiv.textContent = displayMessage;
+    }
+    const authContainer = document.querySelector('.auth-container') || 
+                          document.querySelector('.container') || 
+                          document.body;
+    authContainer.prepend(messageDiv);
+    setTimeout(() => {
+        if (messageDiv.parentNode) {
+            messageDiv.remove();
+        }
+    }, 5000);
+}
+	// Request password reset
+	async requestPasswordReset(email) {
+		try {
+			const { error } = await this.supabase.auth.resetPasswordForEmail(email, {
+				redirectTo: `${window.location.origin}/pages/reset-password.html`,
+			});
+			if (error) {
+				console.error('Password reset request error:', error);
+				throw error;
+			}
+			return { success: true };
+			} catch (error) {
+			console.error('Password reset request failed:', error);
+			return { 
+				success: false, 
+				error: error.message || 'Failed to send reset email' 
+			};
+		}
+	}
+async setSessionFromToken(accessToken, refreshToken) {
+    try {
+        const { data, error } = await this.supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken
+        });
+        
+        if (error) throw error;
+        
+        this.currentUser = data.session?.user || null;
+        return { success: true };
+    } catch (error) {
+        console.error('Set session error:', error);
+        return { success: false, error: error.message };
+    }
+}
+	// Update password (after clicking reset link)
+	async updatePassword(newPassword) {
+		try {
+			const { error } = await this.supabase.auth.updateUser({
+				password: newPassword
+			});
+			if (error) {
+				console.error('Update password error:', error);
+				throw error;
+			}
+			return { success: true };
+			} catch (error) {
+			console.error('Update password failed:', error);
+			return { 
+				success: false, 
+				error: error.message || 'Failed to update password' 
+			};
+		}
+	}
+}
+// Initialize auth manager
+const auth = new AuthManager();
+window.auth = auth;
+// Helper functions
+async function checkAuthState() {
+    const { data } = await window.supabaseClient.auth.getSession();
+    auth.currentUser = data.session?.user || null;
+    auth.updateAuthUI();
+    return auth.currentUser;
+}
+async function loadUserData() {
+    if (!auth.currentUser) {
+        window.location.href = '../index.html';
+        return;
+    }
+    const userData = await auth.getUserData();
+    if (userData) {
+        const userNameElements = document.querySelectorAll('#user-name, #welcome-name');
+        userNameElements.forEach(el => {
+            el.textContent = userData.name || userData.email.split('@')[0];
+        });
+        document.getElementById('user-email').textContent = userData.email;
+        const avatar = document.getElementById('user-avatar');
+        if (avatar && userData.name) {
+            const initials = userData.name.split(' ').map(n => n[0]).join('').toUpperCase();
+            avatar.textContent = initials;
+        }
+        document.getElementById('meditation-streak').textContent = userData.meditation_streak || 0;
+        document.getElementById('total-meditations').textContent = userData.total_meditations || 0;
+        document.getElementById('journal-entries').textContent = userData.journal_entries || 0;
+    }
+}
+async function checkAdminAccess() {
+    const isAdmin = await auth.isAdmin();
+    if (!isAdmin) {
+        window.location.href = '../index.html';
+    }
+}
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => auth.signOut());
+    }
+    const dashboardLogout = document.getElementById('dashboard-logout');
+    if (dashboardLogout) {
+        dashboardLogout.addEventListener('click', () => auth.signOut());
+    }
+    const adminLogout = document.getElementById('admin-logout');
+    if (adminLogout) {
+        adminLogout.addEventListener('click', () => auth.signOut());
+    }
+    // Initial check for dashboard/admin pages
+    if (window.location.pathname.includes('dashboard.html') || 
+        window.location.pathname.includes('admin.html')) {
+        checkAuthState().then(user => {
+            if (!user) {
+                window.location.href = '../index.html';
+            }
+        });
+    }
+});
+```
+### 8. **js/forms.js**
+```javascript
+// Form handling
+class FormManager {
+    constructor() {
+        this.initForms();
+    }
+    initForms() {
+        // Login form
+        const loginForm = document.getElementById('login-form-element');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => this.handleLogin(e));
+		}
+        // Signup form
+        const signupForm = document.getElementById('signup-form-element');
+        if (signupForm) {
+            signupForm.addEventListener('submit', (e) => this.handleSignup(e));
+		}
+        // Reset password form
+        const resetForm = document.getElementById('reset-form-element');
+        if (resetForm) {
+            resetForm.addEventListener('submit', (e) => this.handleResetPassword(e));
+		}
+        // Auth tabs
+        const loginTab = document.getElementById('login-tab');
+        const signupTab = document.getElementById('signup-tab');
+        const resetLink = document.getElementById('reset-password-link');
+        const backToLogin = document.getElementById('back-to-login');
+        if (loginTab) loginTab.addEventListener('click', () => this.showForm('login'));
+        if (signupTab) signupTab.addEventListener('click', () => this.showForm('signup'));
+        if (resetLink) resetLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showForm('reset');
+		});
+        if (backToLogin) backToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showForm('login');
+		});
+        // Password visibility toggles
+        this.initPasswordToggles();
+	}
+translate(key, defaultText = '') {
+    if (window.i18n && window.i18n.translate) {
+        return window.i18n.translate(key, defaultText);
+    }
+    return defaultText || key;
+}
+    // Show specific form
+    showForm(formName) {
+        // Hide all forms
+        document.querySelectorAll('.auth-form').forEach(form => {
+            form.classList.remove('active');
+        });
+        // Remove active class from all tabs
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        // Show selected form
+        const form = document.getElementById(`${formName}-form`);
+        if (form) {
+            form.classList.add('active');
+        }
+        // Activate corresponding tab
+        const tab = document.getElementById(`${formName}-tab`);
+        if (tab) {
+            tab.classList.add('active');
+        }
+    }
+    // Handle login
+    async handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    // Validate
+    if (!this.validateEmail(email)) {
+        auth.showErrorMessage('invalid_email');
+        return;
+    }
+    if (password.length < 6) {
+        auth.showErrorMessage('password_length_error');
+        return;
+    }
+        // Show loading
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + this.translate('logging_in');
+        submitBtn.disabled = true;
+        // Sign in
+        const result = await auth.signIn(email, password);
+        // Reset button
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        if (!result.success) {
+            auth.showErrorMessage(result.error || 'Login failed. Please check your credentials.');
+        }
+    }
+    // Handle signup
+    async handleSignup(e) {
+    e.preventDefault();
+    const name = document.getElementById('signup-name').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+    const confirm = document.getElementById('signup-confirm').value;
+    const terms = document.getElementById('terms').checked;
+    // Validate
+    if (!name.trim()) {
+        auth.showErrorMessage('name_required');
+        return;
+    }
+    if (!this.validateEmail(email)) {
+        auth.showErrorMessage('invalid_email');
+        return;
+    }
+    if (password.length < 6) {
+        auth.showErrorMessage('password_length_error');
+        return;
+    }
+    if (password !== confirm) {
+        auth.showErrorMessage('password_mismatch');
+        return;
+    }
+    if (!terms) {
+        auth.showErrorMessage('accept_terms_error');
+        return;
+    }
+        // Show loading
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + this.translate('creating_account');
+        submitBtn.disabled = true;
+        // Sign up
+        const result = await auth.signUp(email, password, name);
+        // Reset button
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        if (result.success) {
+            auth.showSuccessMessage('signup_success');
+            this.showForm('login');
+        } else {
+            auth.showErrorMessage(result.error || 'signup_failed');
+        }
+    }
+    // Handle reset password
+    async handleResetPassword(e) {
+    e.preventDefault();
+    const email = document.getElementById('reset-email').value;
+    if (!this.validateEmail(email)) {
+        auth.showErrorMessage('invalid_email');
+        return;
+    }
+        // Show loading
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + this.translate('sending_reset_link');
+        submitBtn.disabled = true;
+        // Send reset email
+        const result = await auth.resetPassword(email);
+        // Reset button
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        if (result.success) {
+            auth.showSuccessMessage('Password reset email sent! Please check your inbox.');
+            this.showForm('login');
+        } else {
+            auth.showErrorMessage(result.error || 'Failed to send reset email. Please try again.');
+        }
+    }
+    // Validate email
+    validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    // Initialize password visibility toggles
+    initPasswordToggles() {
+        const toggleLogin = document.getElementById('toggle-login-password');
+        const toggleSignup = document.getElementById('toggle-signup-password');
+        if (toggleLogin) {
+            toggleLogin.addEventListener('click', () => {
+                this.togglePasswordVisibility('login-password', toggleLogin);
+            });
+        }
+        if (toggleSignup) {
+            toggleSignup.addEventListener('click', () => {
+                this.togglePasswordVisibility('signup-password', toggleSignup);
+            });
+        }
+    const toggleNewPassword = document.getElementById('toggle-new-password');
+    if (toggleNewPassword) {
+        toggleNewPassword.addEventListener('click', () => {
+            this.togglePasswordVisibility('new-password', toggleNewPassword);
+        });
+    }
+    }
+    // Toggle password visibility
+    togglePasswordVisibility(inputId, toggleBtn) {
+        const input = document.getElementById(inputId);
+        const icon = toggleBtn.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+    // Save journal entry
+    async saveJournalEntry(text, mood) {
+        if (!auth.currentUser) return;
+        try {
+            const { error } = await supabase
+                .from('journal_entries')
+                .insert([
+                    {
+                        user_id: auth.currentUser.id,
+                        content: text,
+                        mood: mood,
+                        created_at: new Date().toISOString()
+                    }
+                ]);
+            if (error) throw error;
+            // Update user stats
+            await this.updateUserStats('journal_entries');
+            return { success: true };
+        } catch (error) {
+            console.error('Save journal error:', error);
+            return { success: false, error: error.message };
+        }
+    }
+    // Update user stats
+    async updateUserStats(field) {
+        if (!auth.currentUser) return;
+        try {
+            const { data: userData } = await supabase
+                .from('users')
+                .select(field)
+                .eq('id', auth.currentUser.id)
+                .single();
+            if (userData) {
+                const newValue = (userData[field] || 0) + 1;
+                const { error } = await supabase
+                    .from('users')
+                    .update({ [field]: newValue })
+                    .eq('id', auth.currentUser.id);
+                if (error) throw error;
+            }
+        } catch (error) {
+            console.error('Update stats error:', error);
+        }
+    }
+// Handle password reset request
+async handlePasswordResetRequest(e) {
+    e.preventDefault();
+    const email = document.getElementById('reset-request-email').value;
+    if (!this.validateEmail(email)) {
+        auth.showErrorMessage('invalid_email');
+        return;
+    }
+    // Show loading
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + this.translate('sending');
+    submitBtn.disabled = true;
+    // Send reset request
+    const result = await auth.requestPasswordReset(email);
+    // Reset button
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+    if (result.success) {
+        auth.showSuccessMessage('reset_email_sent');
+        // Optionally redirect or show success message
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 3000);
+    } else {
+        auth.showErrorMessage(result.error || 'reset_request_failed');
+    }
+}
+// Handle password update
+async handlePasswordUpdate(e) {
+    e.preventDefault();
+    const newPassword = document.getElementById('new-password').value;
+    const confirmPassword = document.getElementById('confirm-new-password').value;
+    if (newPassword.length < 6) {
+        auth.showErrorMessage('password_length_error');
+        return;
+    }
+    if (newPassword !== confirmPassword) {
+        auth.showErrorMessage('password_mismatch');
+        return;
+    }
+    // Show loading
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + this.translate('updating');
+    submitBtn.disabled = true;
+    // Update password
+    const result = await auth.updatePassword(newPassword);
+    // Reset button
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+    if (result.success) {
+        // Show success message
+        document.getElementById('reset-password-form').classList.remove('active');
+        document.getElementById('reset-success').classList.add('active');
+    } else {
+        auth.showErrorMessage(result.error || 'password_update_failed');
+    }
+}
+}
+// Initialize form manager
+const forms = new FormManager();
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    // Journal save button
+    const saveJournalBtn = document.getElementById('save-journal');
+    if (saveJournalBtn) {
+        saveJournalBtn.addEventListener('click', async () => {
+            const text = document.getElementById('journal-text').value;
+            const moodBtn = document.querySelector('.mood-btn.active');
+            const mood = moodBtn ? moodBtn.dataset.mood : null;
+            if (!text.trim()) {
+                auth.showErrorMessage('journal_empty');
+                return;
+            }
+            const result = await forms.saveJournalEntry(text, mood);
+            if (result.success) {
+                auth.showSuccessMessage('journal_saved');
+                document.getElementById('journal-text').value = '';
+                // Update entry count
+                const entriesElement = document.getElementById('journal-entries');
+                const currentCount = parseInt(entriesElement.textContent) || 0;
+                entriesElement.textContent = currentCount + 1;
+            } else {
+                auth.showErrorMessage('journal_save_failed');
+            }
+        });
+    }
+    // Mood selector
+    const moodBtns = document.querySelectorAll('.mood-btn');
+    moodBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            moodBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+});
+```
+### 9. **js/utils.js**
+```javascript
+// Internationalization (i18n) Manager
+class I18nManager {
+    constructor() {
+        this.currentLang = localStorage.getItem('language') || 'en';
+        this.translations = {};
+        this.init();
+    }
+    async init() {
+        await this.loadTranslations();
+        this.updatePage();
+        this.setupLanguageSwitcher();
+    }
+    async loadTranslations() {
+    // Always use embedded translations to avoid fetch errors
+    this.translations = this.getEmbeddedTranslations();
+    console.log(`Loaded embedded translations for ${this.currentLang}`);
+    // Optional: Try to fetch from server, but don't fail if it doesn't exist
+    try {
+        const response = await fetch(`translations/${this.currentLang}.json`);
+        if (response.ok) {
+            const serverTranslations = await response.json();
+            // Merge with embedded translations
+            this.translations = { ...this.translations, ...serverTranslations };
+            console.log(`Merged server translations for ${this.currentLang}`);
+        }
+    } catch (error) {
+        // Silently fail - we already have embedded translations
+        console.log(`Using embedded translations for ${this.currentLang}`);
+    }
+}
+// Translation helper method
+translate(key, defaultText = '') {
+    if (this.translations && this.translations[key]) {
+        return this.translations[key];
+    }
+    // If not found, return default text or the key itself
+    return defaultText || key;
+}
+    getEmbeddedTranslations() {
+        // Embedded translations for English and Arabic
+        return {
+            en: {
+                "site_name": "Atlantis",
+                "site_subtitle": "Spiritual Guidance",
+                "nav_home": "Home",
+                "nav_meditations": "Meditations",
+                "nav_wisdom": "Wisdom Library",
+                "nav_community": "Community",
+                "nav_login": "Login",
+                "nav_logout": "Logout",
+                "hero_title": "Find Your Inner Peace",
+                "hero_subtitle": "Journey through ancient wisdom and modern spiritual practices",
+                "hero_cta": "Begin Your Journey",
+                "features_title": "Our Spiritual Offerings",
+                "feature1_title": "Guided Meditations",
+                "feature1_desc": "Daily mindfulness sessions for inner peace",
+                "feature2_title": "Sacred Texts",
+                "feature2_desc": "Access to wisdom from spiritual traditions",
+                "feature3_title": "Community Circles",
+                "feature3_desc": "Connect with like-minded seekers",
+                "feature4_title": "Spiritual Growth Tracking",
+                "feature4_desc": "Monitor your spiritual journey",
+                "wisdom_title": "Wisdom of the Day",
+                "daily_wisdom": "\"The soul always knows what to do to heal itself. The challenge is to silence the mind.\"",
+                "wisdom_author": "— Caroline Myss",
+                "guest_message": "You are browsing as a guest. <a href=\"pages/login.html\">Login</a> for personalized guidance.",
+                "login_link": "Login",
+                "footer_tagline": "A sanctuary for spiritual growth",
+                "footer_quick_links": "Quick Links",
+                "footer_contact": "Contact",
+                "footer_email": "contact@atlantis-spiritual.com",
+                "footer_rights": "All rights reserved.",
+                "back_home": "Back Home",
+                "login_tab": "Login",
+                "signup_tab": "Sign Up",
+                "login_title": "Welcome Back, Seeker",
+                "email_label": "Email",
+                "password_label": "Password",
+                "login_button": "Login",
+                "forgot_password": "Forgot password?",
+                "reset_here": "Reset here",
+                "signup_title": "Begin Your Spiritual Journey",
+                "name_label": "Full Name",
+                "confirm_password_label": "Confirm Password",
+                "accept_terms": "I accept the Terms and Conditions",
+                "signup_button": "Create Account",
+                "reset_title": "Reset Password",
+                "reset_button": "Send Reset Link",
+                "back_to_login": "Back to Login",
+                "dashboard_home": "Dashboard",
+                "journal_title": "Spiritual Journal",
+                "progress_title": "Progress",
+                "settings_title": "Settings",
+                "dashboard_welcome": "Welcome,",
+                "dashboard_date": "Today is",
+                "daily_meditation_title": "Daily Meditation",
+                "recommended": "Recommended",
+                "morning_mindfulness": "Morning Mindfulness",
+                "meditation_duration": "10 minutes",
+                "view_all_meditations": "View All Meditations",
+                "today_journal_title": "Today's Journal",
+                "journal_placeholder": "Write your spiritual reflections here...",
+                "save_journal": "Save Entry",
+                "mood_label": "Today's Mood:",
+                "spiritual_progress": "Your Spiritual Progress",
+                "day_streak": "Day Streak",
+                "total_meditations": "Total Meditations",
+                "journal_entries": "Journal Entries",
+                "recent_wisdom_title": "Recent Wisdom",
+            "welcome_back": "Welcome!",
+            "logout_success": "Successfully logged out",
+            "logging_in": "Logging in...",
+            "creating_account": "Creating account...",
+            "sending_reset_link": "Sending...",
+            "invalid_email": "Please enter a valid email address",
+            "password_length_error": "Password must be at least 6 characters",
+            "password_mismatch": "Passwords do not match",
+            "accept_terms_error": "Please accept the terms and conditions",
+            "name_required": "Please enter your name",
+            "login_failed": "Login failed. Please check your credentials.",
+            "signup_failed": "Signup failed. Please try again.",
+            "signup_success": "Account created successfully!",
+            "reset_email_sent": "Password reset email sent! Please check your inbox.",
+            "reset_email_failed": "Failed to send reset email. Please try again.",
+            "journal_empty": "Please write something in your journal",
+            "journal_saved": "Journal entry saved successfully!",
+            "journal_save_failed": "Failed to save journal entry",
+            "loading": "Loading...",
+            "connection_error": "Connection Error",
+            "connection_error_message": "Unable to connect to the server. Please refresh the page.",
+            "auth_initialization_error": "Auth not initialized properly",
+            "supabase_connection_error": "Supabase connection error",
+            "profile_creation": "Creating user profile...",
+            "guest_message": "You are browsing as a guest. <a href=\"pages/login.html\">Login</a> for personalized guidance.",
+            "welcome_user": "Welcome back, ",
+            "default_error": "An error occurred. Please try again.",
+            "validation_error": "Validation error",
+            "unknown_error": "Unknown error occurred",
+"reset_request_title": "Reset Your Password",
+"reset_request_subtitle": "Enter your email address and we'll send you a link to reset your password.",
+"send_reset_link": "Send Reset Link",
+"set_new_password_title": "Set New Password",
+"set_new_password_subtitle": "Please enter your new password below.",
+"new_password_label": "New Password",
+"confirm_new_password_label": "Confirm New Password",
+"update_password": "Update Password",
+"reset_success_title": "Password Reset Successful!",
+"reset_success_message": "Your password has been successfully reset. You can now log in with your new password.",
+"go_to_login": "Go to Login",
+"sending": "Sending...",
+"updating": "Updating...",
+"reset_email_sent": "Password reset email sent! Check your inbox.",
+"reset_request_failed": "Failed to send reset email. Please try again.",
+"password_update_failed": "Failed to update password. Please try again."
+            },
+            ar: {
+                "site_name": "أتلانتس",
+                "site_subtitle": "الإرشاد الروحي",
+                "nav_home": "الرئيسية",
+                "nav_meditations": "التأملات",
+                "nav_wisdom": "مكتبة الحكمة",
+                "nav_community": "المجتمع",
+                "nav_login": "تسجيل الدخول",
+                "nav_logout": "تسجيل الخروج",
+                "hero_title": "ابحث عن سلامك الداخلي",
+                "hero_subtitle": "ارتحل عبر الحكمة القديمة والممارسات الروحية الحديثة",
+                "hero_cta": "ابدأ رحلتك",
+                "features_title": "عروضنا الروحية",
+                "feature1_title": "جلسات تأمل موجهة",
+                "feature1_desc": "جلسات يومية للوعي الكامل من أجل السلام الداخلي",
+                "feature2_title": "النصوص المقدسة",
+                "feature2_desc": "الوصول إلى الحكمة من التقاليد الروحية",
+                "feature3_title": "دوائر المجتمع",
+                "feature3_desc": "تواصل مع الباحثين عن المعنى",
+                "feature4_title": "تتبع النمو الروحي",
+                "feature4_desc": "راقب رحلتك الروحية",
+                "wisdom_title": "حكمة اليوم",
+                "daily_wisdom": "\"الروح تعرف دائمًا ما يجب فعله لشفاء نفسها. التحدي هو إسكات العقل.\"",
+                "wisdom_author": "— كارولين ميس",
+                "guest_message": "أنت تتصفح كضيف. <a href=\"pages/login.html\">سجل الدخول</a> للحصول على إرشادات مخصصة.",
+                "login_link": "تسجيل الدخول",
+                "footer_tagline": "ملاذ للنمو الروحي",
+                "footer_quick_links": "روابط سريعة",
+                "footer_contact": "اتصل بنا",
+                "footer_email": "contact@atlantis-spiritual.com",
+                "footer_rights": "جميع الحقوق محفوظة.",
+                "back_home": "العودة للرئيسية",
+                "login_tab": "تسجيل الدخول",
+                "signup_tab": "إنشاء حساب",
+                "login_title": "مرحبًا بعودتك، أيها الباحث",
+                "email_label": "البريد الإلكتروني",
+                "password_label": "كلمة المرور",
+                "login_button": "تسجيل الدخول",
+                "forgot_password": "نسيت كلمة المرور؟",
+                "reset_here": "إعادة تعيين هنا",
+                "signup_title": "ابدأ رحلتك الروحية",
+                "name_label": "الاسم الكامل",
+                "confirm_password_label": "تأكيد كلمة المرور",
+                "accept_terms": "أوافق على الشروط والأحكام",
+                "signup_button": "إنشاء حساب",
+                "reset_title": "إعادة تعيين كلمة المرور",
+                "reset_button": "إرسال رابط إعادة التعيين",
+                "back_to_login": "العودة لتسجيل الدخول",
+                "dashboard_home": "لوحة التحكم",
+                "journal_title": "المذكرات الروحية",
+                "progress_title": "التقدم",
+                "settings_title": "الإعدادات",
+                "dashboard_welcome": "مرحبًا،",
+                "dashboard_date": "اليوم هو",
+                "daily_meditation_title": "التأمل اليومي",
+                "recommended": "موصى به",
+                "morning_mindfulness": "اليقظة الصباحية",
+                "meditation_duration": "10 دقائق",
+                "view_all_meditations": "عرض كل التأملات",
+                "today_journal_title": "مذكرات اليوم",
+                "journal_placeholder": "اكتب تأملاتك الروحية هنا...",
+                "save_journal": "حفظ المدخل",
+                "mood_label": "مزاج اليوم:",
+                "spiritual_progress": "تقدمك الروحي",
+                "day_streak": "تتابع الأيام",
+                "total_meditations": "إجمالي التأملات",
+                "journal_entries": "مدخلات المذكرات",
+                "recent_wisdom_title": "الحكمة الحديثة",
+            "welcome_back": "مرحبًا!",
+            "logout_success": "تم تسجيل الخروج بنجاح",
+            "logging_in": "جاري تسجيل الدخول...",
+            "creating_account": "جاري إنشاء الحساب...",
+            "sending_reset_link": "جاري الإرسال...",
+            "invalid_email": "يرجى إدخال بريد إلكتروني صالح",
+            "password_length_error": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+            "password_mismatch": "كلمات المرور غير متطابقة",
+            "accept_terms_error": "يرجى الموافقة على الشروط والأحكام",
+            "name_required": "يرجى إدخال اسمك",
+            "login_failed": "فشل تسجيل الدخول. يرجى التحقق من بيانات الاعتماد الخاصة بك.",
+            "signup_failed": "فشل إنشاء الحساب. يرجى المحاولة مرة أخرى.",
+            "signup_success": "تم إنشاء الحساب بنجاح!",
+            "reset_email_sent": "تم إرسال بريد إعادة تعيين كلمة المرور! يرجى التحقق من بريدك الوارد.",
+            "reset_email_failed": "فشل إرسال بريد إعادة التعيين. يرجى المحاولة مرة أخرى.",
+            "journal_empty": "يرجى كتابة شيء في المذكرات",
+            "journal_saved": "تم حفظ مدخل المذكرات بنجاح!",
+            "journal_save_failed": "فشل حفظ مدخل المذكرات",
+            "loading": "جاري التحميل...",
+            "connection_error": "خطأ في الاتصال",
+            "connection_error_message": "تعذر الاتصال بالخادم. يرجى تحديث الصفحة.",
+            "auth_initialization_error": "لم يتم تهيئة المصادقة بشكل صحيح",
+            "supabase_connection_error": "خطأ في اتصال Supabase",
+            "profile_creation": "جاري إنشاء الملف الشخصي...",
+            "guest_message": "أنت تتصفح كضيف. <a href=\"pages/login.html\">سجل الدخول</a> للحصول على إرشادات مخصصة.",
+            "welcome_user": "مرحبًا بعودتك، ",
+            "default_error": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+            "validation_error": "خطأ في التحقق",
+            "unknown_error": "حدث خطأ غير معروف",
+"reset_request_title": "إعادة تعيين كلمة المرور",
+"reset_request_subtitle": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور.",
+"send_reset_link": "إرسال رابط إعادة التعيين",
+"set_new_password_title": "تعيين كلمة مرور جديدة",
+"set_new_password_subtitle": "يرجى إدخال كلمة المرور الجديدة أدناه.",
+"new_password_label": "كلمة المرور الجديدة",
+"confirm_new_password_label": "تأكيد كلمة المرور الجديدة",
+"update_password": "تحديث كلمة المرور",
+"reset_success_title": "تم إعادة تعيين كلمة المرور بنجاح!",
+"reset_success_message": "تم إعادة تعيين كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول باستخدام كلمة المرور الجديدة.",
+"go_to_login": "الذهاب لتسجيل الدخول",
+"sending": "جاري الإرسال...",
+"updating": "جاري التحديث...",
+"reset_email_sent": "تم إرسال بريد إعادة تعيين كلمة المرور! تحقق من بريدك الوارد.",
+"reset_request_failed": "فشل إرسال بريد إعادة التعيين. يرجى المحاولة مرة أخرى.",
+"password_update_failed": "فشل تحديث كلمة المرور. يرجى المحاولة مرة أخرى."
+            }
+        }[this.currentLang] || {};
+    }
+    // Update entire page with translations
+    updatePage() {
+        // Set HTML direction for RTL languages
+        document.documentElement.dir = this.currentLang === 'ar' ? 'rtl' : 'ltr';
+        // Translate all elements with data-i18n-key
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            const translation = this.translations[key] || key;
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                element.placeholder = translation;
+            } else {
+                // Handle HTML content (like links in messages)
+                if (translation.includes('<a')) {
+                    element.innerHTML = translation;
+                } else {
+                    element.textContent = translation;
+                }
+            }
+        });
+        // Update active language button
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.id.includes(this.currentLang)) {
+                btn.classList.add('active');
+            }
+        });
+        // Save language preference
+        localStorage.setItem('language', this.currentLang);
+    }
+    // Change language
+    changeLanguage(lang) {
+        this.currentLang = lang;
+        localStorage.setItem('language', lang);
+        // Clear cached translations to force reload
+        localStorage.removeItem(`translations_${lang}`);
+        // Reload translations and update page
+        this.loadTranslations().then(() => {
+            this.updatePage();
+        });
+    }
+    // Setup language switcher
+    setupLanguageSwitcher() {
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const lang = e.target.id.includes('en') ? 'en' : 'ar';
+                this.changeLanguage(lang);
+            });
+        });
+    }
+    // Add new translation (for admin)
+    addTranslation(lang, key, value) {
+        if (!this.translations[lang]) {
+            this.translations[lang] = {};
+        }
+        this.translations[lang][key] = value;
+        // Save to localStorage
+        localStorage.setItem(`translations_${lang}`, JSON.stringify(this.translations[lang]));
+    }
+}
+// Initialize i18n
+const i18n = new I18nManager();
+// Utility functions
+class Utils {
+    static formatDate(date) {
+        return new Date(date).toLocaleDateString(i18n.currentLang, {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
+    static formatTime(date) {
+        return new Date(date).toLocaleTimeString(i18n.currentLang, {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+    static debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    static validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    static showLoading(element) {
+        const originalHTML = element.innerHTML;
+        element.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        element.disabled = true;
+        return () => {
+            element.innerHTML = originalHTML;
+            element.disabled = false;
+        };
+    }
+    static showNotification(message, type = 'info') {
+         // Translate the message if it's a key
+    const translatedMessage = window.t ? window.t(message, message) : message;
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type} fade-in`;
+    notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+        <span>${translatedMessage}</span>
+        <button class="notification-close">&times;</button>
+    `;
+    document.body.appendChild(notification);
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+    // Close button
+    notification.querySelector('.notification-close').addEventListener('click', () => {
+        notification.remove();
+    });
+    }
+    static getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+    static setQueryParam(name, value) {
+        const url = new URL(window.location);
+        url.searchParams.set(name, value);
+        window.history.pushState({}, '', url);
+    }
+    static generateAvatarColor(name) {
+        let hash = 0;
+        for (let i = 0; i < name.length; i++) {
+            hash = name.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        const colors = [
+            '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+            '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'
+        ];
+        return colors[Math.abs(hash) % colors.length];
+    }
+    static getInitials(name) {
+        return name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+    }
+}
+// Global translation helper
+window.translate = (key, defaultText = '') => {
+    if (window.i18n && window.i18n.translate) {
+        return window.i18n.translate(key, defaultText);
+    }
+    return defaultText || key;
+};
+// Short alias
+window.t = window.translate;
+// Export to window
+window.i18n = i18n;
+window.utils = Utils;
+```
+### 10. **functions/signup.js** (Netlify Function)
+```javascript
+const { createClient } = require('@supabase/supabase-js');
+exports.handler = async function(event, context) {
+    // Only allow POST requests
+    if (event.httpMethod !== 'POST') {
+        return {
+            statusCode: 405,
+            body: JSON.stringify({ error: 'Method not allowed' })
+        };
+    }
+    try {
+        const data = JSON.parse(event.body);
+        const { email, password, name } = data;
+        // Validate input
+        if (!email || !password || !name) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ error: 'Missing required fields' })
+            };
+        }
+        // Initialize Supabase
+        const supabaseUrl = process.env.SUPABASE_URL;
+        const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+        if (!supabaseUrl || !supabaseKey) {
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ error: 'Server configuration error' })
+            };
+        }
+        const supabase = createClient(supabaseUrl, supabaseKey);
+        // Create user with Supabase Auth
+        const { data: authData, error: authError } = await supabase.auth.admin.createUser({
+            email,
+            password,
+            email_confirm: true,
+            user_metadata: { name }
+        });
+        if (authError) {
+            console.error('Auth error:', authError);
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ error: authError.message })
+            };
+        }
+        // Create user profile
+        const { error: profileError } = await supabase
+            .from('users')
+            .insert([
+                {
+                    id: authData.user.id,
+                    email: authData.user.email,
+                    name: name,
+                    created_at: new Date().toISOString(),
+                    meditation_streak: 0,
+                    total_meditations: 0,
+                    journal_entries: 0,
+                    role: 'user'
+                }
+            ]);
+        if (profileError) {
+            console.error('Profile error:', profileError);
+            // Cleanup: Delete the auth user if profile creation fails
+            await supabase.auth.admin.deleteUser(authData.user.id);
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ error: 'Failed to create user profile' })
+            };
+        }
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ 
+                success: true, 
+                message: 'User created successfully',
+                user: {
+                    id: authData.user.id,
+                    email: authData.user.email,
+                    name: name
+                }
+            })
+        };
+    } catch (error) {
+        console.error('Signup error:', error);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Internal server error' })
+        };
+    }
+};
+```
+### 11. **functions/protected-api.js** (Netlify Function)
+```javascript
+const { createClient } = require('@supabase/supabase-js');
+exports.handler = async function(event, context) {
+    // Get authorization header
+    const authHeader = event.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return {
+            statusCode: 401,
+            body: JSON.stringify({ error: 'Unauthorized' })
+        };
+    }
+    const token = authHeader.split('Bearer ')[1];
+    try {
+        // Initialize Supabase
+        const supabaseUrl = process.env.SUPABASE_URL;
+        const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+        if (!supabaseUrl || !supabaseKey) {
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ error: 'Server configuration error' })
+            };
+        }
+        const supabase = createClient(supabaseUrl, supabaseKey);
+        // Verify the token and get user
+        const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+        if (authError || !user) {
+            return {
+                statusCode: 401,
+                body: JSON.stringify({ error: 'Invalid token' })
+            };
+        }
+        // Check user role
+        const { data: userData, error: userError } = await supabase
+            .from('users')
+            .select('role')
+            .eq('id', user.id)
+            .single();
+        if (userError || !userData) {
+            return {
+                statusCode: 403,
+                body: JSON.stringify({ error: 'Access denied' })
+            };
+        }
+        // Handle different endpoints
+        const path = event.path.split('/').pop();
+        switch (path) {
+            case 'stats':
+                return handleStats(supabase, user.id, event.httpMethod);
+            case 'users':
+                if (userData.role !== 'admin') {
+                    return {
+                        statusCode: 403,
+                        body: JSON.stringify({ error: 'Admin access required' })
+                    };
+                }
+                return handleUsers(supabase, event.httpMethod);
+            case 'content':
+                return handleContent(supabase, user.id, event.httpMethod, JSON.parse(event.body || '{}'));
+            default:
+                return {
+                    statusCode: 404,
+                    body: JSON.stringify({ error: 'Endpoint not found' })
+                };
+        }
+    } catch (error) {
+        console.error('API error:', error);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Internal server error' })
+        };
+    }
+};
+async function handleStats(supabase, userId, method) {
+    if (method !== 'GET') {
+        return {
+            statusCode: 405,
+            body: JSON.stringify({ error: 'Method not allowed' })
+        };
+    }
+    try {
+        // Get user stats
+        const { data: userStats, error: userError } = await supabase
+            .from('users')
+            .select('meditation_streak, total_meditations, journal_entries')
+            .eq('id', userId)
+            .single();
+        if (userError) throw userError;
+        // Get recent journal entries
+        const { data: journalEntries, error: journalError } = await supabase
+            .from('journal_entries')
+            .select('*')
+            .eq('user_id', userId)
+            .order('created_at', { ascending: false })
+            .limit(5);
+        if (journalError) throw journalError;
+        return {
+            statusCode: 200,
+            body: JSON.stringify({
+                userStats,
+                recentJournals: journalEntries
+            })
+        };
+    } catch (error) {
+        console.error('Stats error:', error);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Failed to fetch stats' })
+        };
+    }
+}
+async function handleUsers(supabase, method) {
+    if (method !== 'GET') {
+        return {
+            statusCode: 405,
+            body: JSON.stringify({ error: 'Method not allowed' })
+        };
+    }
+    try {
+        const { data: users, error } = await supabase
+            .from('users')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(50);
+        if (error) throw error;
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ users })
+        };
+    } catch (error) {
+        console.error('Users error:', error);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Failed to fetch users' })
+        };
+    }
+}
+async function handleContent(supabase, userId, method, data) {
+    switch (method) {
+        case 'GET':
+            try {
+                const { data: content, error } = await supabase
+                    .from('content')
+                    .select('*')
+                    .eq('published', true)
+                    .order('created_at', { ascending: false });
+                if (error) throw error;
+                return {
+                    statusCode: 200,
+                    body: JSON.stringify({ content })
+                };
+            } catch (error) {
+                console.error('Get content error:', error);
+                return {
+                    statusCode: 500,
+                    body: JSON.stringify({ error: 'Failed to fetch content' })
+                };
+            }
+        case 'POST':
+            try {
+                if (!data.title || !data.content) {
+                    return {
+                        statusCode: 400,
+                        body: JSON.stringify({ error: 'Missing required fields' })
+                    };
+                }
+                const { data: newContent, error } = await supabase
+                    .from('content')
+                    .insert([
+                        {
+                            user_id: userId,
+                            title: data.title,
+                            content: data.content,
+                            type: data.type || 'article',
+                            published: data.published || false,
+                            created_at: new Date().toISOString()
+                        }
+                    ])
+                    .select()
+                    .single();
+                if (error) throw error;
+                return {
+                    statusCode: 201,
+                    body: JSON.stringify({ content: newContent })
+                };
+            } catch (error) {
+                console.error('Create content error:', error);
+                return {
+                    statusCode: 500,
+                    body: JSON.stringify({ error: 'Failed to create content' })
+                };
+            }
+        default:
+            return {
+                statusCode: 405,
+                body: JSON.stringify({ error: 'Method not allowed' })
+            };
+    }
+}
+```
+### 12. **.env** (Environment Variables)
+```env
+# Supabase Configuration
+SUPABASE_URL=https://revdnghkdjfxuxiqjddk.supabase.co
+SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+SUPABASE_SERVICE_KEY=${SUPABASE_SERVICE_KEY}
+# Application Settings
+SITE_NAME=Atlantis
+SITE_SUBTITLE=Spiritual Guidance
+DEFAULT_LANGUAGE=en
+SUPPORTED_LANGUAGES=en,ar
+# Security
+JWT_SECRET=your-jwt-secret-here
+SESSION_TIMEOUT=86400
+# Email Configuration (for password reset)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASSWORD=your-app-password
+# Feature Flags
+ENABLE_REGISTRATION=true
+ENABLE_SOCIAL_LOGIN=false
+ENABLE_PREMIUM_FEATURES=false
+# API Keys (if needed)
+GOOGLE_ANALYTICS_ID=UA-XXXXXXXXX-X
+```
+### 13. **netlify.toml** (Netlify Configuration)
+```toml
+[build]
+  publish = "."
+  functions = "functions"
+[build.environment]
+  NODE_VERSION = "18"
+[context.production.environment]
+  SUPABASE_URL = "https://revdnghkdjfxuxiqjddk.supabase.co"
+  SUPABASE_ANON_KEY = "@supabase_anon_key"
+  SUPABASE_SERVICE_KEY = "@supabase_service_key"
+  NODE_ENV = "production"
+[context.deploy-preview.environment]
+  NODE_ENV = "development"
+[context.branch-deploy.environment]
+  NODE_ENV = "development"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = """
+      default-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+      script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+      style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+      font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+      img-src 'self' data: https:;
+      connect-src 'self' https://*.supabase.co https://*.netlify.app https://revdnghkdjfxuxiqjddk.supabase.co https://cdn.jsdelivr.net;
+    """
+# Function configurations
+[functions]
+  node_bundler = "esbuild"
+[functions.signup]
+  included_files = ["supabase/**", "package.json"]
+[functions.protected-api]
+  included_files = ["supabase/**", "package.json"]
+```
+### 14. **README.md**
+```markdown
+# Atlantis - Spiritual Guidance Platform
+A dynamic, bilingual spiritual guidance website with authentication, user dashboard, and admin panel.
+## Features
+- 🌍 **Bilingual Support**: English & Arabic with easy language switching
+- 🔐 **Authentication**: Secure login/signup with Supabase
+- 📱 **Responsive Design**: Works on all devices
+- 🎨 **Modern UI**: Clean, spiritual-themed interface
+- 📊 **User Dashboard**: Track spiritual progress and journal entries
+- 👑 **Admin Panel**: Manage users, content, and translations
+- 🔊 **Meditation Player**: Guided meditation sessions
+- 📝 **Spiritual Journal**: Personal reflections with mood tracking
+## Tech Stack
+- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **Backend**: Supabase (Auth + Database)
+- **Hosting**: Netlify (with serverless functions)
+- **Icons**: Font Awesome 6
+- **Fonts**: Google Fonts (Playfair Display, Poppins)
+## Setup Instructions
+### 1. Prerequisites
+- Node.js 18+
+- Git
+- Supabase account
+- Netlify account
+### 2. Supabase Setup
+1. Create a new project at [supabase.com](https://supabase.com)
+2. Get your project URL and anon key from Settings > API
+3. Create the following tables:
+```sql
+-- Enable extensions
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- 1. Create users table (linked to Supabase Auth)
+CREATE TABLE users (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  email TEXT UNIQUE NOT NULL,
+  name TEXT,
+  role TEXT DEFAULT 'user',
+  meditation_streak INTEGER DEFAULT 0,
+  total_meditations INTEGER DEFAULT 0,
+  journal_entries INTEGER DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
+);
+-- 2. Create journal entries table
+CREATE TABLE journal_entries (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  content TEXT,
+  mood TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
+);
+-- 3. Create content table
+CREATE TABLE content (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  title TEXT NOT NULL,
+  content TEXT NOT NULL,
+  type TEXT DEFAULT 'article',
+  published BOOLEAN DEFAULT false,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
+);
+-- 4. Enable Row Level Security
+ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE journal_entries ENABLE ROW LEVEL SECURITY;
+ALTER TABLE content ENABLE ROW LEVEL SECURITY;
+-- 5. Create RLS Policies
+-- USERS TABLE POLICIES:
+-- Allow users to create their own profile
+CREATE POLICY "Users can create own profile" ON users
+  FOR INSERT WITH CHECK (auth.uid() = id);
+-- Allow users to read their own data
+CREATE POLICY "Users can read own data" ON users
+  FOR SELECT USING (auth.uid() = id);
+-- Allow users to update their own data
+CREATE POLICY "Users can update own data" ON users
+  FOR UPDATE USING (auth.uid() = id);
+-- Allow service role full access (for admin functions)
+CREATE POLICY "Service role full access on users" ON users
+  FOR ALL USING (auth.role() = 'service_role');
+-- JOURNAL ENTRIES POLICIES:
+-- Allow users to manage their own journal entries
+CREATE POLICY "Users can manage own journal entries" ON journal_entries
+  FOR ALL USING (auth.uid() = user_id);
+-- Allow service role full access
+CREATE POLICY "Service role full access on journal_entries" ON journal_entries
+  FOR ALL USING (auth.role() = 'service_role');
+-- CONTENT TABLE POLICIES:
+-- Everyone can view published content
+CREATE POLICY "Everyone can view published content" ON content
+  FOR SELECT USING (published = true);
+-- Allow authenticated users to create content
+CREATE POLICY "Authenticated users can create content" ON content
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+-- Allow content creators to update their own content
+CREATE POLICY "Users can update own content" ON content
+  FOR UPDATE USING (auth.uid() = user_id);
+-- Allow service role full access
+CREATE POLICY "Service role full access on content" ON content
+  FOR ALL USING (auth.role() = 'service_role');
+-- 6. Create function to automatically create user profile
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.users (id, email, name)
+  VALUES (
+    NEW.id,
+    NEW.email,
+    COALESCE(NEW.raw_user_meta_data->>'name', split_part(NEW.email, '@', 1))
+  );
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+-- 7. Create trigger for new user signup
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+-- 8. Enable realtime for tables (optional)
+ALTER PUBLICATION supabase_realtime ADD TABLE users;
+ALTER PUBLICATION supabase_realtime ADD TABLE journal_entries;
+ALTER PUBLICATION supabase_realtime ADD TABLE content;
+```
+-- to make nordafrique99 admin:
+UPDATE users 
+SET role = 'admin' 
+WHERE email = 'nordafrique99@gmail.com';
+```
+4. Enable Row Level Security (RLS) and create policies.
+### 3. Local Development
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd atlantis
+```
+2. Install dependencies:
+```bash
+npm install
+```
+3. Create a `.env` file with your Supabase credentials:
+```env
+SUPABASE_URL=https://revdnghkdjfxuxiqjddk.supabase.co
+SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+SUPABASE_SERVICE_KEY=${SUPABASE_SERVICE_KEY}
+```
+## Project Structure
+```
+├── assets/
+│   └── icons/
+│       └── icon-152x152.png
+├── index.html                    # Main landing page
+├── pages/                        # Page templates
+│   ├── login.html               # Login/Signup page
+│   ├── dashboard.html           # User dashboard
+│   └── admin.html              # Admin panel
+├── css/
+│   └── style.css               # All styles
+├── js/
+│   ├── supabase.js             # Supabase initialization
+│   ├── auth.js                 # Authentication logic
+│   ├── forms.js                # Form handling
+│   └── utils.js               # Utilities & i18n
+├── functions/                  # Netlify Functions
+│   ├── signup.js              # Signup API
+│   └── protected-api.js       # Protected endpoints
+├── translations/               # i18n files (optional)
+│   ├── en.json
+│   └── ar.json
+├── .env                       # Environment variables
+├── netlify.toml              # Netlify configuration
+└── README.md                 # This file
+```
+## Adding New Languages
+1. Create a new translation file in `translations/` folder (e.g., `es.json`)
+2. Update the language switcher in HTML files
+3. Add language to `SUPPORTED_LANGUAGES` in `.env`
+4. Update the i18n manager in `utils.js`
+## API Endpoints
+- `POST /api/signup` - User registration
+- `GET /api/stats` - User statistics (protected)
+- `GET /api/users` - List users (admin only)
+- `GET/POST /api/content` - Content management
+## Browser Support
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+## License
+MIT License - see LICENSE file for details.
+---
+**Atlantis** - Your journey to spiritual growth begins here. ✨
+```
+```
+### 2. **package.json** (for Netlify Functions)
+```json
+{
+  "name": "atlantis-spiritual-guidance",
+  "version": "1.0.1",
+  "description": "Spiritual guidance platform with bilingual support",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build step required for static site'"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "netlify-cli": "^15.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+```
+### 15. **js/init.js**
+```javascript
+// Initialize everything in correct order
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log('Initializing Atlantis...');
+    // Wait for Supabase to initialize
+    await new Promise(resolve => setTimeout(resolve, 100));
+    if (!window.supabaseClient) {
+        console.error('❌ Supabase not initialized!');
+        // Show error to user
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.innerHTML = `
+            <strong>Connection Error</strong>
+            <p>Unable to connect to the server. Please refresh the page.</p>
+        `;
+        document.body.prepend(errorDiv);
+    } else {
+        console.log('✅ Supabase initialized successfully');
+        // Initialize auth
+        if (window.auth) {
+            await window.auth.init();
+        }
+        // Initialize i18n
+        if (window.i18n) {
+            window.i18n.init();
+        }
+        console.log('✅ Atlantis initialized successfully');
+    }
+});
+**`translations/en.json`**:
+```json
+{
+    "site_name": "Atlantis",
+    "site_subtitle": "Spiritual Guidance",
+    "nav_home": "Home",
+    "nav_meditations": "Meditations",
+    "nav_wisdom": "Wisdom Library",
+    "nav_community": "Community",
+    "nav_login": "Login",
+    "nav_logout": "Logout",
+    "hero_title": "Find Your Inner Peace",
+    "hero_subtitle": "Journey through ancient wisdom and modern spiritual practices",
+    "hero_cta": "Begin Your Journey",
+    "features_title": "Our Spiritual Offerings",
+    "feature1_title": "Guided Meditations",
+    "feature1_desc": "Daily mindfulness sessions for inner peace",
+    "feature2_title": "Sacred Texts",
+    "feature2_desc": "Access to wisdom from spiritual traditions",
+    "feature3_title": "Community Circles",
+    "feature3_desc": "Connect with like-minded seekers",
+    "feature4_title": "Spiritual Growth Tracking",
+    "feature4_desc": "Monitor your spiritual journey",
+    "wisdom_title": "Wisdom of the Day",
+    "daily_wisdom": "\"The soul always knows what to do to heal itself. The challenge is to silence the mind.\"",
+    "wisdom_author": "— Caroline Myss",
+    "guest_message": "You are browsing as a guest. <a href=\"pages/login.html\">Login</a> for personalized guidance.",
+    "login_link": "Login",
+    "footer_tagline": "A sanctuary for spiritual growth",
+    "footer_quick_links": "Quick Links",
+    "footer_contact": "Contact",
+    "footer_email": "contact@atlantis-spiritual.com",
+    "footer_rights": "All rights reserved.",
+    "back_home": "Back Home",
+    "login_tab": "Login",
+    "signup_tab": "Sign Up",
+    "login_title": "Welcome Back, Seeker",
+    "email_label": "Email",
+    "password_label": "Password",
+    "login_button": "Login",
+    "forgot_password": "Forgot password?",
+    "reset_here": "Reset here",
+    "signup_title": "Begin Your Spiritual Journey",
+    "name_label": "Full Name",
+    "confirm_password_label": "Confirm Password",
+    "accept_terms": "I accept the Terms and Conditions",
+    "signup_button": "Create Account",
+    "reset_title": "Reset Password",
+    "reset_button": "Send Reset Link",
+    "back_to_login": "Back to Login",
+    "dashboard_home": "Dashboard",
+    "journal_title": "Spiritual Journal",
+    "progress_title": "Progress",
+    "settings_title": "Settings",
+    "dashboard_welcome": "Welcome,",
+    "dashboard_date": "Today is",
+    "daily_meditation_title": "Daily Meditation",
+    "recommended": "Recommended",
+    "morning_mindfulness": "Morning Mindfulness",
+    "meditation_duration": "10 minutes",
+    "view_all_meditations": "View All Meditations",
+    "today_journal_title": "Today's Journal",
+    "journal_placeholder": "Write your spiritual reflections here...",
+    "save_journal": "Save Entry",
+    "mood_label": "Today's Mood:",
+    "spiritual_progress": "Your Spiritual Progress",
+    "day_streak": "Day Streak",
+    "total_meditations": "Total Meditations",
+    "journal_entries": "Journal Entries",
+    "recent_wisdom_title": "Recent Wisdom"
+}
+```
+**`translations/ar.json`**:
+```json
+{
+    "site_name": "أتلانتس",
+    "site_subtitle": "الإرشاد الروحي",
+    "nav_home": "الرئيسية",
+    "nav_meditations": "التأملات",
+    "nav_wisdom": "مكتبة الحكمة",
+    "nav_community": "المجتمع",
+    "nav_login": "تسجيل الدخول",
+    "nav_logout": "تسجيل الخروج",
+    "hero_title": "ابحث عن سلامك الداخلي",
+    "hero_subtitle": "ارتحل عبر الحكمة القديمة والممارسات الروحية الحديثة",
+    "hero_cta": "ابدأ رحلتك",
+    "features_title": "عروضنا الروحية",
+    "feature1_title": "جلسات تأمل موجهة",
+    "feature1_desc": "جلسات يومية للوعي الكامل من أجل السلام الداخلي",
+    "feature2_title": "النصوص المقدسة",
+    "feature2_desc": "الوصول إلى الحكمة من التقاليد الروحية",
+    "feature3_title": "دوائر المجتمع",
+    "feature3_desc": "تواصل مع الباحثين عن المعنى",
+    "feature4_title": "تتبع النمو الروحي",
+    "feature4_desc": "راقب رحلتك الروحية",
+    "wisdom_title": "حكمة اليوم",
+    "daily_wisdom": "\"الروح تعرف دائمًا ما يجب فعله لشفاء نفسها. التحدي هو إسكات العقل.\"",
+    "wisdom_author": "— كارولين ميس",
+    "guest_message": "أنت تتصفح كضيف. <a href=\"pages/login.html\">سجل الدخول</a> للحصول على إرشادات مخصصة.",
+    "login_link": "تسجيل الدخول",
+    "footer_tagline": "ملاذ للنمو الروحي",
+    "footer_quick_links": "روابط سريعة",
+    "footer_contact": "اتصل بنا",
+    "footer_email": "contact@atlantis-spiritual.com",
+    "footer_rights": "جميع الحقوق محفوظة.",
+    "back_home": "العودة للرئيسية",
+    "login_tab": "تسجيل الدخول",
+    "signup_tab": "إنشاء حساب",
+    "login_title": "مرحبًا بعودتك، أيها الباحث",
+    "email_label": "البريد الإلكتروني",
+    "password_label": "كلمة المرور",
+    "login_button": "تسجيل الدخول",
+    "forgot_password": "نسيت كلمة المرور؟",
+    "reset_here": "إعادة تعيين هنا",
+    "signup_title": "ابدأ رحلتك الروحية",
+    "name_label": "الاسم الكامل",
+    "confirm_password_label": "تأكيد كلمة المرور",
+    "accept_terms": "أوافق على الشروط والأحكام",
+    "signup_button": "إنشاء حساب",
+    "reset_title": "إعادة تعيين كلمة المرور",
+    "reset_button": "إرسال رابط إعادة التعيين",
+    "back_to_login": "العودة لتسجيل الدخول",
+    "dashboard_home": "لوحة التحكم",
+    "journal_title": "المذكرات الروحية",
+    "progress_title": "التقدم",
+    "settings_title": "الإعدادات",
+    "dashboard_welcome": "مرحبًا،",
+    "dashboard_date": "اليوم هو",
+    "daily_meditation_title": "التأمل اليومي",
+    "recommended": "موصى به",
+    "morning_mindfulness": "اليقظة الصباحية",
+    "meditation_duration": "10 دقائق",
+    "view_all_meditations": "عرض كل التأملات",
+    "today_journal_title": "مذكرات اليوم",
+    "journal_placeholder": "اكتب تأملاتك الروحية هنا...",
+    "save_journal": "حفظ المدخل",
+    "mood_label": "مزاج اليوم:",
+    "spiritual_progress": "تقدمك الروحي",
+    "day_streak": "تتابع الأيام",
+    "total_meditations": "إجمالي التأملات",
+    "journal_entries": "مدخلات المذكرات",
+    "recent_wisdom_title": "الحكمة الحديثة"
+}
+**`js/admin.js`**:
+```javascript
+// Admin functions
+async function loadAdminData() {
+    try {
+        console.log('Loading admin data...');
+        // This would fetch real data from Supabase
+        // For now, simulate data
+        document.getElementById('total-users').textContent = '42';
+        document.getElementById('active-sessions').textContent = '15';
+        document.getElementById('total-content').textContent = '28';
+        // Simulate loading users table
+        const usersTableBody = document.querySelector('#users-table tbody');
+        if (usersTableBody) {
+            usersTableBody.innerHTML = `
+                <tr>
+                    <td>1</td>
+                    <td>John Doe</td>
+                    <td>john@example.com</td>
+                    <td>2024-01-01</td>
+                    <td><span class="status-active">Active</span></td>
+                    <td><button class="btn-sm">Edit</button></td>
+                </tr>
+            `;
+        }
+    } catch (error) {
+        console.error('Error loading admin data:', error);
+    }
+}
+async function checkAdminAccess() {
+    try {
+        if (!window.auth || !window.auth.currentUser) {
+            window.location.href = '../index.html';
+            return;
+        }
+        const isAdmin = await window.auth.isAdmin();
+        if (!isAdmin) {
+            window.location.href = '../index.html';
+        }
+    } catch (error) {
+        console.error('Error checking admin access:', error);
+        window.location.href = '../index.html';
+    }
+}
+async function addNewLanguage() {
+    const name = document.getElementById('new-language-name').value;
+    const code = document.getElementById('new-language-code').value;
+    if (!name || !code) {
+        alert('Please enter both language name and code');
+        return;
+    }
+    if (window.i18n) {
+        // This would normally save to Supabase
+        alert(`Language ${name} (${code}) added successfully!`);
+        document.getElementById('new-language-name').value = '';
+        document.getElementById('new-language-code').value = '';
+    } else {
+        alert('i18n not initialized');
+    }
+}
+// Make functions available globally
+window.loadAdminData = loadAdminData;
+window.checkAdminAccess = checkAdminAccess;
+window.addNewLanguage = addNewLanguage;
+window.logout = window.auth ? window.auth.signOut : () => {};
+**`pages/reset-password.html`**:
+```html
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Reset Password | Atlantis</title>
+		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	</head>
+	<body class="auth-page">
+		<div class="auth-container">
+			<div class="auth-header">
+				<a href="../index.html" class="back-home">
+					<i class="fas fa-arrow-left"></i>
+					<span data-i18n="back_home">Back Home</span>
+				</a>
+				<div class="logo">
+					<h1 data-i18n="site_name">Atlantis</h1>
+					<span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
+				</div>
+			</div>
+			<!-- Reset Password Request Form (Step 1) -->
+			<div class="auth-form active" id="reset-request-form">
+				<h2 data-i18n="reset_request_title">Reset Your Password</h2>
+				<p class="auth-subtitle" data-i18n="reset_request_subtitle">
+					Enter your email address and we'll send you a link to reset your password.
+				</p>
+				<form id="reset-request-form-element">
+					<div class="form-group">
+						<label for="reset-request-email" data-i18n="email_label">Email</label>
+						<input type="email" id="reset-request-email" required>
+					</div>
+					<button type="submit" class="btn-primary" data-i18n="send_reset_link">Send Reset Link</button>
+				</form>
+				<div class="auth-footer">
+					<p><a href="login.html" data-i18n="back_to_login">Back to Login</a></p>
+				</div>
+			</div>
+			<!-- Reset Password Form (Step 2 - after clicking email link) -->
+			<div class="auth-form" id="reset-password-form">
+				<h2 data-i18n="set_new_password_title">Set New Password</h2>
+				<p class="auth-subtitle" data-i18n="set_new_password_subtitle">
+					Please enter your new password below.
+				</p>
+				<form id="reset-password-form-element">
+					<div class="form-group">
+						<label for="new-password" data-i18n="new_password_label">New Password</label>
+						<input type="password" id="new-password" required autocomplete="new-password">
+						<span class="toggle-password" id="toggle-new-password">
+							<i class="fas fa-eye"></i>
+						</span>
+					</div>
+					<div class="form-group">
+						<label for="confirm-new-password" data-i18n="confirm_new_password_label">Confirm New Password</label>
+						<input type="password" id="confirm-new-password" required autocomplete="new-password">
+					</div>
+					<button type="submit" class="btn-primary" data-i18n="update_password">Update Password</button>
+				</form>
+			</div>
+			<!-- Success Message -->
+			<div class="auth-form" id="reset-success">
+				<div class="success-icon">
+					<i class="fas fa-check-circle"></i>
+				</div>
+				<h2 data-i18n="reset_success_title">Password Reset Successful!</h2>
+				<p class="auth-subtitle" data-i18n="reset_success_message">
+					Your password has been successfully reset. You can now log in with your new password.
+				</p>
+				<a href="login.html" class="btn-primary" data-i18n="go_to_login">Go to Login</a>
+			</div>
+			<div class="language-switcher auth-language">
+				<button id="auth-lang-en" class="lang-btn active">EN</button>
+				<button id="auth-lang-ar" class="lang-btn">العربية</button>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+		<script src="../js/utils.js"></script>
+		<script src="../js/supabase.js"></script>
+		<script src="../js/auth.js"></script>
+		<script src="../js/forms.js"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				// Check if we're in the password reset flow (from email link)
+        const urlParams = new URLSearchParams(window.location.hash.substring(1));
+        const type = urlParams.get('type');
+        const accessToken = urlParams.get('access_token');
+        const refreshToken = urlParams.get('refresh_token');
+        
+        console.log('Reset password page loaded with params:', { type, accessToken });
+        
+        if (type === 'recovery' && accessToken) {
+            try {
+                // Try to exchange the access token for a session
+                const { data, error } = await supabaseClient.auth.setSession({
+                    access_token: accessToken,
+                    refresh_token: refreshToken || ''
+                });
+                
+                if (error) {
+                    console.error('Session setup error:', error);
+                    auth.showErrorMessage('Invalid or expired reset link. Please request a new one.');
+                    return;
+                }
+                
+                // Successfully set session - show the new password form
+                document.getElementById('reset-request-form').classList.remove('active');
+                document.getElementById('reset-password-form').classList.add('active');
+                
+                // Clear the URL parameters for security
+                window.history.replaceState({}, document.title, window.location.pathname);
+                
+            } catch (error) {
+                console.error('Error processing reset link:', error);
+                auth.showErrorMessage('Error processing reset link. Please try again.');
+            }
+        }
+        
+        // Handle the reset request form submission
+        const resetForm = document.getElementById('reset-request-form-element');
+        if (resetForm) {
+            resetForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('reset-request-email').value;
+                
+                if (!email) {
+                    auth.showErrorMessage('Please enter your email');
+                    return;
+                }
+                
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + (window.t ? window.t('sending') : 'Sending...');
+                submitBtn.disabled = true;
+                
+                const result = await auth.resetPassword(email);
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                if (result.success) {
+                    auth.showSuccessMessage(window.t ? window.t('reset_email_sent') : 'Reset email sent! Check your inbox.');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 3000);
+                } else {
+                    auth.showErrorMessage(result.error);
+                }
+            });
+        }
+        
+        // Handle the password update form
+        const updateForm = document.getElementById('reset-password-form-element');
+        if (updateForm) {
+            updateForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const newPassword = document.getElementById('new-password').value;
+                const confirmPassword = document.getElementById('confirm-new-password').value;
+                
+                if (newPassword.length < 6) {
+                    auth.showErrorMessage('Password must be at least 6 characters');
+                    return;
+                }
+                
+                if (newPassword !== confirmPassword) {
+                    auth.showErrorMessage('Passwords do not match');
+                    return;
+                }
+                
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + (window.t ? window.t('updating') : 'Updating...');
+                submitBtn.disabled = true;
+                
+                const result = await auth.updatePassword(newPassword);
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                if (result.success) {
+                    // Show success message
+                    document.getElementById('reset-password-form').classList.remove('active');
+                    document.getElementById('reset-success').classList.add('active');
+                    
+                    // Sign out to force re-login with new password
+                    setTimeout(() => {
+                        auth.signOut();
+                    }, 5000);
+                } else {
+                    auth.showErrorMessage(result.error || 'Failed to update password');
+                }
+            });
+        }
+			});
+		</script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    // Handle the reset form submission
+    const resetForm = document.getElementById('reset-request-form-element');
+    if (resetForm) {
+        resetForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('reset-request-email').value;
+            
+            if (!email) {
+                auth.showErrorMessage('Please enter your email');
+                return;
+            }
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            const result = await auth.resetPassword(email);
+            
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            
+            if (result.success) {
+                auth.showSuccessMessage('Reset email sent! Check your inbox.');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 3000);
+            } else {
+                auth.showErrorMessage(result.error);
+            }
+        });
+    }
+    
+    // Handle the password update form (when user clicks email link)
+    const updateForm = document.getElementById('reset-password-form-element');
+    if (updateForm) {
+        updateForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-new-password').value;
+            
+            if (newPassword.length < 6) {
+                auth.showErrorMessage('Password must be at least 6 characters');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                auth.showErrorMessage('Passwords do not match');
+                return;
+            }
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+            submitBtn.disabled = true;
+            
+            const result = await auth.updatePassword(newPassword);
+            
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            
+            if (result.success) {
+                // Show success message
+                document.getElementById('reset-password-form').classList.remove('active');
+                document.getElementById('reset-success').classList.add('active');
+            } else {
+                auth.showErrorMessage(result.error);
+            }
+        });
+    }
+});
+</script>
+	</body>
+</html>
+```

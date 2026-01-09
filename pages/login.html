@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Login | Atlantis</title>
+		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	</head>
+	<body class="auth-page">
+		<div class="auth-container">
+			<div class="auth-header">
+				<a href="../index.html" class="back-home">
+					<i class="fas fa-arrow-left"></i>
+					<span data-i18n="back_home">Back Home</span>
+				</a>
+				<div class="logo">
+					<h1 data-i18n="site_name">Atlantis</h1>
+					<span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
+				</div>
+			</div>
+			
+			<div class="auth-tabs">
+				<button class="auth-tab active" id="login-tab" data-i18n="login_tab">Login</button>
+				<button class="auth-tab" id="signup-tab" data-i18n="signup_tab">Sign Up</button>
+			</div>
+			
+			<!-- Login Form -->
+			<div class="auth-form active" id="login-form">
+				<h2 data-i18n="login_title">Welcome Back, Seeker</h2>
+				<form id="login-form-element">
+					<div class="form-group">
+						<label for="login-email" data-i18n="email_label">Email</label>
+						<input type="email" id="login-email" required>
+					</div>
+					<div class="form-group">
+						<label for="login-password" data-i18n="password_label">Password</label>
+						<input type="password" id="login-password" required autocomplete="current-password">
+						<span class="toggle-password" id="toggle-login-password">
+							<i class="fas fa-eye"></i>
+						</span>
+					</div>
+					<button type="submit" class="btn-primary" data-i18n="login_button">Login</button>
+				</form>
+				<div class="auth-footer">
+    <p>
+        <span data-i18n="forgot_password">Forgot password?</span> 
+        <a href="reset-password.html" id="reset-password-link">
+            <span data-i18n="reset_here">Reset here</span>
+        </a>
+    </p>
+</div>
+			</div>
+			
+			<!-- Signup Form -->
+			<div class="auth-form" id="signup-form">
+				<h2 data-i18n="signup_title">Begin Your Spiritual Journey</h2>
+				<form id="signup-form-element">
+					<div class="form-group">
+						<label for="signup-name" data-i18n="name_label">Full Name</label>
+						<input type="text" id="signup-name" required>
+					</div>
+					<div class="form-group">
+						<label for="signup-email" data-i18n="email_label">Email</label>
+						<input type="email" id="signup-email" required>
+					</div>
+					<div class="form-group">
+						<label for="signup-password" data-i18n="password_label">Password</label>
+						<input type="password" id="signup-password" required autocomplete="new-password">
+						<span class="toggle-password" id="toggle-signup-password">
+							<i class="fas fa-eye"></i>
+						</span>
+					</div>
+					<div class="form-group">
+						<label for="signup-confirm" data-i18n="confirm_password_label">Confirm Password</label>
+						<input type="password" id="signup-confirm" required autocomplete="new-password">
+					</div>
+					<div class="form-group">
+						<label>
+							<input type="checkbox" id="terms" required>
+							<span data-i18n="accept_terms">I accept the Terms and Conditions</span>
+						</label>
+					</div>
+					<button type="submit" class="btn-primary" data-i18n="signup_button">Create Account</button>
+				</form>
+			</div>
+			
+			<!-- Reset Password Form -->
+			<div class="auth-form" id="reset-form">
+				<h2 data-i18n="reset_title">Reset Password</h2>
+				<form id="reset-form-element">
+					<div class="form-group">
+						<label for="reset-email" data-i18n="email_label">Email</label>
+						<input type="email" id="reset-email" required>
+					</div>
+					<button type="submit" class="btn-primary" data-i18n="reset_button">Send Reset Link</button>
+				</form>
+				<div class="auth-footer">
+					<p><a href="#" id="back-to-login" data-i18n="back_to_login">Back to Login</a></p>
+				</div>
+			</div>
+			
+			<div class="language-switcher auth-language">
+				<button id="auth-lang-en" class="lang-btn active">EN</button>
+				<button id="auth-lang-ar" class="lang-btn">العربية</button>
+			</div>
+		</div>
+		
+		<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+		<script src="../js/utils.js"></script>
+		<script src="../js/supabase.js"></script>
+		<script src="../js/auth.js"></script>
+		<script src="../js/forms.js"></script>
+	</body>
+</html>

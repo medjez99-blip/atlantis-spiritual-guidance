@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community | Atlantis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <div class="dashboard-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h1 data-i18n="site_name">Atlantis</h1>
+                <span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <div class="avatar" id="user-avatar">S</div>
+            <h3 id="user-name">Loading...</h3>
+            <p class="user-email" id="user-email">loading@example.com</p>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> <span data-i18n="dashboard_home">Dashboard</span></a></li>
+                <li><a href="meditations.html"><i class="fas fa-moon"></i> <span data-i18n="nav_meditations">Meditations</span></a></li>
+                <li><a href="journal.html"><i class="fas fa-book"></i> <span data-i18n="journal_title">Spiritual Journal</span></a></li>
+                <li><a href="progress.html"><i class="fas fa-chart-line"></i> <span data-i18n="progress_title">Progress</span></a></li>
+                <li class="active"><a href="#"><i class="fas fa-users"></i> <span data-i18n="nav_community">Community</span></a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="dashboard-logout" class="btn-outline">
+                <i class="fas fa-sign-out-alt"></i>
+                <span data-i18n="nav_logout">Logout</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="dashboard-main">
+        <div class="dashboard-header">
+            <div class="header-left">
+                <h2 data-i18n="nav_community">Community</h2>
+                <p data-i18n="connect_with_seekers">Connect with fellow spiritual seekers</p>
+            </div>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button id="community-lang-en" class="lang-btn active">EN</button>
+                    <button id="community-lang-ar" class="lang-btn">العربية</button>
+                </div>
+                <button class="btn-primary" id="create-post-btn">
+                    <i class="fas fa-plus"></i> <span data-i18n="create_post">Create Post</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="community-container">
+            <!-- Community Stats -->
+            <div class="community-stats">
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-members">1,234</h3>
+                        <p data-i18n="total_members">Total Members</p>
+                    </div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="active-discussions">89</h3>
+                        <p data-i18n="active_discussions">Active Discussions</p>
+                    </div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="shared_insights">456</h3>
+                        <p data-i18n="shared_insights">Shared Insights</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Community Tabs -->
+            <div class="community-tabs">
+                <button class="community-tab active" data-tab="feed">
+                    <i class="fas fa-stream"></i> <span data-i18n="community_feed">Feed</span>
+                </button>
+                <button class="community-tab" data-tab="groups">
+                    <i class="fas fa-user-friends"></i> <span data-i18n="groups">Groups</span>
+                </button>
+                <button class="community-tab" data-tab="events">
+                    <i class="fas fa-calendar-alt"></i> <span data-i18n="events">Events</span>
+                </button>
+                <button class="community-tab" data-tab="wisdom">
+                    <i class="fas fa-lightbulb"></i> <span data-i18n="wisdom_exchange">Wisdom Exchange</span>
+                </button>
+            </div>
+            
+            <!-- Feed Section -->
+            <div class="community-content active" id="feed-tab">
+                <!-- Create Post Card -->
+                <div class="create-post-card">
+                    <div class="post-author">
+                        <div class="avatar-small" id="current-user-avatar">S</div>
+                        <div class="post-prompt">
+                            <input type="text" id="post-title" placeholder="What's on your mind?" data-i18n="post_placeholder">
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        <button class="post-action-btn" data-type="text">
+                            <i class="fas fa-edit"></i> <span data-i18n="text">Text</span>
+                        </button>
+                        <button class="post-action-btn" data-type="insight">
+                            <i class="fas fa-lightbulb"></i> <span data-i18n="insight">Insight</span>
+                        </button>
+                        <button class="post-action-btn" data-type="question">
+                            <i class="fas fa-question-circle"></i> <span data-i18n="question">Question</span>
+                        </button>
+                        <button class="post-action-btn" data-type="experience">
+                            <i class="fas fa-share-alt"></i> <span data-i18n="experience">Experience</span>
+                        </button>
+                    </div>
+                    <div class="post-editor" id="post-editor" style="display: none;">
+                        <textarea id="post-content" placeholder="Share your thoughts..." rows="4"></textarea>
+                        <div class="editor-actions">
+                            <button class="btn-sm btn-outline" id="cancel-post">Cancel</button>
+                            <button class="btn-sm btn-primary" id="submit-post">Post</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feed Posts -->
+                <div class="feed-posts" id="feed-posts">
+                    <!-- Posts will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Groups Section -->
+            <div class="community-content" id="groups-tab">
+                <div class="groups-header">
+                    <h3 data-i18n="spiritual_groups">Spiritual Groups</h3>
+                    <button class="btn-outline" id="join-group-btn" data-i18n="join_group">Join New Group</button>
+                </div>
+                
+                <div class="groups-grid">
+                    <div class="group-card">
+                        <div class="group-header">
+                            <div class="group-icon">
+                                <i class="fas fa-moon"></i>
+                            </div>
+                            <div class="group-info">
+                                <h4 data-i18n="meditation_circle">Meditation Circle</h4>
+                                <span class="member-count">245 members</span>
+                            </div>
+                        </div>
+                        <p data-i18n="meditation_group_desc">Share meditation experiences and techniques</p>
+                        <div class="group-actions">
+                            <button class="btn-primary btn-sm joined">
+                                <i class="fas fa-check"></i> <span data-i18n="joined">Joined</span>
+                            </button>
+                            <button class="btn-outline btn-sm" data-i18n="view_group">View Group</button>
+                        </div>
+                    </div>
+                    
+                    <div class="group-card">
+                        <div class="group-header">
+                            <div class="group-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="group-info">
+                                <h4 data-i18n="wisdom_readers">Wisdom Readers</h4>
+                                <span class="member-count">189 members</span>
+                            </div>
+                        </div>
+                        <p data-i18n="wisdom_group_desc">Discuss spiritual texts and teachings</p>
+                        <div class="group-actions">
+                            <button class="btn-primary btn-sm">
+                                <i class="fas fa-plus"></i> <span data-i18n="join">Join</span>
+                            </button>
+                            <button class="btn-outline btn-sm" data-i18n="view_group">View Group</button>
+                        </div>
+                    </div>
+                    
+                    <div class="group-card">
+                        <div class="group-header">
+                            <div class="group-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="group-info">
+                                <h4 data-i18n="mindfulness_practice">Mindfulness Practice</h4>
+                                <span class="member-count">312 members</span>
+                            </div>
+                        </div>
+                        <p data-i18n="mindfulness_group_desc">Daily mindfulness challenges and support</p>
+                        <div class="group-actions">
+                            <button class="btn-primary btn-sm joined">
+                                <i class="fas fa-check"></i> <span data-i18n="joined">Joined</span>
+                            </button>
+                            <button class="btn-outline btn-sm" data-i18n="view_group">View Group</button>
+                        </div>
+                    </div>
+                    
+                    <div class="group-card">
+                        <div class="group-header">
+                            <div class="group-icon">
+                                <i class="fas fa-yin-yang"></i>
+                            </div>
+                            <div class="group-info">
+                                <h4 data-i18n="eastern_wisdom">Eastern Wisdom</h4>
+                                <span class="member-count">167 members</span>
+                            </div>
+                        </div>
+                        <p data-i18n="eastern_group_desc">Explore Buddhism, Taoism, and Yoga philosophy</p>
+                        <div class="group-actions">
+                            <button class="btn-primary btn-sm">
+                                <i class="fas fa-plus"></i> <span data-i18n="join">Join</span>
+                            </button>
+                            <button class="btn-outline btn-sm" data-i18n="view_group">View Group</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Events Section -->
+            <div class="community-content" id="events-tab">
+                <div class="events-header">
+                    <h3 data-i18n="upcoming_events">Upcoming Events</h3>
+                    <button class="btn-primary" id="create-event-btn" data-i18n="create_event">Create Event</button>
+                </div>
+                
+                <div class="events-calendar">
+                    <div class="calendar-header">
+                        <button id="prev-week"><i class="fas fa-chevron-left"></i></button>
+                        <span id="current-week"></span>
+                        <button id="next-week"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-grid" id="calendar-grid">
+                        <!-- Calendar will be generated here -->
+                    </div>
+                </div>
+                
+                <div class="events-list">
+                    <div class="event-card featured">
+                        <div class="event-date">
+                            <div class="event-day">15</div>
+                            <div class="event-month">MAR</div>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-header">
+                                <h4 data-i18n="full_moon_meditation">Full Moon Meditation</h4>
+                                <span class="event-time">7:00 PM - 8:30 PM</span>
+                            </div>
+                            <p data-i18n="full_moon_desc">Guided group meditation under the full moon energy</p>
+                            <div class="event-meta">
+                                <span><i class="fas fa-users"></i> 45 attending</span>
+                                <span><i class="fas fa-map-marker-alt"></i> <span data-i18n="virtual">Virtual</span></span>
+                            </div>
+                        </div>
+                        <div class="event-actions">
+                            <button class="btn-primary btn-sm attending">
+                                <i class="fas fa-check"></i> <span data-i18n="attending">Attending</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">
+                            <div class="event-day">22</div>
+                            <div class="event-month">MAR</div>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-header">
+                                <h4 data-i18n="wisdom_sharing">Wisdom Sharing Circle</h4>
+                                <span class="event-time">6:00 PM - 7:30 PM</span>
+                            </div>
+                            <p data-i18n="wissharing_desc">Share personal insights and spiritual experiences</p>
+                            <div class="event-meta">
+                                <span><i class="fas fa-users"></i> 32 attending</span>
+                                <span><i class="fas fa-map-marker-alt"></i> <span data-i18n="virtual">Virtual</span></span>
+                            </div>
+                        </div>
+                        <div class="event-actions">
+                            <button class="btn-primary btn-sm">
+                                <i class="fas fa-plus"></i> <span data-i18n="attend">Attend</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wisdom Exchange Section -->
+            <div class="community-content" id="wisdom-tab">
+                <div class="wisdom-header">
+                    <h3 data-i18n="wisdom_exchange">Wisdom Exchange</h3>
+                    <button class="btn-primary" id="share-wisdom-btn" data-i18n="share_wisdom">Share Wisdom</button>
+                </div>
+                
+                <div class="wisdom-feed">
+                    <div class="wisdom-card">
+                        <div class="wisdom-content">
+                            <p>"The most important relationship in your life is the relationship with yourself. Because no matter what happens, you will always be with yourself."</p>
+                            <div class="wisdom-author">
+                                <div class="author-avatar">D</div>
+                                <div class="author-info">
+                                    <span class="author-name">Diana</span>
+                                    <span class="wisdom-date">2 hours ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wisdom-actions">
+                            <button class="wisdom-action-btn">
+                                <i class="far fa-heart"></i> <span>24</span>
+                            </button>
+                            <button class="wisdom-action-btn">
+                                <i class="far fa-comment"></i> <span>8</span>
+                            </button>
+                            <button class="wisdom-action-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="wisdom-card">
+                        <div class="wisdom-content">
+                            <p>"Mindfulness isn't about getting anywhere else. It's about being where you are and knowing it."</p>
+                            <div class="wisdom-author">
+                                <div class="author-avatar">M</div>
+                                <div class="author-info">
+                                    <span class="author-name">Michael</span>
+                                    <span class="wisdom-date">1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wisdom-actions">
+                            <button class="wisdom-action-btn">
+                                <i class="far fa-heart"></i> <span>56</span>
+                            </button>
+                            <button class="wisdom-action-btn">
+                                <i class="far fa-comment"></i> <span>12</span>
+                            </button>
+                            <button class="wisdom-action-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="wisdom-card">
+                        <div class="wisdom-content">
+                            <p>"Peace comes from within. Do not seek it without. When you realize this, the world becomes your sanctuary."</p>
+                            <div class="wisdom-author">
+                                <div class="author-avatar">S</div>
+                                <div class="author-info">
+                                    <span class="author-name">Sarah</span>
+                                    <span class="wisdom-date">3 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wisdom-actions">
+                            <button class="wisdom-action-btn">
+                                <i class="far fa-heart"></i> <span>89</span>
+                            </button>
+                            <button class="wisdom-action-btn">
+                                <i class="far fa-comment"></i> <span>21</span>
+                            </button>
+                            <button class="wisdom-action-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Create Post Modal -->
+    <div class="modal" id="post-modal">
+        <div class="modal-content medium">
+            <div class="modal-header">
+                <h3 data-i18n="create_post">Create Post</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="post-type-selector">
+                    <div class="post-type active" data-type="text">
+                        <i class="fas fa-edit"></i>
+                        <span data-i18n="text_post">Text Post</span>
+                    </div>
+                    <div class="post-type" data-type="insight">
+                        <i class="fas fa-lightbulb"></i>
+                        <span data-i18n="insight_post">Insight</span>
+                    </div>
+                    <div class="post-type" data-type="question">
+                        <i class="fas fa-question-circle"></i>
+                        <span data-i18n="question_post">Question</span>
+                    </div>
+                    <div class="post-type" data-type="experience">
+                        <i class="fas fa-share-alt"></i>
+                        <span data-i18n="experience_post">Experience</span>
+                    </div>
+                </div>
+                
+                <div class="post-form">
+                    <input type="text" id="modal-post-title" placeholder="Title" data-i18n="post_title_placeholder">
+                    <textarea id="modal-post-content" placeholder="Share your thoughts..." rows="6" data-i18n="post_content_placeholder"></textarea>
+                    
+                    <div class="post-options">
+                        <label class="option-label">
+                            <input type="checkbox" id="allow-comments">
+                            <span data-i18n="allow_comments">Allow Comments</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="checkbox" id="share-anonymously">
+                            <span data-i18n="share_anonymously">Share Anonymously</span>
+                        </label>
+                    </div>
+                    
+                    <div class="post-tags">
+                        <span data-i18n="add_tags">Add tags:</span>
+                        <input type="text" id="post-tags-input" placeholder="meditation, mindfulness, peace">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" id="cancel-modal-post">Cancel</button>
+                <button class="btn-primary" id="submit-modal-post">Post</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Load user data
+            await loadUserData();
+            
+            // Set up language switcher
+            const langBtns = document.querySelectorAll('.lang-btn');
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.id.includes('en') ? 'en' : 'ar';
+                    i18n.changeLanguage(lang);
+                });
+            });
+            
+            // Tab switching
+            document.querySelectorAll('.community-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and content
+                    document.querySelectorAll('.community-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.community-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    const tabId = this.dataset.tab;
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+            
+            // Post creation
+            document.querySelectorAll('.post-action-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const type = this.dataset.type;
+                    const editor = document.getElementById('post-editor');
+                    const postTitle = document.getElementById('post-title');
+                    
+                    // Set placeholder based on type
+                    const placeholders = {
+                        text: 'Share your thoughts...',
+                        insight: 'Share your spiritual insight...',
+                        question: 'Ask a question to the community...',
+                        experience: 'Share your experience...'
+                    };
+                    
+                    document.getElementById('post-content').placeholder = 
+                        i18n.translations[`${type}_placeholder`] || placeholders[type];
+                    
+                    // Show editor
+                    editor.style.display = 'block';
+                    postTitle.focus();
+                });
+            });
+            
+            // Cancel post
+            document.getElementById('cancel-post').addEventListener('click', () => {
+                document.getElementById('post-editor').style.display = 'none';
+                document.getElementById('post-content').value = '';
+            });
+            
+            // Submit post
+            document.getElementById('submit-post').addEventListener('click', submitPost);
+            
+            // Modal post creation
+            document.getElementById('create-post-btn').addEventListener('click', () => {
+                document.getElementById('post-modal').style.display = 'block';
+            });
+            
+            document.querySelector('.modal-close').addEventListener('click', () => {
+                document.getElementById('post-modal').style.display = 'none';
+            });
+            
+            document.getElementById('cancel-modal-post').addEventListener('click', () => {
+                document.getElementById('post-modal').style.display = 'none';
+            });
+            
+            document.getElementById('submit-modal-post').addEventListener('click', submitModalPost);
+            
+            // Post type selection in modal
+            document.querySelectorAll('.post-type').forEach(type => {
+                type.addEventListener('click', function() {
+                    document.querySelectorAll('.post-type').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Calendar navigation
+            generateWeekCalendar();
+            document.getElementById('prev-week').addEventListener('click', () => {
+                currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+                generateWeekCalendar();
+            });
+            
+            document.getElementById('next-week').addEventListener('click', () => {
+                currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+                generateWeekCalendar();
+            });
+            
+            // Group join buttons
+            document.querySelectorAll('.group-actions .btn-primary:not(.joined)').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('joined');
+                    this.innerHTML = '<i class="fas fa-check"></i> Joined';
+                });
+            });
+            
+            // Event attend buttons
+            document.querySelectorAll('.event-actions .btn-primary:not(.attending)').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('attending');
+                    this.innerHTML = '<i class="fas fa-check"></i> Attending';
+                });
+            });
+            
+            // Wisdom action buttons
+            document.querySelectorAll('.wisdom-action-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        if (this.querySelector('span')) {
+                            const span = this.querySelector('span');
+                            span.textContent = parseInt(span.textContent) + 1;
+                        }
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        if (this.querySelector('span')) {
+                            const span = this.querySelector('span');
+                            span.textContent = parseInt(span.textContent) - 1;
+                        }
+                    }
+                });
+            });
+            
+            // Logout
+            document.getElementById('dashboard-logout').addEventListener('click', logout);
+        });
+        
+        let currentWeekStart = new Date();
+        currentWeekStart.setDate(currentWeekStart.getDate() - currentWeekStart.getDay());
+        
+        function generateWeekCalendar() {
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            
+            const weekEnd = new Date(currentWeekStart);
+            weekEnd.setDate(weekEnd.getDate() + 6);
+            
+            document.getElementById('current-week').textContent = 
+                `${currentWeekStart.getDate()} ${monthNames[currentWeekStart.getMonth()]} - 
+                 ${weekEnd.getDate()} ${monthNames[weekEnd.getMonth()]}`;
+            
+            let calendarHTML = '';
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(currentWeekStart);
+                date.setDate(date.getDate() + i);
+                
+                const hasEvent = i === 2 || i === 5; // Simulating events on Wednesday and Saturday
+                
+                calendarHTML += `
+                    <div class="calendar-day ${hasEvent ? 'has-event' : ''}">
+                        <div class="day-name">${days[i]}</div>
+                        <div class="day-number">${date.getDate()}</div>
+                        ${hasEvent ? '<div class="event-dot"></div>' : ''}
+                    </div>
+                `;
+            }
+            
+            document.getElementById('calendar-grid').innerHTML = calendarHTML;
+        }
+        
+        async function submitPost() {
+            const content = document.getElementById('post-content').value.trim();
+            const title = document.getElementById('post-title').value.trim();
+            
+            if (!content) {
+                utils.showNotification('Please enter some content', 'error');
+                return;
+            }
+            
+            try {
+                const post = {
+                    user_id: auth.currentUser.id,
+                    title: title || 'Untitled Post',
+                    content: content,
+                    type: 'text',
+                    created_at: new Date().toISOString(),
+                    likes: 0,
+                    comments: 0
+                };
+                
+                const { data, error } = await supabase
+                    .from('community_posts')
+                    .insert([post])
+                    .select()
+                    .single();
+                
+                if (error) throw error;
+                
+                utils.showNotification('Post created successfully', 'success');
+                
+                // Clear form and hide editor
+                document.getElementById('post-content').value = '';
+                document.getElementById('post-title').value = '';
+                document.getElementById('post-editor').style.display = 'none';
+                
+                // Reload posts
+                loadPosts();
+                
+            } catch (error) {
+                console.error('Create post error:', error);
+                utils.showNotification('Failed to create post', 'error');
+            }
+        }
+        
+        async function submitModalPost() {
+            const title = document.getElementById('modal-post-title').value.trim();
+            const content = document.getElementById('modal-post-content').value.trim();
+            const type = document.querySelector('.post-type.active').dataset.type;
+            
+            if (!title || !content) {
+                utils.showNotification('Please enter title and content', 'error');
+                return;
+            }
+            
+            try {
+                const post = {
+                    user_id: auth.currentUser.id,
+                    title: title,
+                    content: content,
+                    type: type,
+                    tags: document.getElementById('post-tags-input').value,
+                    allow_comments: document.getElementById('allow-comments').checked,
+                    anonymous: document.getElementById('share-anonymously').checked,
+                    created_at: new Date().toISOString(),
+                    likes: 0,
+                    comments: 0
+                };
+                
+                const { data, error } = await supabase
+                    .from('community_posts')
+                    .insert([post])
+                    .select()
+                    .single();
+                
+                if (error) throw error;
+                
+                utils.showNotification('Post created successfully', 'success');
+                
+                // Clear form and close modal
+                document.getElementById('modal-post-title').value = '';
+                document.getElementById('modal-post-content').value = '';
+                document.getElementById('post-tags-input').value = '';
+                document.getElementById('post-modal').style.display = 'none';
+                
+                // Reload posts if on feed tab
+                if (document.getElementById('feed-tab').classList.contains('active')) {
+                    loadPosts();
+                }
+                
+            } catch (error) {
+                console.error('Create post error:', error);
+                utils.showNotification('Failed to create post', 'error');
+            }
+        }
+        
+        async function loadPosts() {
+            try {
+                const { data, error } = await supabase
+                    .from('community_posts')
+                    .select('*, users(name, avatar)')
+                    .order('created_at', { ascending: false })
+                    .limit(20);
+                
+                if (error) throw error;
+                
+                displayPosts(data);
+                
+            } catch (error) {
+                console.error('Load posts error:', error);
+            }
+        }
+        
+        function displayPosts(posts) {
+            const container = document.getElementById('feed-posts');
+            
+            if (posts.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-feed">
+                        <div class="empty-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h4>No posts yet</h4>
+                        <p>Be the first to share with the community!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = posts.map(post => `
+                <div class="post-card">
+                    <div class="post-header">
+                        <div class="post-author">
+                            ${post.anonymous ? 
+                                `<div class="avatar-small">A</div>` :
+                                `<div class="avatar-small">${post.users?.name?.[0] || 'U'}</div>`
+                            }
+                            <div class="author-info">
+                                ${post.anonymous ? 
+                                    `<span class="author-name">Anonymous Seeker</span>` :
+                                    `<span class="author-name">${post.users?.name || 'User'}</span>`
+                                }
+                                <span class="post-time">${utils.formatDate(post.created_at)}</span>
+                            </div>
+                        </div>
+                        <div class="post-type-badge badge-${post.type}">
+                            ${post.type.charAt(0).toUpperCase() + post.type.slice(1)}
+                        </div>
+                    </div>
+                    <div class="post-body">
+                        <h4>${post.title}</h4>
+                        <p>${post.content}</p>
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-stats">
+                            <button class="post-stat-btn like-btn" data-id="${post.id}">
+                                <i class="far fa-heart"></i> <span>${post.likes || 0}</span>
+                            </button>
+                            <button class="post-stat-btn comment-btn" data-id="${post.id}">
+                                <i class="far fa-comment"></i> <span>${post.comments || 0}</span>
+                            </button>
+                            <button class="post-stat-btn share-btn">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                        <div class="post-tags">
+                            ${post.tags ? post.tags.split(',').map(tag => 
+                                `<span class="tag">${tag.trim()}</span>`
+                            ).join('') : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add event listeners to like buttons
+            document.querySelectorAll('.like-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const postId = this.dataset.id;
+                    const icon = this.querySelector('i');
+                    const countSpan = this.querySelector('span');
+                    
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        countSpan.textContent = parseInt(countSpan.textContent) + 1;
+                        
+                        // Update in database
+                        await updatePostLikes(postId, 1);
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        countSpan.textContent = parseInt(countSpan.textContent) - 1;
+                        
+                        // Update in database
+                        await updatePostLikes(postId, -1);
+                    }
+                });
+            });
+        }
+        
+        async function updatePostLikes(postId, increment) {
+            try {
+                const { data: post } = await supabase
+                    .from('community_posts')
+                    .select('likes')
+                    .eq('id', postId)
+                    .single();
+                
+                const newLikes = Math.max((post.likes || 0) + increment, 0);
+                
+                await supabase
+                    .from('community_posts')
+                    .update({ likes: newLikes })
+                    .eq('id', postId);
+                
+            } catch (error) {
+                console.error('Update likes error:', error);
+            }
+        }
+    </script>
+    <style>
+        .community-container {
+            padding: 1rem;
+        }
+        
+        .community-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-box {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .stat-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .stat-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .community-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 1rem;
+        }
+        
+        .community-tab {
+            background: none;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .community-tab:hover {
+            background: #f5f5f5;
+        }
+        
+        .community-tab.active {
+            background: var(--spiritual-purple);
+            color: white;
+        }
+        
+        .community-content {
+            display: none;
+        }
+        
+        .community-content.active {
+            display: block;
+        }
+        
+        /* Feed Styles */
+        .create-post-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .avatar-small {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .post-prompt {
+            flex: 1;
+        }
+        
+        #post-title {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #eee;
+            border-radius: 20px;
+            font-size: 1rem;
+        }
+        
+        #post-title:focus {
+            outline: none;
+            border-color: var(--spiritual-purple);
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .post-action-btn {
+            flex: 1;
+            padding: 0.8rem;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .post-action-btn:hover {
+            background: #e0e0e0;
+        }
+        
+        .post-editor {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        #post-content {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            resize: vertical;
+        }
+        
+        #post-content:focus {
+            outline: none;
+            border-color: var(--spiritual-purple);
+        }
+        
+        .editor-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .feed-posts {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .post-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .author-name {
+            font-weight: 600;
+        }
+        
+        .post-time {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .post-type-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-text { background: #3498db; color: white; }
+        .badge-insight { background: #2ecc71; color: white; }
+        .badge-question { background: #f39c12; color: white; }
+        .badge-experience { background: #9b59b6; color: white; }
+        
+        .post-body h4 {
+            margin-bottom: 0.8rem;
+        }
+        
+        .post-body p {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .post-footer {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .post-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .post-stat-btn {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .post-stat-btn:hover {
+            color: var(--spiritual-purple);
+        }
+        
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        /* Groups Styles */
+        .groups-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .groups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .group-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .group-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .group-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .group-info {
+            flex: 1;
+        }
+        
+        .group-info h4 {
+            margin-bottom: 0.3rem;
+        }
+        
+        .member-count {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .group-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .group-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        /* Events Styles */
+        .events-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .events-calendar {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .calendar-header button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--spiritual-purple);
+            cursor: pointer;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .calendar-day {
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .calendar-day.has-event {
+            background: rgba(142, 68, 173, 0.1);
+            border: 2px solid var(--spiritual-purple);
+        }
+        
+        .day-name {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.3rem;
+        }
+        
+        .day-number {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .event-dot {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            background: var(--spiritual-purple);
+            border-radius: 50%;
+        }
+        
+        .events-list {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .event-card.featured {
+            border-left: 4px solid var(--spiritual-purple);
+        }
+        
+        .event-date {
+            text-align: center;
+            min-width: 60px;
+        }
+        
+        .event-day {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--spiritual-purple);
+        }
+        
+        .event-month {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+        
+        .event-details {
+            flex: 1;
+        }
+        
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        
+        .event-header h4 {
+            margin: 0;
+        }
+        
+        .event-time {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .event-card p {
+            color: #666;
+            margin-bottom: 0.8rem;
+        }
+        
+        .event-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Wisdom Styles */
+        .wisdom-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .wisdom-feed {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .wisdom-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .wisdom-content p {
+            font-size: 1.1rem;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        
+        .wisdom-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .wisdom-date {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .wisdom-actions {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .wisdom-action-btn {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .wisdom-action-btn:hover {
+            color: var(--spiritual-purple);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content.medium {
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .post-type-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .post-type {
+            text-align: center;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .post-type:hover {
+            border-color: var(--spiritual-purple);
+        }
+        
+        .post-type.active {
+            border-color: var(--spiritual-purple);
+            background: rgba(142, 68, 173, 0.1);
+        }
+        
+        .post-type i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--spiritual-purple);
+        }
+        
+        .post-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        #modal-post-title {
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        #modal-post-content {
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            resize: vertical;
+        }
+        
+        .post-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .post-tags {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        #post-tags-input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .empty-feed {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        .empty-icon {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .community-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .community-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .groups-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .event-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .post-type-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .post-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Atlantis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <div class="dashboard-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h1 data-i18n="site_name">Atlantis</h1>
+                <span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
+            </div>
+        </div>
+        
+        <div class="user-profile">
+            <div class="avatar" id="user-avatar">S</div>
+            <h3 id="user-name">Loading...</h3>
+            <p class="user-email" id="user-email">loading@example.com</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="active"><a href="#"><i class="fas fa-home"></i> <span data-i18n="dashboard_home">Dashboard</span></a></li>
+                <li><a href="#meditations"><i class="fas fa-moon"></i> <span data-i18n="nav_meditations">Meditations</span></a></li>
+                <li><a href="#journal"><i class="fas fa-book"></i> <span data-i18n="journal_title">Spiritual Journal</span></a></li>
+                <li><a href="#progress"><i class="fas fa-chart-line"></i> <span data-i18n="progress_title">Progress</span></a></li>
+                <li><a href="#community"><i class="fas fa-users"></i> <span data-i18n="nav_community">Community</span></a></li>
+                <li><a href="#settings"><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="dashboard-logout" class="btn-outline">
+                <i class="fas fa-sign-out-alt"></i>
+                <span data-i18n="nav_logout">Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="dashboard-main">
+        <div class="dashboard-header">
+            <div class="header-left">
+                <h2 data-i18n="dashboard_welcome">Welcome, <span id="welcome-name">Seeker</span></h2>
+                <p data-i18n="dashboard_date" id="current-date"></p>
+            </div>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button id="dashboard-lang-en" class="lang-btn active">EN</button>
+                    <button id="dashboard-lang-ar" class="lang-btn">العربية</button>
+                </div>
+                <button class="notifications">
+                    <i class="fas fa-bell"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- Daily Meditation -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 data-i18n="daily_meditation_title">Daily Meditation</h3>
+                    <span class="card-badge" data-i18n="recommended">Recommended</span>
+                </div>
+                <div class="meditation-player">
+                    <div class="meditation-info">
+                        <h4 data-i18n="morning_mindfulness">Morning Mindfulness</h4>
+                        <p data-i18n="meditation_duration">10 minutes</p>
+                    </div>
+                    <button class="play-btn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                <div class="card-footer">
+                    <a href="#" data-i18n="view_all_meditations">View All Meditations →</a>
+                </div>
+            </div>
+
+            <!-- Spiritual Journal -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 data-i18n="today_journal_title">Today's Journal</h3>
+                </div>
+                <div class="journal-entry">
+                    <textarea id="journal-text" placeholder="Write your spiritual reflections here..." data-i18n="journal_placeholder"></textarea>
+                    <button id="save-journal" class="btn-primary" data-i18n="save_journal">Save Entry</button>
+                </div>
+                <div class="mood-selector">
+                    <span data-i18n="mood_label">Today's Mood:</span>
+                    <div class="mood-options">
+                        <button class="mood-btn" data-mood="peaceful">😌</button>
+                        <button class="mood-btn" data-mood="grateful">🙏</button>
+                        <button class="mood-btn" data-mood="reflective">🤔</button>
+                        <button class="mood-btn" data-mood="energized">⚡</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Stats -->
+            <div class="dashboard-card stats-card">
+                <h3 data-i18n="spiritual_progress">Your Spiritual Progress</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="meditation-streak">0</div>
+                        <div class="stat-label" data-i18n="day_streak">Day Streak</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="total-meditations">0</div>
+                        <div class="stat-label" data-i18n="total_meditations">Total Meditations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="journal-entries">0</div>
+                        <div class="stat-label" data-i18n="journal_entries">Journal Entries</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Wisdom -->
+            <div class="dashboard-card">
+                <h3 data-i18n="recent_wisdom_title">Recent Wisdom</h3>
+                <div class="wisdom-list">
+                    <div class="wisdom-item">
+                        <p>"The only journey is the journey within."</p>
+                        <small>— Rainer Maria Rilke</small>
+                    </div>
+                    <div class="wisdom-item">
+                        <p>"Peace comes from within. Do not seek it without."</p>
+                        <small>— Buddha</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Set current date
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
+            
+            // Load user data
+            await loadUserData();
+        });
+    </script>
+</body>
+</html>

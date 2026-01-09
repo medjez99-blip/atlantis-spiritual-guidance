@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meditations | Atlantis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <div class="dashboard-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h1 data-i18n="site_name">Atlantis</h1>
+                <span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <div class="avatar" id="user-avatar">S</div>
+            <h3 id="user-name">Loading...</h3>
+            <p class="user-email" id="user-email">loading@example.com</p>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> <span data-i18n="dashboard_home">Dashboard</span></a></li>
+                <li class="active"><a href="#"><i class="fas fa-moon"></i> <span data-i18n="nav_meditations">Meditations</span></a></li>
+                <li><a href="journal.html"><i class="fas fa-book"></i> <span data-i18n="journal_title">Spiritual Journal</span></a></li>
+                <li><a href="progress.html"><i class="fas fa-chart-line"></i> <span data-i18n="progress_title">Progress</span></a></li>
+                <li><a href="community.html"><i class="fas fa-users"></i> <span data-i18n="nav_community">Community</span></a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="dashboard-logout" class="btn-outline">
+                <i class="fas fa-sign-out-alt"></i>
+                <span data-i18n="nav_logout">Logout</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="dashboard-main">
+        <div class="dashboard-header">
+            <div class="header-left">
+                <h2 data-i18n="nav_meditations">Meditations</h2>
+                <p data-i18n="meditations_subtitle">Find peace through guided sessions</p>
+            </div>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button id="meditations-lang-en" class="lang-btn active">EN</button>
+                    <button id="meditations-lang-ar" class="lang-btn">العربية</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="meditations-container">
+            <!-- Featured Meditation -->
+            <div class="featured-meditation">
+                <div class="featured-content">
+                    <h3 data-i18n="featured_meditation">Featured Meditation</h3>
+                    <h4 data-i18n="morning_mindfulness">Morning Mindfulness</h4>
+                    <p data-i18n="meditation_description">Start your day with 15 minutes of peaceful mindfulness practice to set positive intentions.</p>
+                    <div class="meditation-info">
+                        <span><i class="fas fa-clock"></i> <span data-i18n="duration">15 minutes</span></span>
+                        <span><i class="fas fa-headphones"></i> <span data-i18n="guided">Guided</span></span>
+                        <span><i class="fas fa-star"></i> <span data-i18n="level">Beginner</span></span>
+                    </div>
+                    <button class="btn-primary play-featured">
+                        <i class="fas fa-play"></i> <span data-i18n="play_now">Play Now</span>
+                    </button>
+                </div>
+                <div class="featured-image">
+                    <div class="meditation-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Meditation Categories -->
+            <div class="section-title">
+                <h3 data-i18n="meditation_categories">Categories</h3>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon" style="background: #9b59b6;">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h4 data-i18n="morning_meditations">Morning</h4>
+                    <p data-i18n="morning_desc">Start your day with energy</p>
+                    <span class="count">8 sessions</span>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon" style="background: #3498db;">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <h4 data-i18n="sleep_meditations">Sleep</h4>
+                    <p data-i18n="sleep_desc">Restful sleep routines</p>
+                    <span class="count">12 sessions</span>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon" style="background: #2ecc71;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4 data-i18n="stress_relief">Stress Relief</h4>
+                    <p data-i18n="stress_desc">Release tension and anxiety</p>
+                    <span class="count">15 sessions</span>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon" style="background: #e74c3c;">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h4 data-i18n="focus_clarity">Focus & Clarity</h4>
+                    <p data-i18n="focus_desc">Improve concentration</p>
+                    <span class="count">10 sessions</span>
+                </div>
+            </div>
+            
+            <!-- Recent Meditations -->
+            <div class="section-title">
+                <h3 data-i18n="recent_meditations">Recent Meditations</h3>
+            </div>
+            <div class="meditations-list">
+                <div class="meditation-item">
+                    <div class="meditation-play">
+                        <button class="play-btn-small">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="meditation-details">
+                        <h4 data-i18n="breathing_basics">Breathing Basics</h4>
+                        <p data-i18n="breathing_desc">Learn fundamental breathing techniques</p>
+                        <div class="meditation-meta">
+                            <span><i class="fas fa-clock"></i> 10 min</span>
+                            <span><i class="fas fa-calendar"></i> 2 days ago</span>
+                        </div>
+                    </div>
+                    <div class="meditation-action">
+                        <button class="btn-outline btn-sm" data-i18n="add_favorites">Add to Favorites</button>
+                    </div>
+                </div>
+                
+                <div class="meditation-item">
+                    <div class="meditation-play">
+                        <button class="play-btn-small">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="meditation-details">
+                        <h4 data-i18n="body_scan">Full Body Scan</h4>
+                        <p data-i18n="body_scan_desc">Mindfulness body awareness practice</p>
+                        <div class="meditation-meta">
+                            <span><i class="fas fa-clock"></i> 20 min</span>
+                            <span><i class="fas fa-calendar"></i> 1 week ago</span>
+                        </div>
+                    </div>
+                    <div class="meditation-action">
+                        <button class="btn-outline btn-sm" data-i18n="add_favorites">Add to Favorites</button>
+                    </div>
+                </div>
+                
+                <div class="meditation-item">
+                    <div class="meditation-play">
+                        <button class="play-btn-small">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="meditation-details">
+                        <h4 data-i18n="loving_kindness">Loving Kindness</h4>
+                        <p data-i18n="loving_desc">Cultivate compassion for self and others</p>
+                        <div class="meditation-meta">
+                            <span><i class="fas fa-clock"></i> 15 min</span>
+                            <span><i class="fas fa-calendar"></i> 2 weeks ago</span>
+                        </div>
+                    </div>
+                    <div class="meditation-action">
+                        <button class="btn-outline btn-sm" data-i18n="add_favorites">Add to Favorites</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Favorites Section -->
+            <div class="section-title">
+                <h3 data-i18n="favorites">Your Favorites</h3>
+            </div>
+            <div class="favorites-grid">
+                <div class="favorite-card">
+                    <div class="favorite-header">
+                        <h4 data-i18n="peaceful_wind">Peaceful Wind</h4>
+                        <button class="favorite-btn active">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <p data-i18n="peaceful_desc">Gentle meditation with nature sounds</p>
+                    <div class="progress-container">
+                        <div class="progress-label" data-i18n="completion">Completion</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                        <span>75%</span>
+                    </div>
+                </div>
+                
+                <div class="favorite-card">
+                    <div class="favorite-header">
+                        <h4 data-i18n="ocean_waves">Ocean Waves</h4>
+                        <button class="favorite-btn active">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <p data-i18n="ocean_desc">Deep relaxation with ocean sounds</p>
+                    <div class="progress-container">
+                        <div class="progress-label" data-i18n="completion">Completion</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                        <span>100%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Audio Player Modal -->
+    <div class="modal" id="player-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-i18n="now_playing">Now Playing</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="player-info">
+                    <h4 id="player-title">Morning Mindfulness</h4>
+                    <p id="player-desc">Start your day with peaceful mindfulness</p>
+                </div>
+                <div class="player-controls">
+                    <button class="player-btn" id="prev-btn">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button class="player-btn play-btn-large" id="play-btn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="player-btn" id="next-btn">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                </div>
+                <div class="player-progress">
+                    <span class="time-current">0:00</span>
+                    <div class="progress-bar-large">
+                        <div class="progress-fill-large" id="progress-fill"></div>
+                    </div>
+                    <span class="time-total">15:00</span>
+                </div>
+                <div class="player-options">
+                    <button class="player-option" id="repeat-btn">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                    <button class="player-option" id="volume-btn">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="player-option" id="favorite-player-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Load user data
+            await loadUserData();
+            
+            // Set up language switcher
+            const langBtns = document.querySelectorAll('.lang-btn');
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.id.includes('en') ? 'en' : 'ar';
+                    i18n.changeLanguage(lang);
+                });
+            });
+            
+            // Play button functionality
+            document.querySelectorAll('.play-btn-small, .play-featured').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const modal = document.getElementById('player-modal');
+                    modal.style.display = 'block';
+                });
+            });
+            
+            // Close modal
+            document.querySelector('.modal-close').addEventListener('click', () => {
+                document.getElementById('player-modal').style.display = 'none';
+            });
+            
+            // Favorite buttons
+            document.querySelectorAll('.favorite-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    const icon = this.querySelector('i');
+                    if (this.classList.contains('active')) {
+                        icon.className = 'fas fa-heart';
+                    } else {
+                        icon.className = 'far fa-heart';
+                    }
+                });
+            });
+            
+            // Logout
+            document.getElementById('dashboard-logout').addEventListener('click', logout);
+        });
+    </script>
+    <style>
+        .meditations-container {
+            padding: 1rem;
+        }
+        
+        .featured-meditation {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        
+        .featured-content {
+            flex: 2;
+        }
+        
+        .featured-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .meditation-icon {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .meditation-info {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .section-title {
+            margin: 2rem 0 1rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .category-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .category-card h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .count {
+            color: var(--spiritual-purple);
+            font-weight: bold;
+        }
+        
+        .meditations-list {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .meditation-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .meditation-item:last-child {
+            border-bottom: none;
+        }
+        
+        .meditation-play {
+            margin-right: 1.5rem;
+        }
+        
+        .play-btn-small {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--spiritual-purple);
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .play-btn-small:hover {
+            transform: scale(1.1);
+        }
+        
+        .meditation-details {
+            flex: 1;
+        }
+        
+        .meditation-details h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .meditation-details p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .meditation-meta {
+            display: flex;
+            gap: 1rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .favorite-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .favorite-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .favorite-btn {
+            background: none;
+            border: none;
+            color: #ddd;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .favorite-btn.active {
+            color: #e74c3c;
+        }
+        
+        .progress-container {
+            margin-top: 1rem;
+        }
+        
+        .progress-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--spiritual-purple);
+            border-radius: 3px;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .player-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .player-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--spiritual-purple);
+            cursor: pointer;
+        }
+        
+        .play-btn-large {
+            width: 60px;
+            height: 60px;
+            background: var(--spiritual-purple);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .player-progress {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .progress-bar-large {
+            flex: 1;
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill-large {
+            height: 100%;
+            background: var(--spiritual-purple);
+            border-radius: 3px;
+            width: 0%;
+        }
+        
+        .player-options {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .player-option {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .featured-meditation {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .meditation-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .meditation-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .meditation-play {
+                margin-right: 0;
+            }
+        }
+    </style>
+</body>
+</html>

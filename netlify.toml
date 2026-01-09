@@ -1,0 +1,48 @@
+[build]
+  publish = "."
+  functions = "functions"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[context.production.environment]
+  SUPABASE_URL = "https://revdnghkdjfxuxiqjddk.supabase.co"
+  SUPABASE_ANON_KEY = "@supabase_anon_key"
+  SUPABASE_SERVICE_KEY = "@supabase_service_key"
+  NODE_ENV = "production"
+
+[context.deploy-preview.environment]
+  NODE_ENV = "development"
+
+[context.branch-deploy.environment]
+  NODE_ENV = "development"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = """
+      default-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+      script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+      style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+      font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+      img-src 'self' data: https:;
+      connect-src 'self' https://*.supabase.co https://*.netlify.app https://revdnghkdjfxuxiqjddk.supabase.co https://cdn.jsdelivr.net;
+    """
+
+# Function configurations
+[functions]
+  node_bundler = "esbuild"
+
+[functions.signup]
+  included_files = ["supabase/**", "package.json"]
+
+[functions.protected-api]
+  included_files = ["supabase/**", "package.json"]

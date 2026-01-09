@@ -1,0 +1,19 @@
+{
+  "name": "atlantis-spiritual-guidance",
+  "version": "1.0.5",
+  "description": "Spiritual guidance platform with bilingual support",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build step required for static site'"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "netlify-cli": "^15.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

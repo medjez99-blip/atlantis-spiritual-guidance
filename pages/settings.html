@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Atlantis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <div class="dashboard-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h1 data-i18n="site_name">Atlantis</h1>
+                <span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <div class="avatar" id="user-avatar">S</div>
+            <h3 id="user-name">Loading...</h3>
+            <p class="user-email" id="user-email">loading@example.com</p>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> <span data-i18n="dashboard_home">Dashboard</span></a></li>
+                <li><a href="meditations.html"><i class="fas fa-moon"></i> <span data-i18n="nav_meditations">Meditations</span></a></li>
+                <li><a href="journal.html"><i class="fas fa-book"></i> <span data-i18n="journal_title">Spiritual Journal</span></a></li>
+                <li><a href="progress.html"><i class="fas fa-chart-line"></i> <span data-i18n="progress_title">Progress</span></a></li>
+                <li><a href="community.html"><i class="fas fa-users"></i> <span data-i18n="nav_community">Community</span></a></li>
+                <li class="active"><a href="#"><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="dashboard-logout" class="btn-outline">
+                <i class="fas fa-sign-out-alt"></i>
+                <span data-i18n="nav_logout">Logout</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="dashboard-main">
+        <div class="dashboard-header">
+            <div class="header-left">
+                <h2 data-i18n="settings_title">Settings</h2>
+                <p data-i18n="manage_your_account">Manage your account and preferences</p>
+            </div>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button id="settings-lang-en" class="lang-btn active">EN</button>
+                    <button id="settings-lang-ar" class="lang-btn">العربية</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="settings-container">
+            <!-- Settings Tabs -->
+            <div class="settings-tabs">
+                <button class="settings-tab active" data-tab="profile">
+                    <i class="fas fa-user"></i> <span data-i18n="profile">Profile</span>
+                </button>
+                <button class="settings-tab" data-tab="notifications">
+                    <i class="fas fa-bell"></i> <span data-i18n="notifications">Notifications</span>
+                </button>
+                <button class="settings-tab" data-tab="privacy">
+                    <i class="fas fa-lock"></i> <span data-i18n="privacy">Privacy</span>
+                </button>
+                <button class="settings-tab" data-tab="preferences">
+                    <i class="fas fa-sliders-h"></i> <span data-i18n="preferences">Preferences</span>
+                </button>
+                <button class="settings-tab" data-tab="security">
+                    <i class="fas fa-shield-alt"></i> <span data-i18n="security">Security</span>
+                </button>
+                <button class="settings-tab" data-tab="subscription">
+                    <i class="fas fa-crown"></i> <span data-i18n="subscription">Subscription</span>
+                </button>
+            </div>
+            
+            <!-- Profile Tab -->
+            <div class="settings-content active" id="profile-tab">
+                <div class="profile-header">
+                    <h3 data-i18n="profile_settings">Profile Settings</h3>
+                    <button class="btn-outline" id="edit-profile-btn" data-i18n="edit_profile">Edit Profile</button>
+                </div>
+                
+                <div class="profile-info">
+                    <div class="profile-avatar-section">
+                        <div class="avatar-large" id="profile-avatar">S</div>
+                        <button class="btn-sm" id="change-avatar-btn" data-i18n="change_avatar">Change Avatar</button>
+                        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div class="profile-details">
+                        <div class="form-group">
+                            <label data-i18n="full_name">Full Name</label>
+                            <input type="text" id="profile-name" value="Loading..." readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-i18n="email_address">Email Address</label>
+                            <input type="email" id="profile-email" value="loading@example.com" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-i18n="bio">Bio</label>
+                            <textarea id="profile-bio" rows="3" readonly data-i18n="bio_placeholder">Share something about your spiritual journey...</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-i18n="location">Location</label>
+                            <input type="text" id="profile-location" placeholder="City, Country" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-i18n="join_date">Join Date</label>
+                            <input type="text" id="join-date" value="Loading..." readonly>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-footer" id="profile-actions" style="display: none;">
+                    <button class="btn-outline" id="cancel-edit">Cancel</button>
+                    <button class="btn-primary" id="save-profile">Save Changes</button>
+                </div>
+            </div>
+            
+            <!-- Notifications Tab -->
+            <div class="settings-content" id="notifications-tab">
+                <h3 data-i18n="notification_settings">Notification Settings</h3>
+                
+                <div class="notification-category">
+                    <h4 data-i18n="meditation_reminders">Meditation Reminders</h4>
+                    <div class="notification-options">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="daily-reminder" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label" data-i18n="daily_meditation_reminder">Daily meditation reminder</span>
+                        </label>
+                        
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="streak-reminder" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label" data-i18n="streak_notifications">Streak notifications</span>
+                        </label>
+                        
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="new-content" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label" data-i18n="new_content_notifications">New content notifications</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="notification-category">
+                    <h4 data-i18n="community_updates">Community Updates</h4>
+                    <div class="notification-options">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="post-replies" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label" data-i18n="post_replies">Post replies</span>
+                        </label>
+                        
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="group-updates">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label" data-i18n="group_updates">Group updates</span>
+                        </label>
+                        
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="event-reminders" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label" data-i18n="event_reminders">Event reminders</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="notification-category">
+                    <h4 data-i18n="email_notifications">Email Notifications</h4>
+                    <div class="notification-options">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="weekly-digest" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label" data-i18n="weekly_digest">Weekly digest</span>
+                        </label>
+                        
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="product-updates">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label" data-i18n="product_updates">Product updates</span>
+                        </label>
+                        
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="promotional" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label" data-i18n="promotional_emails">Promotional emails</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="notification-schedule">
+                    <h4 data-i18n="notification_schedule">Notification Schedule</h4>
+                    <div class="schedule-options">
+                        <div class="form-group">
+                            <label data-i18n="start_time">Start Time</label>
+                            <input type="time" id="notify-start" value="08:00">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="end_time">End Time</label>
+                            <input type="time" id="notify-end" value="21:00">
+                        </div>
+                    </div>
+                    <p class="schedule-note" data-i18n="schedule_note">Notifications will only be sent between these hours</p>
+                </div>
+                
+                <button class="btn-primary" id="save-notifications" data-i18n="save_settings">Save Settings</button>
+            </div>
+            
+            <!-- Privacy Tab -->
+            <div class="settings-content" id="privacy-tab">
+                <h3 data-i18n="privacy_settings">Privacy Settings</h3>
+                
+                <div class="privacy-section">
+                    <h4 data-i18n="profile_visibility">Profile Visibility</h4>
+                    <div class="privacy-options">
+                        <label class="radio-option">
+                            <input type="radio" name="profile-visibility" value="public" checked>
+                            <span class="radio-label">
+                                <strong data-i18n="public">Public</strong>
+                                <span data-i18n="public_desc">Anyone can see your profile and activity</span>
+                            </span>
+                        </label>
+                        
+                        <label class="radio-option">
+                            <input type="radio" name="profile-visibility" value="community">
+                            <span class="radio-label">
+                                <strong data-i18n="community_only">Community Only</strong>
+                                <span data-i18n="community_desc">Only registered members can see your profile</span>
+                            </span>
+                        </label>
+                        
+                        <label class="radio-option">
+                            <input type="radio" name="profile-visibility" value="private">
+                            <span class="radio-label">
+                                <strong data-i18n="private">Private</strong>
+                                <span data-i18n="private_desc">Only you can see your profile</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="privacy-section">
+                    <h4 data-i18n="activity_sharing">Activity Sharing</h4>
+                    <div class="privacy-options">
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="share-meditation" checked>
+                            <span class="check-label" data-i18n="share_meditation">Share meditation sessions</span>
+                        </label>
+                        
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="share-journal">
+                            <span class="check-label" data-i18n="share_journal">Share journal entries (anonymously)</span>
+                        </label>
+                        
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="share-achievements" checked>
+                            <span class="check-label" data-i18n="share_achievements">Share achievements</span>
+                        </label>
+                        
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="share-progress" checked>
+                            <span class="check-label" data-i18n="share_progress">Share progress milestones</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="privacy-section">
+                    <h4 data-i18n="data_privacy">Data Privacy</h4>
+                    <div class="privacy-actions">
+                        <button class="btn-outline" id="download-data" data-i18n="download_my_data">Download My Data</button>
+                        <button class="btn-outline" id="delete-account" data-i18n="delete_account">Delete Account</button>
+                    </div>
+                    <p class="privacy-note" data-i18n="data_note">You can request a copy of your data or permanently delete your account</p>
+                </div>
+                
+                <button class="btn-primary" id="save-privacy" data-i18n="save_settings">Save Settings</button>
+            </div>
+            
+            <!-- Preferences Tab -->
+            <div class="settings-content" id="preferences-tab">
+                <h3 data-i18n="preferences">Preferences</h3>
+                
+                <div class="preference-section">
+                    <h4 data-i18n="appearance">Appearance</h4>
+                    <div class="preference-options">
+                        <label class="radio-option">
+                            <input type="radio" name="theme" value="light" checked>
+                            <span class="radio-label">
+                                <strong data-i18n="light_theme">Light Theme</strong>
+                            </span>
+                        </label>
+                        
+                        <label class="radio-option">
+                            <input type="radio" name="theme" value="dark">
+                            <span class="radio-label">
+                                <strong data-i18n="dark_theme">Dark Theme</strong>
+                            </span>
+                        </label>
+                        
+                        <label class="radio-option">
+                            <input type="radio" name="theme" value="auto">
+                            <span class="radio-label">
+                                <strong data-i18n="auto_theme">Auto (Follow system)</strong>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="preference-section">
+                    <h4 data-i18n="meditation_preferences">Meditation Preferences</h4>
+                    <div class="preference-grid">
+                        <div class="form-group">
+                            <label data-i18n="default_duration">Default Duration</label>
+                            <select id="default-duration">
+                                <option value="5" data-i18n="5_min">5 minutes</option>
+                                <option value="10" selected data-i18n="10_min">10 minutes</option>
+                                <option value="15" data-i18n="15_min">15 minutes</option>
+                                <option value="20" data-i18n="20_min">20 minutes</option>
+                                <option value="30" data-i18n="30_min">30 minutes</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-i18n="background_sounds">Background Sounds</label>
+                            <select id="background-sounds">
+                                <option value="none" data-i18n="none">None</option>
+                                <option value="rain" selected data-i18n="rain">Rain</option>
+                                <option value="waves" data-i18n="waves">Ocean Waves</option>
+                                <option value="forest" data-i18n="forest">Forest</option>
+                                <option value="white" data-i18n="white_noise">White Noise</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-i18n="voice_guidance">Voice Guidance</label>
+                            <select id="voice-guidance">
+                                <option value="male" data-i18n="male_voice">Male Voice</option>
+                                <option value="female" selected data-i18n="female_voice">Female Voice</option>
+                                <option value="none" data-i18n="no_guidance">No Guidance</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-i18n="interval_bells">Interval Bells</label>
+                            <select id="interval-bells">
+                                <option value="none" data-i18n="none">None</option>
+                                <option value="15" data-i18n="15_min">Every 15 minutes</option>
+                                <option value="30" selected data-i18n="30_min">Every 30 minutes</option>
+                                <option value="60" data-i18n="60_min">Every 60 minutes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="preference-section">
+                    <h4 data-i18n="daily_reminders">Daily Reminders</h4>
+                    <div class="reminder-settings">
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="morning-reminder" checked>
+                            <span class="check-label" data-i18n="morning_reminder">Morning meditation reminder</span>
+                        </label>
+                        
+                        <div class="reminder-time">
+                            <label data-i18n="reminder_time">Time:</label>
+                            <input type="time" id="morning-time" value="07:00">
+                        </div>
+                    </div>
+                    
+                    <div class="reminder-settings">
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="evening-reminder">
+                            <span class="check-label" data-i18n="evening_reminder">Evening reflection reminder</span>
+                        </label>
+                        
+                        <div class="reminder-time">
+                            <label data-i18n="reminder_time">Time:</label>
+                            <input type="time" id="evening-time" value="21:00">
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-primary" id="save-preferences" data-i18n="save_settings">Save Settings</button>
+            </div>
+            
+            <!-- Security Tab -->
+            <div class="settings-content" id="security-tab">
+                <h3 data-i18n="security_settings">Security Settings</h3>
+                
+                <div class="security-section">
+                    <h4 data-i18n="change_password">Change Password</h4>
+                    <div class="password-form">
+                        <div class="form-group">
+                            <label data-i18n="current_password">Current Password</label>
+                            <input type="password" id="current-password">
+                            <span class="toggle-password" id="toggle-current-password">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-i18n="new_password">New Password</label>
+                            <input type="password" id="new-password">
+                            <span class="toggle-password" id="toggle-new-password">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                            <div class="password-strength" id="password-strength">
+                                <div class="strength-bar"></div>
+                                <div class="strength-text" data-i18n="strength">Strength</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-i18n="confirm_password">Confirm Password</label>
+                            <input type="password" id="confirm-password">
+                            <span class="toggle-password" id="toggle-confirm-password">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                        
+                        <button class="btn-primary" id="update-password" data-i18n="update_password">Update Password</button>
+                    </div>
+                </div>
+                
+                <div class="security-section">
+                    <h4 data-i18n="two_factor_auth">Two-Factor Authentication</h4>
+                    <div class="two-factor">
+                        <div class="two-factor-status">
+                            <span class="status-dot inactive"></span>
+                            <span data-i18n="2fa_inactive">Two-factor authentication is inactive</span>
+                        </div>
+                        <button class="btn-outline" id="enable-2fa" data-i18n="enable_2fa">Enable 2FA</button>
+                    </div>
+                    <p class="security-note" data-i18n="2fa_note">Add an extra layer of security to your account</p>
+                </div>
+                
+                <div class="security-section">
+                    <h4 data-i18n="active_sessions">Active Sessions</h4>
+                    <div class="sessions-list" id="sessions-list">
+                        <!-- Sessions will be loaded here -->
+                    </div>
+                    <button class="btn-outline" id="logout-all" data-i18n="logout_all">Logout from All Devices</button>
+                </div>
+            </div>
+            
+            <!-- Subscription Tab -->
+            <div class="settings-content" id="subscription-tab">
+                <h3 data-i18n="subscription_plan">Subscription Plan</h3>
+                
+                <div class="subscription-status">
+                    <div class="status-card free">
+                        <div class="status-header">
+                            <h4 data-i18n="free_plan">Free Plan</h4>
+                            <span class="status-badge" data-i18n="current">Current</span>
+                        </div>
+                        <div class="status-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> <span data-i18n="basic_meditations">Basic meditations</span></li>
+                                <li><i class="fas fa-check"></i> <span data-i18n="daily_journal">Daily journal</span></li>
+                                <li><i class="fas fa-check"></i> <span data-i18n="community_access">Community access</span></li>
+                                <li><i class="fas fa-times"></i> <span data-i18n="advanced_meditations">Advanced meditations</span></li>
+                                <li><i class="fas fa-times"></i> <span data-i18n="personalized_guidance">Personalized guidance</span></li>
+                                <li><i class="fas fa-times"></i> <span data-i18n="offline_access">Offline access</span></li>
+                            </ul>
+                        </div>
+                        <div class="status-actions">
+                            <button class="btn-primary" id="upgrade-plan" data-i18n="upgrade_plan">Upgrade Plan</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plans-comparison">
+                    <h4 data-i18n="available_plans">Available Plans</h4>
+                    <div class="plans-grid">
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <h5 data-i18n="free">Free</h5>
+                                <div class="plan-price">
+                                    <span class="price">$0</span>
+                                    <span class="period" data-i18n="per_month">/month</span>
+                                </div>
+                            </div>
+                            <div class="plan-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> <span data-i18n="basic_features">Basic features</span></li>
+                                    <li><i class="fas fa-check"></i> <span data-i18n="limited_meditations">10 meditations</span></li>
+                                    <li><i class="fas fa-check"></i> <span data-i18n="basic_community">Basic community</span></li>
+                                    <li><i class="fas fa-times"></i> <span data-i18n="advanced_features">Advanced features</span></li>
+                                </ul>
+                            </div>
+                            <button class="btn-outline" data-i18n="current_plan">Current Plan</button>
+                        </div>
+                        
+                        <div class="plan-card featured">
+                            <div class="plan-badge" data-i18n="most_popular">Most Popular</div>
+                            <div class="plan-header">
+                                <h5 data-i18n="premium">Premium</h5>
+                                <div class="plan-price">
+                                    <span class="price">$9.99</span>
+                                    <span class="period" data-i18n="per_month">/month</span>
+                                </div>
+                            </div>
+                            <div class="plan-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> <span data-i18n="all_meditations">All meditations</span></li>
+                                    <li><i class="fas fa-check"></i> <span data-i18n="unlimited_journal">Unlimited journal</span></li>
+                                    <li><i class="fas fa-check"></i> <span data-i18n="full_community">Full community access</span></li>
+                                    <li><i class="fas fa-check"></i> <span data-i18n="personal_guidance">Personal guidance</span></li>
+                                    <li><i class="fas fa-check"></i> <span data-i18n="offline_access">Offline access</span></li>
+                                </ul>
+                            </div>
+                            <button class="btn-primary" data-i18n="choose_plan">Choose Plan</button>
+                        </div>
+                        
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <h5 data-i18n="annual">Annual</h5>
+                                <div class="plan-price">
+                                    <span class="price">$99.99</span>
+                                    <span class="period" data-i18n="per_year">/year</span>
+                                </div>
+                                <div class="plan-savings" data-i18n="save_17">Save 17%</div>
+                            </div>
+                            <div class="plan-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> <span data-i18n="all_premium">All premium features</span></li>
+                                    <li><i class="fas fa-check"></i> <span data-i18n="priority_support">Priority support</span></li>
+                                    <li><i class="fas fa-check"></i> <span data-i18n="exclusive_content">Exclusive content</span></li>
+                                    <li><i class="fas fa-check"></i> <span data-i18n="annual_discount">Annual discount</span></li>
+                                </ul>
+                            </div>
+                            <button class="btn-outline" data-i18n="choose_plan">Choose Plan</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="billing-history">
+                    <h4 data-i18n="billing_history">Billing History</h4>
+                    <div class="table-container">
+                        <table id="billing-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="date">Date</th>
+                                    <th data-i18n="description">Description</th>
+                                    <th data-i18n="amount">Amount</th>
+                                    <th data-i18n="status">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Mar 15, 2024</td>
+                                    <td data-i18n="premium_subscription">Premium Subscription</td>
+                                    <td>$9.99</td>
+                                    <td><span class="status-paid" data-i18n="paid">Paid</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Feb 15, 2024</td>
+                                    <td data-i18n="premium_subscription">Premium Subscription</td>
+                                    <td>$9.99</td>
+                                    <td><span class="status-paid" data-i18n="paid">Paid</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Jan 15, 2024</td>
+                                    <td data-i18n="premium_subscription">Premium Subscription</td>
+                                    <td>$9.99</td>
+                                    <td><span class="status-paid" data-i18n="paid">Paid</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete Account Modal -->
+    <div class="modal" id="delete-modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3 data-i18n="delete_account">Delete Account</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="warning-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h4 data-i18n="are_you_sure">Are you sure?</h4>
+                <p data-i18n="delete_warning">This action cannot be undone. All your data including journal entries, progress, and community posts will be permanently deleted.</p>
+                
+                <div class="confirmation-input">
+                    <label data-i18n="type_delete">Type "DELETE" to confirm:</label>
+                    <input type="text" id="delete-confirmation" placeholder="DELETE">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" id="cancel-delete">Cancel</button>
+                <button class="btn-danger" id="confirm-delete" disabled data-i18n="delete_account">Delete Account</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 2FA Modal -->
+    <div class="modal" id="2fa-modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3 data-i18n="setup_2fa">Setup Two-Factor Authentication</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p data-i18n="2fa_instructions">Scan the QR code with your authenticator app:</p>
+                
+                <div class="qr-code">
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode"></i>
+                        <span data-i18n="qr_code">QR Code</span>
+                    </div>
+                </div>
+                
+                <div class="secret-key">
+                    <label data-i18n="secret_key">Secret Key:</label>
+                    <div class="key-container">
+                        <code id="secret-key">JBSWY3DPEHPK3PXP</code>
+                        <button class="btn-sm" id="copy-key">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="verification-code">
+                    <label data-i18n="enter_code">Enter verification code:</label>
+                    <input type="text" id="verification-code" placeholder="123456" maxlength="6">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" id="cancel-2fa">Cancel</button>
+                <button class="btn-primary" id="verify-2fa" data-i18n="verify">Verify</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Load user data
+            await loadUserData();
+            
+            // Set up language switcher
+            const langBtns = document.querySelectorAll('.lang-btn');
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.id.includes('en') ? 'en' : 'ar';
+                    i18n.changeLanguage(lang);
+                });
+            });
+            
+            // Tab switching
+            document.querySelectorAll('.settings-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and content
+                    document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.settings-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    const tabId = this.dataset.tab;
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+            
+            // Profile editing
+            document.getElementById('edit-profile-btn').addEventListener('click', enableProfileEditing);
+            document.getElementById('cancel-edit').addEventListener('click', cancelProfileEditing);
+            document.getElementById('save-profile').addEventListener('click', saveProfile);
+            
+            // Avatar change
+            document.getElementById('change-avatar-btn').addEventListener('click', () => {
+                document.getElementById('avatar-upload').click();
+            });
+            
+            document.getElementById('avatar-upload').addEventListener('change', handleAvatarUpload);
+            
+            // Password visibility toggles
+            setupPasswordToggles();
+            
+            // Password strength indicator
+            document.getElementById('new-password').addEventListener('input', updatePasswordStrength);
+            
+            // Update password
+            document.getElementById('update-password').addEventListener('click', updatePassword);
+            
+            // 2FA
+            document.getElementById('enable-2fa').addEventListener('click', () => {
+                document.getElementById('2fa-modal').style.display = 'block';
+            });
+            
+            document.querySelector('#2fa-modal .modal-close').addEventListener('click', () => {
+                document.getElementById('2fa-modal').style.display = 'none';
+            });
+            
+            document.getElementById('cancel-2fa').addEventListener('click', () => {
+                document.getElementById('2fa-modal').style.display = 'none';
+            });
+            
+            document.getElementById('copy-key').addEventListener('click', copySecretKey);
+            
+            // Delete account
+            document.getElementById('delete-account').addEventListener('click', () => {
+                document.getElementById('delete-modal').style.display = 'block';
+            });
+            
+            document.querySelector('#delete-modal .modal-close').addEventListener('click', () => {
+                document.getElementById('delete-modal').style.display = 'none';
+            });
+            
+            document.getElementById('cancel-delete').addEventListener('click', () => {
+                document.getElementById('delete-modal').style.display = 'none';
+            });
+            
+            document.getElementById('delete-confirmation').addEventListener('input', function() {
+                document.getElementById('confirm-delete').disabled = 
+                    this.value.toUpperCase() !== 'DELETE';
+            });
+            
+            document.getElementById('confirm-delete').addEventListener('click', deleteAccount);
+            
+            // Load active sessions
+            await loadActiveSessions();
+            
+            // Logout all devices
+            document.getElementById('logout-all').addEventListener('click', logoutAllDevices);
+            
+            // Logout
+            document.getElementById('dashboard-logout').addEventListener('click', logout);
+        });
+        
+        function enableProfileEditing() {
+            const inputs = document.querySelectorAll('#profile-tab input, #profile-tab textarea');
+            inputs.forEach(input => {
+                input.removeAttribute('readonly');
+                input.style.backgroundColor = 'white';
+                input.style.borderColor = '#ddd';
+            });
+            
+            document.getElementById('profile-actions').style.display = 'flex';
+            document.getElementById('edit-profile-btn').style.display = 'none';
+        }
+        
+        function cancelProfileEditing() {
+            const inputs = document.querySelectorAll('#profile-tab input, #profile-tab textarea');
+            inputs.forEach(input => {
+                input.setAttribute('readonly', 'true');
+                input.style.backgroundColor = '#f9f9f9';
+                input.style.borderColor = '#eee';
+            });
+            
+            // Reset values from user data
+            loadProfileData();
+            
+            document.getElementById('profile-actions').style.display = 'none';
+            document.getElementById('edit-profile-btn').style.display = 'block';
+        }
+        
+        async function loadProfileData() {
+            try {
+                const userData = await auth.getUserData();
+                if (userData) {
+                    document.getElementById('profile-name').value = userData.name || '';
+                    document.getElementById('profile-email').value = userData.email || '';
+                    document.getElementById('profile-bio').value = userData.bio || '';
+                    document.getElementById('profile-location').value = userData.location || '';
+                    document.getElementById('join-date').value = 
+                        userData.created_at ? utils.formatDate(userData.created_at) : 'N/A';
+                    
+                    // Update avatar
+                    const avatar = document.getElementById('profile-avatar');
+                    if (avatar && userData.name) {
+                        const initials = userData.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                        avatar.textContent = initials;
+                    }
+                }
+            } catch (error) {
+                console.error('Load profile data error:', error);
+            }
+        }
+        
+        async function saveProfile() {
+            const name = document.getElementById('profile-name').value.trim();
+            const bio = document.getElementById('profile-bio').value.trim();
+            const location = document.getElementById('profile-location').value.trim();
+            
+            try {
+                const { error } = await supabase
+                    .from('users')
+                    .update({
+                        name: name,
+                        bio: bio,
+                        location: location,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', auth.currentUser.id);
+                
+                if (error) throw error;
+                
+                utils.showNotification('Profile updated successfully', 'success');
+                cancelProfileEditing();
+                
+                // Update user data in other elements
+                await loadUserData();
+                
+            } catch (error) {
+                console.error('Save profile error:', error);
+                utils.showNotification('Failed to update profile', 'error');
+            }
+        }
+        
+        async function handleAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Validate file type and size
+            if (!file.type.startsWith('image/')) {
+                utils.showNotification('Please upload an image file', 'error');
+                return;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                utils.showNotification('Image size should be less than 5MB', 'error');
+                return;
+            }
+            
+            // Create a preview (in a real app, you would upload to storage)
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const avatar = document.getElementById('profile-avatar');
+                avatar.style.backgroundImage = `url(${e.target.result})`;
+                avatar.style.backgroundSize = 'cover';
+                avatar.textContent = '';
+                
+                // Show success message
+                utils.showNotification('Avatar updated successfully', 'success');
+                
+                // In a real app, upload to Supabase Storage
+                // uploadAvatarToStorage(file);
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        function setupPasswordToggles() {
+            const toggles = [
+                { input: 'current-password', toggle: 'toggle-current-password' },
+                { input: 'new-password', toggle: 'toggle-new-password' },
+                { input: 'confirm-password', toggle: 'toggle-confirm-password' }
+            ];
+            
+            toggles.forEach(({ input, toggle }) => {
+                const toggleBtn = document.getElementById(toggle);
+                if (toggleBtn) {
+                    toggleBtn.addEventListener('click', () => {
+                        const passwordInput = document.getElementById(input);
+                        const icon = toggleBtn.querySelector('i');
+                        
+                        if (passwordInput.type === 'password') {
+                            passwordInput.type = 'text';
+                            icon.classList.remove('fa-eye');
+                            icon.classList.add('fa-eye-slash');
+                        } else {
+                            passwordInput.type = 'password';
+                            icon.classList.remove('fa-eye-slash');
+                            icon.classList.add('fa-eye');
+                        }
+                    });
+                }
+            });
+        }
+        
+        function updatePasswordStrength() {
+            const password = document.getElementById('new-password').value;
+            const strengthBar = document.querySelector('.strength-bar');
+            const strengthText = document.querySelector('.strength-text');
+            
+            let strength = 0;
+            let color = '#e74c3c';
+            let text = 'Weak';
+            
+            if (password.length >= 8) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 25;
+            
+            if (strength >= 75) {
+                color = '#2ecc71';
+                text = 'Strong';
+            } else if (strength >= 50) {
+                color = '#f39c12';
+                text = 'Medium';
+            }
+            
+            strengthBar.style.width = `${strength}%`;
+            strengthBar.style.background = color;
+            strengthText.textContent = text;
+            strengthText.style.color = color;
+        }
+        
+        async function updatePassword() {
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                utils.showNotification('Please fill all password fields', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 8) {
+                utils.showNotification('Password must be at least 8 characters', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                utils.showNotification('Passwords do not match', 'error');
+                return;
+            }
+            
+            try {
+                // First verify current password
+                const { error: verifyError } = await supabase.auth.signInWithPassword({
+                    email: auth.currentUser.email,
+                    password: currentPassword
+                });
+                
+                if (verifyError) {
+                    if (verifyError.message.includes('Invalid login credentials')) {
+                        utils.showNotification('Current password is incorrect', 'error');
+                    } else {
+                        throw verifyError;
+                    }
+                    return;
+                }
+                
+                // Update password
+                const { error } = await supabase.auth.updateUser({
+                    password: newPassword
+                });
+                
+                if (error) throw error;
+                
+                utils.showNotification('Password updated successfully', 'success');
+                
+                // Clear form
+                document.getElementById('current-password').value = '';
+                document.getElementById('new-password').value = '';
+                document.getElementById('confirm-password').value = '';
+                
+                // Reset strength indicator
+                updatePasswordStrength();
+                
+            } catch (error) {
+                console.error('Update password error:', error);
+                utils.showNotification('Failed to update password', 'error');
+            }
+        }
+        
+        function copySecretKey() {
+            const key = document.getElementById('secret-key').textContent;
+            navigator.clipboard.writeText(key)
+                .then(() => {
+                    const btn = document.getElementById('copy-key');
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check"></i>';
+                    btn.disabled = true;
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Copy failed:', err);
+                });
+        }
+        
+        async function loadActiveSessions() {
+            // Note: In a real app, you would track sessions in your database
+            // This is a simplified example
+            const sessions = [
+                {
+                    id: 1,
+                    device: 'Chrome on Windows',
+                    location: 'New York, US',
+                    last_active: '2024-03-15T10:30:00Z',
+                    current: true
+                },
+                {
+                    id: 2,
+                    device: 'Safari on iPhone',
+                    location: 'Chicago, US',
+                    last_active: '2024-03-14T15:45:00Z',
+                    current: false
+                }
+            ];
+            
+            const container = document.getElementById('sessions-list');
+            container.innerHTML = sessions.map(session => `
+                <div class="session-item ${session.current ? 'current' : ''}">
+                    <div class="session-info">
+                        <div class="session-device">
+                            <i class="fas fa-desktop"></i>
+                            <span>${session.device}</span>
+                        </div>
+                        <div class="session-details">
+                            <span class="session-location">${session.location}</span>
+                            <span class="session-time">Last active: ${utils.formatDate(session.last_active)}</span>
+                        </div>
+                    </div>
+                    ${session.current ? 
+                        '<span class="session-status current" data-i18n="current">Current</span>' : 
+                        '<button class="btn-sm btn-outline logout-session" data-id="${session.id}" data-i18n="logout">Logout</button>'
+                    }
+                </div>
+            `).join('');
+            
+            // Add event listeners to logout buttons
+            document.querySelectorAll('.logout-session').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const sessionId = this.dataset.id;
+                    logoutSession(sessionId);
+                });
+            });
+        }
+        
+        function logoutSession(sessionId) {
+            // In a real app, you would invalidate the specific session
+            // This is a simplified example
+            utils.showNotification('Session logged out', 'success');
+            
+            // Remove from UI
+            const sessionItem = document.querySelector(`[data-id="${sessionId}"]`).closest('.session-item');
+            sessionItem.remove();
+        }
+        
+        async function logoutAllDevices() {
+            if (!confirm('Log out from all devices except this one?')) return;
+            
+            try {
+                // In a real app, you would invalidate all sessions except current
+                utils.showNotification('Logged out from all other devices', 'success');
+                
+                // Reload sessions list
+                await loadActiveSessions();
+                
+            } catch (error) {
+                console.error('Logout all error:', error);
+                utils.showNotification('Failed to logout from all devices', 'error');
+            }
+        }
+        
+        async function deleteAccount() {
+            try {
+                const { error } = await supabase
+                    .from('users')
+                    .delete()
+                    .eq('id', auth.currentUser.id);
+                
+                if (error) throw error;
+                
+                // Delete auth user
+                await supabase.auth.admin.deleteUser(auth.currentUser.id);
+                
+                utils.showNotification('Account deleted successfully', 'success');
+                
+                // Redirect to home page
+                setTimeout(() => {
+                    window.location.href = '../index.html';
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Delete account error:', error);
+                utils.showNotification('Failed to delete account', 'error');
+            }
+        }
+    </script>
+    <style>
+        .settings-container {
+            padding: 1rem;
+        }
+        
+        .settings-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .settings-tab {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .settings-tab:hover {
+            background: #f5f5f5;
+        }
+        
+        .settings-tab.active {
+            background: var(--spiritual-purple);
+            color: white;
+        }
+        
+        .settings-content {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .settings-content.active {
+            display: block;
+        }
+        
+        /* Profile Tab */
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-info {
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+        
+        .profile-avatar-section {
+            text-align: center;
+            min-width: 150px;
+        }
+        
+        .avatar-large {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .profile-details {
+            flex: 1;
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .profile-details input,
+        .profile-details textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            background: #f9f9f9;
+        }
+        
+        .profile-details input:read-only,
+        .profile-details textarea:read-only {
+            background: #f9f9f9;
+            border-color: #eee;
+            color: #666;
+        }
+        
+        .profile-footer {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        /* Notifications Tab */
+        .notification-category {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .notification-category:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .notification-category h4 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .notification-options {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+        }
+        
+        .toggle-switch input {
+            display: none;
+        }
+        
+        .toggle-slider {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #ddd;
+            border-radius: 13px;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-slider:before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+        }
+        
+        .toggle-switch input:checked + .toggle-slider {
+            background: var(--spiritual-purple);
+        }
+        
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+        
+        .notification-schedule {
+            margin-top: 2rem;
+        }
+        
+        .schedule-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .schedule-note {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* Privacy Tab */
+        .privacy-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .privacy-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .privacy-section h4 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .privacy-options {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            cursor: pointer;
+        }
+        
+        .radio-option input {
+            margin-top: 0.3rem;
+        }
+        
+        .radio-label {
+            flex: 1;
+        }
+        
+        .radio-label strong {
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        
+        .radio-label span {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+        }
+        
+        .check-label {
+            color: #333;
+        }
+        
+        .privacy-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .privacy-note {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Preferences Tab */
+        .preference-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .preference-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .preference-section h4 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .preference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .preference-grid select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+        }
+        
+        .reminder-settings {
+            margin-bottom: 1.5rem;
+        }
+        
+        .reminder-time {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.8rem;
+            margin-left: 2rem;
+        }
+        
+        .reminder-time input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        /* Security Tab */
+        .security-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .security-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .security-section h4 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .password-form {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 400px;
+        }
+        
+        .password-form .form-group {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 35px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .password-strength {
+            margin-top: 0.5rem;
+        }
+        
+        .strength-bar {
+            height: 4px;
+            background: #e74c3c;
+            border-radius: 2px;
+            width: 0%;
+            transition: all 0.3s ease;
+        }
+        
+        .strength-text {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+        
+        .two-factor {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0;
+        }
+        
+        .two-factor-status {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        .status-dot.active {
+            background: #2ecc71;
+        }
+        
+        .status-dot.inactive {
+            background: #e74c3c;
+        }
+        
+        .security-note {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .sessions-list {
+            display: grid;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .session-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        
+        .session-item.current {
+            background: rgba(142, 68, 173, 0.05);
+            border-color: var(--spiritual-purple);
+        }
+        
+        .session-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .session-device {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .session-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        
+        .session-location,
+        .session-time {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .session-status.current {
+            color: var(--spiritual-purple);
+            font-weight: 500;
+        }
+        
+        /* Subscription Tab */
+        .subscription-status {
+            margin-bottom: 3rem;
+        }
+        
+        .status-card {
+            background: white;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 400px;
+        }
+        
+        .status-card.free {
+            border-color: #ddd;
+        }
+        
+        .status-card.premium {
+            border-color: var(--spiritual-purple);
+        }
+        
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            background: var(--spiritual-purple);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-features ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .status-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .status-features .fa-check {
+            color: #2ecc71;
+        }
+        
+        .status-features .fa-times {
+            color: #e74c3c;
+        }
+        
+        .plans-comparison {
+            margin-bottom: 3rem;
+        }
+        
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .plan-card {
+            background: white;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .plan-card.featured {
+            border-color: var(--spiritual-purple);
+        }
+        
+        .plan-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--spiritual-purple);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .plan-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .plan-price {
+            margin: 1rem 0;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--spiritual-purple);
+        }
+        
+        .period {
+            color: #666;
+        }
+        
+        .plan-savings {
+            color: #2ecc71;
+            font-weight: 600;
+        }
+        
+        .plan-features ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .plan-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .plan-card button {
+            width: 100%;
+        }
+        
+        .billing-history table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .billing-history th,
+        .billing-history td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .billing-history th {
+            background: #f9f9f9;
+            font-weight: 600;
+        }
+        
+        .status-paid {
+            color: #2ecc71;
+            font-weight: 600;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content.small {
+            width: 90%;
+            max-width: 400px;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .warning-icon {
+            text-align: center;
+            color: #e74c3c;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .confirmation-input {
+            margin-top: 1.5rem;
+        }
+        
+        .confirmation-input input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+        
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .btn-danger:hover:not(:disabled) {
+            background: #c0392b;
+        }
+        
+        .btn-danger:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* 2FA Modal */
+        .qr-code {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            color: #666;
+            font-size: 2rem;
+        }
+        
+        .qr-placeholder span {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .secret-key {
+            margin: 1.5rem 0;
+        }
+        
+        .key-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .key-container code {
+            flex: 1;
+            padding: 0.8rem;
+            background: #f5f5f5;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .verification-code input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            font-size: 1.2rem;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        
+        @media (max-width: 768px) {
+            .settings-tabs {
+                flex-direction: column;
+            }
+            
+            .profile-info {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .profile-avatar-section {
+                text-align: left;
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+            }
+            
+            .avatar-large {
+                margin: 0;
+                width: 80px;
+                height: 80px;
+                font-size: 1.8rem;
+            }
+            
+            .preference-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .session-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</body>
+</html>

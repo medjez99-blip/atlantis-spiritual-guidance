@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiritual Journal | Atlantis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <div class="dashboard-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h1 data-i18n="site_name">Atlantis</h1>
+                <span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <div class="avatar" id="user-avatar">S</div>
+            <h3 id="user-name">Loading...</h3>
+            <p class="user-email" id="user-email">loading@example.com</p>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> <span data-i18n="dashboard_home">Dashboard</span></a></li>
+                <li><a href="meditations.html"><i class="fas fa-moon"></i> <span data-i18n="nav_meditations">Meditations</span></a></li>
+                <li class="active"><a href="#"><i class="fas fa-book"></i> <span data-i18n="journal_title">Spiritual Journal</span></a></li>
+                <li><a href="progress.html"><i class="fas fa-chart-line"></i> <span data-i18n="progress_title">Progress</span></a></li>
+                <li><a href="community.html"><i class="fas fa-users"></i> <span data-i18n="nav_community">Community</span></a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="dashboard-logout" class="btn-outline">
+                <i class="fas fa-sign-out-alt"></i>
+                <span data-i18n="nav_logout">Logout</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="dashboard-main">
+        <div class="dashboard-header">
+            <div class="header-left">
+                <h2 data-i18n="journal_title">Spiritual Journal</h2>
+                <p id="current-date-journal"></p>
+            </div>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button id="journal-lang-en" class="lang-btn active">EN</button>
+                    <button id="journal-lang-ar" class="lang-btn">العربية</button>
+                </div>
+                <button class="btn-primary" id="new-entry-btn">
+                    <i class="fas fa-plus"></i> <span data-i18n="new_entry">New Entry</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="journal-container">
+            <div class="journal-editor-section">
+                <div class="section-title">
+                    <h3 data-i18n="today_entry">Today's Entry</h3>
+                </div>
+                <div class="journal-editor">
+                    <div class="editor-header">
+                        <input type="text" id="entry-title" placeholder="Entry Title" data-i18n="entry_title_placeholder">
+                        <div class="mood-selector-large">
+                            <span data-i18n="mood_label">Mood:</span>
+                            <div class="mood-options-large">
+                                <button class="mood-option" data-mood="peaceful" title="Peaceful">
+                                    <div class="mood-emoji">😌</div>
+                                    <span data-i18n="peaceful">Peaceful</span>
+                                </button>
+                                <button class="mood-option" data-mood="grateful" title="Grateful">
+                                    <div class="mood-emoji">🙏</div>
+                                    <span data-i18n="grateful">Grateful</span>
+                                </button>
+                                <button class="mood-option" data-mood="reflective" title="Reflective">
+                                    <div class="mood-emoji">🤔</div>
+                                    <span data-i18n="reflective">Reflective</span>
+                                </button>
+                                <button class="mood-option" data-mood="energized" title="Energized">
+                                    <div class="mood-emoji">⚡</div>
+                                    <span data-i18n="energized">Energized</span>
+                                </button>
+                                <button class="mood-option" data-mood="challenged" title="Challenged">
+                                    <div class="mood-emoji">💪</div>
+                                    <span data-i18n="challenged">Challenged</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <textarea id="journal-content" placeholder="Write your thoughts, reflections, and spiritual insights here..." 
+                             data-i18n="journal_placeholder" rows="10"></textarea>
+                    <div class="editor-footer">
+                        <div class="entry-tags">
+                            <span data-i18n="tags">Tags:</span>
+                            <div class="tag-container">
+                                <input type="text" id="tag-input" placeholder="Add a tag..." data-i18n="tag_placeholder">
+                                <button class="btn-sm" id="add-tag-btn" data-i18n="add">Add</button>
+                            </div>
+                            <div class="tags-list" id="tags-list">
+                                <!-- Tags will be added here -->
+                            </div>
+                        </div>
+                        <button class="btn-primary" id="save-entry-btn" data-i18n="save_entry">Save Entry</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Journal Entries List -->
+            <div class="journal-entries-section">
+                <div class="section-title">
+                    <h3 data-i18n="previous_entries">Previous Entries</h3>
+                    <div class="filter-controls">
+                        <select id="filter-month">
+                            <option value="" data-i18n="all_months">All Months</option>
+                            <option value="1" data-i18n="january">January</option>
+                            <option value="2" data-i18n="february">February</option>
+                            <option value="3" data-i18n="march">March</option>
+                            <option value="4" data-i18n="april">April</option>
+                            <option value="5" data-i18n="may">May</option>
+                            <option value="6" data-i18n="june">June</option>
+                            <option value="7" data-i18n="july">July</option>
+                            <option value="8" data-i18n="august">August</option>
+                            <option value="9" data-i18n="september">September</option>
+                            <option value="10" data-i18n="october">October</option>
+                            <option value="11" data-i18n="november">November</option>
+                            <option value="12" data-i18n="december">December</option>
+                        </select>
+                        <select id="filter-mood">
+                            <option value="" data-i18n="all_moods">All Moods</option>
+                            <option value="peaceful" data-i18n="peaceful">Peaceful</option>
+                            <option value="grateful" data-i18n="grateful">Grateful</option>
+                            <option value="reflective" data-i18n="reflective">Reflective</option>
+                            <option value="energized" data-i18n="energized">Energized</option>
+                            <option value="challenged" data-i18n="challenged">Challenged</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="entries-list" id="entries-list">
+                    <!-- Entries will be loaded here -->
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h4 data-i18n="no_entries">No journal entries yet</h4>
+                        <p data-i18n="no_entries_desc">Start your spiritual journal by writing your first entry above.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Entry Detail Modal -->
+    <div class="modal" id="entry-modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="modal-entry-title"></h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="entry-meta">
+                    <span class="entry-date" id="modal-entry-date"></span>
+                    <span class="entry-mood" id="modal-entry-mood"></span>
+                    <span class="entry-tags" id="modal-entry-tags"></span>
+                </div>
+                <div class="entry-content" id="modal-entry-content"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" id="edit-entry-btn" data-i18n="edit">Edit</button>
+                <button class="btn-danger" id="delete-entry-btn" data-i18n="delete">Delete</button>
+                <button class="btn-primary" id="close-modal-btn" data-i18n="close">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/forms.js"></script>
+    <script>
+        let currentEntryId = null;
+        let entries = [];
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Load user data
+            await loadUserData();
+            
+            // Set current date
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date-journal').textContent = now.toLocaleDateString('en-US', options);
+            
+            // Set up language switcher
+            const langBtns = document.querySelectorAll('.lang-btn');
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.id.includes('en') ? 'en' : 'ar';
+                    i18n.changeLanguage(lang);
+                });
+            });
+            
+            // Mood selection
+            document.querySelectorAll('.mood-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.mood-option').forEach(o => {
+                        o.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+            
+            // Tag management
+            document.getElementById('add-tag-btn').addEventListener('click', addTag);
+            document.getElementById('tag-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    addTag();
+                }
+            });
+            
+            // Save entry
+            document.getElementById('save-entry-btn').addEventListener('click', saveEntry);
+            
+            // New entry button
+            document.getElementById('new-entry-btn').addEventListener('click', () => {
+                document.getElementById('entry-title').value = '';
+                document.getElementById('journal-content').value = '';
+                document.querySelectorAll('.mood-option').forEach(o => o.classList.remove('active'));
+                document.getElementById('tags-list').innerHTML = '';
+                currentEntryId = null;
+            });
+            
+            // Load entries
+            await loadEntries();
+            
+            // Logout
+            document.getElementById('dashboard-logout').addEventListener('click', logout);
+        });
+        
+        function addTag() {
+            const tagInput = document.getElementById('tag-input');
+            const tag = tagInput.value.trim();
+            
+            if (tag) {
+                const tagElement = document.createElement('span');
+                tagElement.className = 'tag';
+                tagElement.innerHTML = `
+                    ${tag}
+                    <span class="tag-remove">&times;</span>
+                `;
+                
+                tagElement.querySelector('.tag-remove').addEventListener('click', function() {
+                    tagElement.remove();
+                });
+                
+                document.getElementById('tags-list').appendChild(tagElement);
+                tagInput.value = '';
+            }
+        }
+        
+        function getSelectedMood() {
+            const activeMood = document.querySelector('.mood-option.active');
+            return activeMood ? activeMood.dataset.mood : null;
+        }
+        
+        function getTags() {
+            const tags = [];
+            document.querySelectorAll('#tags-list .tag').forEach(tag => {
+                tags.push(tag.childNodes[0].textContent.trim());
+            });
+            return tags;
+        }
+        
+        async function saveEntry() {
+            const title = document.getElementById('entry-title').value.trim();
+            const content = document.getElementById('journal-content').value.trim();
+            const mood = getSelectedMood();
+            const tags = getTags();
+            
+            if (!title || !content) {
+                utils.showNotification('Please enter a title and content', 'error');
+                return;
+            }
+            
+            if (!mood) {
+                utils.showNotification('Please select a mood', 'error');
+                return;
+            }
+            
+            try {
+                const entry = {
+                    title,
+                    content,
+                    mood,
+                    tags: tags.join(','),
+                    created_at: new Date().toISOString()
+                };
+                
+                if (currentEntryId) {
+                    // Update existing entry
+                    const { error } = await supabase
+                        .from('journal_entries')
+                        .update(entry)
+                        .eq('id', currentEntryId);
+                    
+                    if (error) throw error;
+                    utils.showNotification('Entry updated successfully', 'success');
+                } else {
+                    // Create new entry
+                    entry.user_id = auth.currentUser.id;
+                    const { data, error } = await supabase
+                        .from('journal_entries')
+                        .insert([entry])
+                        .select()
+                        .single();
+                    
+                    if (error) throw error;
+                    
+                    // Update user stats
+                    await forms.updateUserStats('journal_entries');
+                    
+                    currentEntryId = data.id;
+                    utils.showNotification('Entry saved successfully', 'success');
+                }
+                
+                // Refresh entries list
+                await loadEntries();
+                
+            } catch (error) {
+                console.error('Save entry error:', error);
+                utils.showNotification('Failed to save entry', 'error');
+            }
+        }
+        
+        async function loadEntries() {
+            try {
+                const { data, error } = await supabase
+                    .from('journal_entries')
+                    .select('*')
+                    .eq('user_id', auth.currentUser.id)
+                    .order('created_at', { ascending: false });
+                
+                if (error) throw error;
+                
+                entries = data;
+                displayEntries(data);
+                
+            } catch (error) {
+                console.error('Load entries error:', error);
+                utils.showNotification('Failed to load entries', 'error');
+            }
+        }
+        
+        function displayEntries(entries) {
+            const container = document.getElementById('entries-list');
+            
+            if (entries.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h4 data-i18n="no_entries">No journal entries yet</h4>
+                        <p data-i18n="no_entries_desc">Start your spiritual journal by writing your first entry above.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = entries.map(entry => `
+                <div class="entry-card" data-id="${entry.id}">
+                    <div class="entry-header">
+                        <h4>${entry.title}</h4>
+                        <span class="entry-date">${utils.formatDate(entry.created_at)}</span>
+                    </div>
+                    <div class="entry-preview">
+                        ${entry.content.length > 150 ? entry.content.substring(0, 150) + '...' : entry.content}
+                    </div>
+                    <div class="entry-footer">
+                        <span class="mood-badge mood-${entry.mood}">
+                            ${getMoodEmoji(entry.mood)} ${entry.mood}
+                        </span>
+                        <div class="entry-actions">
+                            <button class="btn-sm btn-outline view-entry" data-i18n="view">View</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add event listeners to view buttons
+            document.querySelectorAll('.view-entry').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const entryId = this.closest('.entry-card').dataset.id;
+                    viewEntry(entryId);
+                });
+            });
+        }
+        
+        function getMoodEmoji(mood) {
+            const emojis = {
+                peaceful: '😌',
+                grateful: '🙏',
+                reflective: '🤔',
+                energized: '⚡',
+                challenged: '💪'
+            };
+            return emojis[mood] || '📝';
+        }
+        
+        async function viewEntry(entryId) {
+            const entry = entries.find(e => e.id === entryId);
+            if (!entry) return;
+            
+            document.getElementById('modal-entry-title').textContent = entry.title;
+            document.getElementById('modal-entry-date').textContent = utils.formatDate(entry.created_at);
+            document.getElementById('modal-entry-mood').innerHTML = 
+                `${getMoodEmoji(entry.mood)} ${entry.mood}`;
+            document.getElementById('modal-entry-content').textContent = entry.content;
+            
+            // Show tags if available
+            const tagsElement = document.getElementById('modal-entry-tags');
+            if (entry.tags) {
+                tagsElement.innerHTML = entry.tags.split(',').map(tag => 
+                    `<span class="tag">${tag.trim()}</span>`
+                ).join('');
+            } else {
+                tagsElement.innerHTML = '';
+            }
+            
+            document.getElementById('entry-modal').style.display = 'block';
+            currentEntryId = entryId;
+            
+            // Set up modal buttons
+            document.getElementById('edit-entry-btn').onclick = () => editEntry(entry);
+            document.getElementById('delete-entry-btn').onclick = () => deleteEntry(entryId);
+            document.getElementById('close-modal-btn').onclick = () => {
+                document.getElementById('entry-modal').style.display = 'none';
+            };
+            document.querySelector('.modal-close').onclick = () => {
+                document.getElementById('entry-modal').style.display = 'none';
+            };
+        }
+        
+        function editEntry(entry) {
+            document.getElementById('entry-title').value = entry.title;
+            document.getElementById('journal-content').value = entry.content;
+            
+            // Set mood
+            document.querySelectorAll('.mood-option').forEach(o => {
+                o.classList.remove('active');
+                if (o.dataset.mood === entry.mood) {
+                    o.classList.add('active');
+                }
+            });
+            
+            // Set tags
+            const tagsList = document.getElementById('tags-list');
+            tagsList.innerHTML = '';
+            if (entry.tags) {
+                entry.tags.split(',').forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag';
+                    tagElement.innerHTML = `
+                        ${tag.trim()}
+                        <span class="tag-remove">&times;</span>
+                    `;
+                    
+                    tagElement.querySelector('.tag-remove').addEventListener('click', function() {
+                        tagElement.remove();
+                    });
+                    
+                    tagsList.appendChild(tagElement);
+                });
+            }
+            
+            currentEntryId = entry.id;
+            
+            // Close modal
+            document.getElementById('entry-modal').style.display = 'none';
+            
+            // Scroll to editor
+            document.querySelector('.journal-editor-section').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        async function deleteEntry(entryId) {
+            if (!confirm('Are you sure you want to delete this entry?')) return;
+            
+            try {
+                const { error } = await supabase
+                    .from('journal_entries')
+                    .delete()
+                    .eq('id', entryId);
+                
+                if (error) throw error;
+                
+                utils.showNotification('Entry deleted successfully', 'success');
+                document.getElementById('entry-modal').style.display = 'none';
+                await loadEntries();
+                
+            } catch (error) {
+                console.error('Delete entry error:', error);
+                utils.showNotification('Failed to delete entry', 'error');
+            }
+        }
+    </script>
+    <style>
+        .journal-container {
+            padding: 1rem;
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .section-title {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .journal-editor {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .editor-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        #entry-title {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        #entry-title:focus {
+            outline: none;
+            border-color: var(--spiritual-purple);
+        }
+        
+        .mood-selector-large {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .mood-options-large {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .mood-option {
+            background: white;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mood-option:hover {
+            border-color: var(--spiritual-purple);
+            transform: translateY(-2px);
+        }
+        
+        .mood-option.active {
+            border-color: var(--spiritual-purple);
+            background: rgba(142, 68, 173, 0.1);
+        }
+        
+        .mood-emoji {
+            font-size: 1.5rem;
+        }
+        
+        .mood-option span {
+            font-size: 0.9rem;
+        }
+        
+        #journal-content {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            resize: vertical;
+        }
+        
+        #journal-content:focus {
+            outline: none;
+            border-color: var(--spiritual-purple);
+        }
+        
+        .editor-footer {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .entry-tags {
+            flex: 1;
+        }
+        
+        .tag-container {
+            display: flex;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        
+        #tag-input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .tag {
+            background: var(--light-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tag-remove {
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .journal-entries-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-controls {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .filter-controls select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .entries-list {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .entry-card {
+            padding: 1.5rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .entry-card:hover {
+            border-color: var(--spiritual-purple);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .entry-header h4 {
+            margin: 0;
+        }
+        
+        .entry-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .entry-preview {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .entry-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mood-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            background: #f0f0f0;
+        }
+        
+        .entry-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        .empty-icon {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content.large {
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .entry-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .entry-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            white-space: pre-wrap;
+        }
+        
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        @media (max-width: 768px) {
+            .journal-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .mood-options-large {
+                flex-wrap: wrap;
+            }
+            
+            .editor-footer {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .filter-controls {
+                flex-direction: column;
+            }
+            
+            .modal-content.large {
+                width: 95%;
+                height: 95vh;
+            }
+        }
+    </style>
+</body>
+</html>

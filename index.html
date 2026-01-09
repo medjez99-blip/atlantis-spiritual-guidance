@@ -135,19 +135,23 @@
     document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('current-year').textContent = new Date().getFullYear();
         
-        // Wait a bit for auth to initialize, then update UI
+        // Force auth check and potential redirect
         setTimeout(() => {
-            if (window.auth && typeof window.auth.updateAuthUI === 'function') {
-                window.auth.updateAuthUI();
-            } else {
-                console.warn('Auth not initialized properly');
-                // Fallback: update the user status manually
-                const userStatus = document.getElementById('user-status');
-                if (userStatus) {
-                    userStatus.innerHTML = '<p>' + window.t('guest_message') + '</p>';
+            // Check if user is logged in but on wrong page
+            if (window.auth && window.auth.currentUser) {
+                const currentPath = window.location.pathname;
+                const isIndexPage = currentPath.endsWith('index.html') || 
+                                   currentPath.endsWith('/') || 
+                                   currentPath === '' || 
+                                   currentPath.endsWith('/index');
+                
+                // If logged in and on index page, redirect to dashboard
+                if (isIndexPage) {
+                    console.log('User is logged in on index page, redirecting to dashboard...');
+                    window.location.href = 'pages/dashboard.html';
                 }
             }
-        }, 500);
+        }, 1000); // 1 second delay to ensure auth is initialized
     });
     </script>
 </body>

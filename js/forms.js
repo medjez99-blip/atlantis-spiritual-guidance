@@ -86,7 +86,6 @@ class FormManager {
         auth.showErrorMessage('invalid_email');
         return;
     }
-    
     if (password.length < 6) {
         auth.showErrorMessage('password_length_error');
         return;
@@ -108,17 +107,17 @@ class FormManager {
     if (!result.success) {
         auth.showErrorMessage(result.error || 'Login failed. Please check your credentials.');
     } else {
-        // Force redirect after successful login (redundant but ensures redirect)
+        // Fallback redirect in case auth state change doesn't fire
         setTimeout(() => {
             const currentPath = window.location.pathname;
             const isLoginPage = currentPath.includes('login.html') || 
-                               currentPath.includes('/pages/login.html');
+                              currentPath.includes('/pages/login.html');
             
             if (isLoginPage) {
-                console.log('Forms.js backup redirect to dashboard...');
+                console.log('Fallback redirect to dashboard...');
                 window.location.href = '../pages/dashboard.html';
             }
-        }, 1500);
+        }, 1500); // Slightly longer timeout as fallback
     }
 }
 	

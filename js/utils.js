@@ -455,6 +455,32 @@ class Utils {
     static getInitials(name) {
         return name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
     }
+    static redirectIfAuthenticated() {
+        if (window.auth && window.auth.currentUser) {
+            const currentPath = window.location.pathname;
+            const isLoginPage = currentPath.includes('login.html') || 
+                              currentPath.includes('/pages/login.html');
+            
+            if (isLoginPage && !window.redirectInProgress) {
+                window.redirectInProgress = true;
+                setTimeout(() => {
+                    window.location.href = '../pages/dashboard.html';
+                }, 100);
+            }
+        }
+    }
+
+    static redirectIfNotAuthenticated() {
+        if (!window.auth || !window.auth.currentUser) {
+            const currentPath = window.location.pathname;
+            const isProtectedPage = currentPath.includes('dashboard.html') || 
+                                  currentPath.includes('admin.html');
+            
+            if (isProtectedPage) {
+                window.location.href = '../index.html';
+            }
+        }
+    }
 }
 
 // Global translation helper

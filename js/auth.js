@@ -20,35 +20,34 @@ class AuthManager {
     
     // Listen for auth changes
     this.supabase.auth.onAuthStateChange((event, session) => {
-    console.log('Auth state changed:', event, session?.user?.email);
-    this.currentUser = session?.user || null;
-    this.updateAuthUI();
-    
-    if (event === 'SIGNED_IN') {
-        this.showSuccessMessage(this.translate('welcome_back'));
-        // Only redirect if not already on dashboard
-        const currentPath = window.location.pathname;
-        const isLoginPage = currentPath.includes('login.html') || 
-                          currentPath.includes('/pages/login.html');
-        const isDashboardPage = currentPath.includes('dashboard.html');
+        console.log('Auth state changed:', event, session?.user?.email);
+        this.currentUser = session?.user || null;
+        this.updateAuthUI();
         
-        if (isLoginPage && !isDashboardPage) {
-            console.log('Auth state change redirect to dashboard...');
-            // Clear any existing redirect
-            if (this.signInTimeout) {
-                clearTimeout(this.signInTimeout);
-            }
-            // Redirect after auth state is confirmed
-            setTimeout(() => {
-                if (!window.location.pathname.includes('dashboard.html')) {
+        if (event === 'SIGNED_IN') {
+            this.showSuccessMessage(this.translate('welcome_back'));
+            
+            // Only redirect if we're on login page AND not already in dashboard redirect
+            const currentPath = window.location.pathname;
+            const isLoginPage = currentPath.includes('login.html') || 
+                              currentPath.includes('/pages/login.html');
+            const isDashboardPage = currentPath.includes('dashboard.html');
+            
+            // Add a flag to prevent duplicate redirects
+            if (isLoginPage && !isDashboardPage && !window.redirectInProgress) {
+                window.redirectInProgress = true;
+                console.log('Redirecting to dashboard from auth state change...');
+                
+                // Use a very short delay to ensure UI updates first
+                setTimeout(() => {
                     window.location.href = '../pages/dashboard.html';
-                }
-            }, 300);
+                }, 100);
+            }
+        } else if (event === 'SIGNED_OUT') {
+            this.showInfoMessage(this.translate('logout_success'));
+            window.redirectInProgress = false;
         }
-    } else if (event === 'SIGNED_OUT') {
-        this.showInfoMessage(this.translate('logout_success'));
-    }
-});
+    });
 }
 	
 	// translation helper
@@ -117,23 +116,15 @@ class AuthManager {
 		}
 	}
 	
-    // Sign in user (no changes needed)
-    async signIn(email, password) {
+    // Sign in user - Improved with consistent redirect
+async signIn(email, password) {
     try {
-        // Clear any existing timeout
-        if (this.signInTimeout) {
-            clearTimeout(this.signInTimeout);
-        }
-        
         const { data, error } = await this.supabase.auth.signInWithPassword({
             email,
             password
         });
         
-        if (error) {
-            console.error('Sign in error:', error);
-            throw error;
-        }
+        if (error) throw error;
         
         // Immediately set current user and update UI
         this.currentUser = data.user;
@@ -142,28 +133,21 @@ class AuthManager {
         // Show success message
         this.showSuccessMessage(this.translate('welcome_back'));
         
-        // FORCE REDIRECT IMMEDIATELY - No waiting for auth state change
-        // Check if we're on login page
+        // Always redirect if we're on login page
         const currentPath = window.location.pathname;
         const isLoginPage = currentPath.includes('login.html') || 
-                          currentPath.includes('/pages/login.html');
-        const isDashboardPage = currentPath.includes('dashboard.html');
+                           currentPath.includes('/pages/login.html');
         
-        if (isLoginPage && !isDashboardPage) {
-            console.log('Immediate redirect to dashboard...');
-            // Use a very short delay to allow UI update
-            this.signInTimeout = setTimeout(() => {
-                window.location.href = '../pages/dashboard.html';
-            }, 100);
+        if (isLoginPage) {
+            console.log('Redirecting to dashboard...');
+            // Use immediate redirect instead of timeout
+            window.location.href = '../pages/dashboard.html';
         }
         
         return { success: true, data };
     } catch (error) {
         console.error('Sign in error:', error);
-        return { 
-            success: false, 
-            error: error.message || 'Login failed. Please check your credentials.' 
-        };
+        return { success: false, error: error.message };
     }
 }
 	
@@ -420,14 +404,6 @@ async setSessionFromToken(accessToken, refreshToken) {
 			};
 		}
 	}
-shouldRedirectToDashboard() {
-    const currentPath = window.location.pathname;
-    const isLoginPage = currentPath.includes('login.html') || 
-                       currentPath.includes('/pages/login.html');
-    const isDashboardPage = currentPath.includes('dashboard.html');
-    
-    return this.currentUser && isLoginPage && !isDashboardPage;
-}
 }
 
 // Initialize auth manager

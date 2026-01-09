@@ -77,38 +77,49 @@ class FormManager {
 	
     // Handle login
     async handleLogin(e) {
-		e.preventDefault();
-		const email = document.getElementById('login-email').value;
-		const password = document.getElementById('login-password').value;
-		
-		// Validate
-		if (!this.validateEmail(email)) {
-			auth.showErrorMessage('invalid_email');
-			return;
-		}
-		
-		if (password.length < 6) {
-			auth.showErrorMessage('password_length_error');
-			return;
-		}
-		
-        // Show loading
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + this.translate('logging_in');
-        submitBtn.disabled = true;
-		
-        // Sign in
-        const result = await auth.signIn(email, password);
-		
-        // Reset button
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-		
-        if (!result.success) {
-            auth.showErrorMessage(result.error || 'Login failed. Please check your credentials.');
-		}
-	}
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    
+    // Validate
+    if (!this.validateEmail(email)) {
+        auth.showErrorMessage('invalid_email');
+        return;
+    }
+    if (password.length < 6) {
+        auth.showErrorMessage('password_length_error');
+        return;
+    }
+    
+    // Show loading
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + this.translate('logging_in');
+    submitBtn.disabled = true;
+    
+    // Sign in
+    const result = await auth.signIn(email, password);
+    
+    // Reset button
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+    
+    if (!result.success) {
+        auth.showErrorMessage(result.error || 'Login failed. Please check your credentials.');
+    } else {
+        // Fallback redirect in case auth state change doesn't fire
+        setTimeout(() => {
+            const currentPath = window.location.pathname;
+            const isLoginPage = currentPath.includes('login.html') || 
+                              currentPath.includes('/pages/login.html');
+            
+            if (isLoginPage) {
+                console.log('Fallback redirect to dashboard...');
+                window.location.href = '../pages/dashboard.html';
+            }
+        }, 1500); // Slightly longer timeout as fallback
+    }
+}
 	
     // Handle signup
     async handleSignup(e) {

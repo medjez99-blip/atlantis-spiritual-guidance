@@ -11,31 +11,39 @@ class AuthManager {
 	}
 	
     async init() {
-        // Check existing session
-        const { data: { session } } = await this.supabase.auth.getSession();
+    // Check existing session
+    const { data: { session } } = await this.supabase.auth.getSession();
+    this.currentUser = session?.user || null;
+    
+    // Update UI immediately
+    this.updateAuthUI();
+    
+    // Listen for auth changes
+    this.supabase.auth.onAuthStateChange((event, session) => {
+        console.log('Auth state changed:', event, session?.user?.email);
         this.currentUser = session?.user || null;
-        
-        // Listen for auth changes
-        this.supabase.auth.onAuthStateChange((event, session) => {
-            this.currentUser = session?.user || null;
-            this.updateAuthUI();
-            
-            if (event === 'SIGNED_IN') {
-                this.showSuccessMessage(this.translate('welcome_back'));
-                // Redirect to dashboard if we're on login page
-                if (window.location.pathname.includes('login.html')) {
-                    setTimeout(() => {
-                        window.location.href = '../pages/dashboard.html';
-					}, 1000);
-				}
-				} else if (event === 'SIGNED_OUT') {
-                this.showInfoMessage(this.translate('logout_success'));
-			}
-		});
-        
-        // Initial UI update
         this.updateAuthUI();
-	}
+        
+        if (event === 'SIGNED_IN') {
+            this.showSuccessMessage(this.translate('welcome_back'));
+            
+            // Only redirect if we're on login page and not already redirected
+            const currentPath = window.location.pathname;
+            const isLoginPage = currentPath.includes('login.html') || 
+                              currentPath.includes('/pages/login.html');
+            const isDashboardPage = currentPath.includes('dashboard.html');
+            
+            if (isLoginPage && !isDashboardPage) {
+                console.log('Redirecting to dashboard from auth state change...');
+                setTimeout(() => {
+                    window.location.href = '../pages/dashboard.html';
+                }, 500);
+            }
+        } else if (event === 'SIGNED_OUT') {
+            this.showInfoMessage(this.translate('logout_success'));
+        }
+    });
+}
 	
 	// translation helper
 	translate(key, defaultText = '') {
@@ -105,19 +113,36 @@ class AuthManager {
 	
     // Sign in user (no changes needed)
     async signIn(email, password) {
-        try {
-            const { data, error } = await this.supabase.auth.signInWithPassword({
-                email,
-                password
-			});
-            
-            if (error) throw error;
-            return { success: true, data };
-			} catch (error) {
-            console.error('Sign in error:', error);
-            return { success: false, error: error.message };
-		}
-	}
+    try {
+        const { data, error } = await this.supabase.auth.signInWithPassword({
+            email,
+            password
+        });
+        
+        if (error) throw error;
+        
+        // Immediately set current user and update UI
+        this.currentUser = data.user;
+        this.updateAuthUI();
+        
+        // Show success message
+        this.showSuccessMessage(this.translate('welcome_back'));
+        
+        // Always redirect if we're on login page, regardless of auth state change
+        if (window.location.pathname.includes('login.html') || 
+            window.location.pathname.includes('/pages/login.html')) {
+            // Use a small delay to ensure message is shown
+            setTimeout(() => {
+                window.location.href = '../pages/dashboard.html';
+            }, 300);
+        }
+        
+        return { success: true, data };
+    } catch (error) {
+        console.error('Sign in error:', error);
+        return { success: false, error: error.message };
+    }
+}
 	
     // Sign out user
     async signOut() {

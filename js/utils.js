@@ -154,6 +154,10 @@ translate(key, defaultText = '') {
 "go_to_login": "Go to Login",
 "sending": "Sending...",
 "updating": "Updating...",
+"processing_reset_link": "Processing reset link...",
+"invalid_reset_link": "Invalid or expired reset link. Please request a new one.",
+"reset_link_error": "Error processing reset link. Please request a new one.",
+"email_required": "Please enter your email",
 "reset_email_sent": "Password reset email sent! Check your inbox.",
 "reset_request_failed": "Failed to send reset email. Please try again.",
 "password_update_failed": "Failed to update password. Please try again."
@@ -268,6 +272,10 @@ translate(key, defaultText = '') {
 "go_to_login": "الذهاب لتسجيل الدخول",
 "sending": "جاري الإرسال...",
 "updating": "جاري التحديث...",
+"processing_reset_link": "جاري معالجة رابط إعادة التعيين...",
+"invalid_reset_link": "رابط إعادة التعيين غير صالح أو منتهي الصلاحية. يرجى طلب رابط جديد.",
+"reset_link_error": "خطأ في معالجة رابط إعادة التعيين. يرجى طلب رابط جديد.",
+"email_required": "يرجى إدخال بريدك الإلكتروني",
 "reset_email_sent": "تم إرسال بريد إعادة تعيين كلمة المرور! تحقق من بريدك الوارد.",
 "reset_request_failed": "فشل إرسال بريد إعادة التعيين. يرجى المحاولة مرة أخرى.",
 "password_update_failed": "فشل تحديث كلمة المرور. يرجى المحاولة مرة أخرى."

@@ -20,34 +20,35 @@ class AuthManager {
     
     // Listen for auth changes
     this.supabase.auth.onAuthStateChange((event, session) => {
-        console.log('Auth state changed:', event, session?.user?.email);
-        this.currentUser = session?.user || null;
-        this.updateAuthUI();
+    console.log('Auth state changed:', event, session?.user?.email);
+    this.currentUser = session?.user || null;
+    this.updateAuthUI();
+    
+    if (event === 'SIGNED_IN') {
+        this.showSuccessMessage(this.translate('welcome_back'));
         
-        if (event === 'SIGNED_IN') {
-            this.showSuccessMessage(this.translate('welcome_back'));
+        // Check if we're on a login page
+        const currentPath = window.location.pathname;
+        const isLoginPage = currentPath.includes('login') && 
+                           (currentPath.endsWith('login') || 
+                            currentPath.includes('login.html'));
+        const isDashboardPage = currentPath.includes('dashboard.html');
+        
+        // Add a flag to prevent duplicate redirects
+        if (isLoginPage && !isDashboardPage && !window.redirectInProgress) {
+            window.redirectInProgress = true;
+            console.log('Redirecting to dashboard from auth state change...');
             
-            // Only redirect if we're on login page AND not already in dashboard redirect
-            const currentPath = window.location.pathname;
-            const isLoginPage = currentPath.includes('login.html') || 
-                              currentPath.includes('/pages/login.html');
-            const isDashboardPage = currentPath.includes('dashboard.html');
-            
-            // Add a flag to prevent duplicate redirects
-            if (isLoginPage && !isDashboardPage && !window.redirectInProgress) {
-                window.redirectInProgress = true;
-                console.log('Redirecting to dashboard from auth state change...');
-                
-                // Use a very short delay to ensure UI updates first
-                setTimeout(() => {
-                    window.location.href = '../pages/dashboard.html';
-                }, 100);
-            }
-        } else if (event === 'SIGNED_OUT') {
-            this.showInfoMessage(this.translate('logout_success'));
-            window.redirectInProgress = false;
+            // Use a very short delay to ensure UI updates first
+            setTimeout(() => {
+                window.location.href = '../pages/dashboard.html';
+            }, 100);
         }
-    });
+    } else if (event === 'SIGNED_OUT') {
+        this.showInfoMessage(this.translate('logout_success'));
+        window.redirectInProgress = false;
+    }
+});
 }
 	
 	// translation helper
@@ -133,14 +134,15 @@ async signIn(email, password) {
         // Show success message
         this.showSuccessMessage(this.translate('welcome_back'));
         
-        // Always redirect if we're on login page
+        // Check if we're on a login page (with or without .html extension)
         const currentPath = window.location.pathname;
-        const isLoginPage = currentPath.includes('login.html') || 
-                           currentPath.includes('/pages/login.html');
+        const isLoginPage = currentPath.includes('login') && 
+                           (currentPath.endsWith('login') || 
+                            currentPath.includes('login.html'));
         
         if (isLoginPage) {
-            console.log('Redirecting to dashboard...');
-            // Use immediate redirect instead of timeout
+            console.log('Redirecting to dashboard from signIn...');
+            // Use immediate redirect
             window.location.href = '../pages/dashboard.html';
         }
         

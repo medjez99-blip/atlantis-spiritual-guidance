@@ -86,6 +86,7 @@ class FormManager {
         auth.showErrorMessage('invalid_email');
         return;
     }
+    
     if (password.length < 6) {
         auth.showErrorMessage('password_length_error');
         return;
@@ -107,17 +108,17 @@ class FormManager {
     if (!result.success) {
         auth.showErrorMessage(result.error || 'Login failed. Please check your credentials.');
     } else {
-        // Fallback redirect in case auth state change doesn't fire
+        // Fallback redirect in case other redirects don't fire
         setTimeout(() => {
             const currentPath = window.location.pathname;
-            const isLoginPage = currentPath.includes('login.html') || 
-                              currentPath.includes('/pages/login.html');
-            
+            const isLoginPage = currentPath.includes('login') && 
+                               (currentPath.endsWith('login') || 
+                                currentPath.includes('login.html'));
             if (isLoginPage) {
                 console.log('Fallback redirect to dashboard...');
                 window.location.href = '../pages/dashboard.html';
             }
-        }, 1500); // Slightly longer timeout as fallback
+        }, 2000); // Longer timeout as final fallback
     }
 }
 	

@@ -46,22 +46,197 @@ body {
     z-index: 1000;
     display: flex;
     gap: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    padding: 5px;
+    backdrop-filter: blur(10px);
 }
 
 .lang-btn {
-    padding: 5px 15px;
-    border: 2px solid var(--light-color);
+    padding: 8px 20px;
+    border: 2px solid transparent;
     background: transparent;
     color: var(--light-color);
-    border-radius: 20px;
+    border-radius: 15px;
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s ease;
+    opacity: 1;
+    transform: scale(1);
 }
 
 .lang-btn.active {
     background: var(--light-color);
     color: var(--primary-color);
+    border-color: var(--light-color);
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Hide non-active language button */
+.lang-btn:not(.active) {
+    opacity: 0;
+    transform: scale(0);
+    width: 0;
+    padding: 8px 0;
+    margin: 0;
+    border: none;
+    position: absolute;
+    pointer-events: none;
+}
+
+/* Special style for auth language switcher */
+.auth-language {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.auth-language .lang-btn {
+    padding: 6px 18px;
+    font-size: 0.9rem;
+}
+
+/* Dashboard language switcher */
+.dashboard-header .language-switcher {
+    position: static;
+    background: rgba(0, 0, 0, 0.05);
+    margin-left: 10px;
+}
+
+.dashboard-header .lang-btn {
+    color: var(--dark-color);
+}
+
+.dashboard-header .lang-btn.active {
+    background: var(--spiritual-purple);
+    color: white;
+}
+
+/* RTL Support for language switcher */
+[dir="rtl"] .language-switcher {
+    left: 20px;
+    right: auto;
+}
+
+/* Smooth transition for language change */
+.lang-btn {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effect for language switcher container */
+.language-switcher:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.language-switcher:hover .lang-btn:not(.active) {
+    opacity: 0.7;
+    transform: scale(1);
+    width: auto;
+    padding: 8px 20px;
+    margin: 0;
+    position: static;
+    pointer-events: auto;
+    border: 2px solid transparent;
+}
+
+.language-switcher:hover .lang-btn:not(.active):hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive adjustments for language switcher */
+@media (max-width: 768px) {
+    .language-switcher {
+        position: fixed;
+        top: 15px;
+        left: 15px; /* Move to left side */
+        right: auto; /* Remove right positioning */
+        z-index: 1000; /* Ensure it's above navbar */
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 20px;
+        padding: 3px;
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Make language switcher smaller on mobile */
+    .lang-btn {
+        padding: 6px 15px; /* Slightly smaller padding */
+        font-size: 0.85rem;
+    }
+    
+    /* Adjust nav container to have better spacing */
+    .nav-container {
+        padding: 0.75rem 1rem; /* Reduce padding further */
+        position: relative;
+    }
+    
+    /* When navbar menu is active, push language switcher down */
+    .nav-menu.active ~ .language-switcher {
+        top: 80px; /* Position below the opened menu */
+        right: 15px;
+        z-index: 997; /* Below the active menu */
+    }
+    
+    /* On mobile, always show both buttons when container is hovered/tapped */
+    .language-switcher:active .lang-btn:not(.active),
+    .language-switcher:focus-within .lang-btn:not(.active) {
+        opacity: 0.7;
+        transform: scale(1);
+        width: auto;
+        padding: 6px 15px;
+        margin: 0;
+        position: static;
+        pointer-events: auto;
+    }
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        position: relative;
+        z-index: 1000;
+        width: 30px;
+        height: 30px;
+        margin-left: auto;
+        margin-right: 15px; /* Add right margin to make space for language switcher */
+    }
+}
+
+/* For very small screens, make further adjustments */
+@media (max-width: 480px) {
+    .language-switcher {
+        right: 10px; /* Less space on very small screens */
+        padding: 2px;
+    }
+    
+    .hamburger {
+        margin-right: 40px; /* Less margin on very small screens */
+    }
+    
+    /* Make language switcher even more compact */
+    .lang-btn {
+        padding: 4px 12px;
+        font-size: 0.8rem;
+    }
+    
+    /* Hide non-active language button on very small screens when not hovered */
+    .language-switcher:not(:hover) .lang-btn:not(.active) {
+        opacity: 0;
+        transform: scale(0);
+        width: 0;
+        padding: 4px 0;
+        margin: 0;
+        position: absolute;
+    }
+}
+
+/* Animation for language switch */
+@keyframes languageSwitch {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.lang-btn.active {
+    animation: languageSwitch 0.3s ease-out;
 }
 
 /* Navigation */
@@ -959,12 +1134,59 @@ footer {
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
+        position: fixed;
+        top: 70px; /* Adjust based on your navbar height */
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 2rem;
+        transition: left 0.3s ease;
+        z-index: 998;
+        overflow-y: auto;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .nav-menu a {
+        display: block;
+        padding: 1rem 0;
+        width: 100%;
+        font-size: 1.2rem;
+        border-bottom: 1px solid rgba(44, 62, 80, 0.1);
+    }
+    
+    .nav-menu a::after {
         display: none;
+    }
+    
+    .nav-auth {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 0;
     }
     
     .hamburger {
         display: block;
         cursor: pointer;
+        position: relative;
+        z-index: 1000; /* Increased to ensure it's above language switcher */
+        width: 30px;
+        height: 30px;
+        margin-left: auto;
     }
     
     .hamburger span {
@@ -973,6 +1195,20 @@ footer {
         height: 3px;
         background: var(--dark-color);
         margin: 5px 0;
+        transition: all 0.3s ease;
+    }
+    
+    /* Hamburger animation when active */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
     }
     
     .hero {

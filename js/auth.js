@@ -6,6 +6,11 @@ if (!window.redirectInProgress) {
     window.redirectInProgress = false;
 }
 
+// Mobile detection helper
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 class AuthManager {
     constructor() {
     this.currentUser = null;
@@ -15,31 +20,74 @@ class AuthManager {
 	}
 	
     async init() {
-    // Check existing session
-    const { data: { session } } = await this.supabase.auth.getSession();
-    this.currentUser = session?.user || null;
-    
-    // Update UI immediately
-    this.updateAuthUI();
-    
-    // Listen for auth changes
-    this.supabase.auth.onAuthStateChange((event, session) => {
-    console.log('Auth state changed:', event, session?.user?.email);
-    this.currentUser = session?.user || null;
-    this.updateAuthUI();
-    
-    if (event === 'SIGNED_IN') {
-    console.log('User signed in:', session?.user?.email);
-    this.showSuccessMessage(this.translate('welcome_back'));
-    
-    // DO NOT redirect here at all
-    // Let the signIn method handle the redirect
-} else if (event === 'SIGNED_OUT') {
-        this.showInfoMessage(this.translate('logout_success'));
-        window.redirectInProgress = false;
+        // First, check for session from URL fragment (for password reset)
+        const hash = window.location.hash;
+        const params = new URLSearchParams(hash.substring(1));
+        const accessToken = params.get('access_token');
+        const refreshToken = params.get('refresh_token');
+        
+        if (accessToken && refreshToken) {
+            try {
+                const { data, error } = await this.supabase.auth.setSession({
+                    access_token: accessToken,
+                    refresh_token: refreshToken
+                });
+                if (error) throw error;
+                
+                // Clear URL fragment
+                window.history.replaceState({}, document.title, 
+                    window.location.pathname + window.location.search);
+            } catch (error) {
+                console.error('Error setting session from URL:', error);
+            }
+        }
+        
+        // Check existing session
+        const { data: { session } } = await this.supabase.auth.getSession();
+        this.currentUser = session?.user || null;
+        
+        // Update UI immediately
+        this.updateAuthUI();
+        
+        // Mobile detection helper
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // Listen for auth changes
+        this.supabase.auth.onAuthStateChange((event, session) => {
+            console.log('Auth state changed:', event, session?.user?.email);
+            this.currentUser = session?.user || null;
+            this.updateAuthUI();
+            
+            // Prevent multiple redirects on mobile
+            if (window.redirectInProgress) return;
+            
+            if (event === 'SIGNED_IN') {
+                console.log('User signed in:', session?.user?.email);
+                this.showSuccessMessage(this.translate('welcome_back'));
+                
+                // Check if we're on login page and redirect
+                const currentPath = window.location.pathname;
+                const isLoginPage = currentPath.includes('login.html');
+                
+                if (isLoginPage && !window.location.hash.includes('access_token')) {
+                    window.redirectInProgress = true;
+                    
+                    // Longer timeout for mobile
+                    const timeout = isMobile ? 1000 : 300;
+                    
+                    setTimeout(() => {
+                        if (window.location.pathname.includes('login.html')) {
+                            console.log('Redirecting to dashboard from login page');
+                            window.location.href = '../pages/dashboard.html';
+                        }
+                    }, timeout);
+                }
+            } else if (event === 'SIGNED_OUT') {
+                this.showInfoMessage(this.translate('logout_success'));
+                window.redirectInProgress = false;
+            }
+        });
     }
-});
-}
 	
 	// translation helper
 	translate(key, defaultText = '') {

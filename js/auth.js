@@ -29,38 +29,12 @@ class AuthManager {
     this.updateAuthUI();
     
     if (event === 'SIGNED_IN') {
-        this.showSuccessMessage(this.translate('welcome_back'));
-        
-        // Check current page
-        const currentPath = window.location.pathname;
-        const isLoginPage = currentPath.includes('login') && 
-                           (currentPath.endsWith('login') || 
-                            currentPath.includes('login.html'));
-        const isDashboardPage = currentPath.includes('dashboard.html');
-        
-        // Only redirect if:
-        // 1. We're on login page
-        // 2. We're NOT already on dashboard
-        // 3. No redirect is already in progress
-        if (isLoginPage && !isDashboardPage && !window.redirectInProgress) {
-            window.redirectInProgress = true;
-            console.log('Redirecting to dashboard from auth state change...');
-            
-            // Clear the flag after redirect
-            setTimeout(() => {
-                if (window.redirectInProgress) {
-                    window.redirectInProgress = false;
-                }
-            }, 2000);
-            
-            // Redirect with delay to prevent race conditions
-            setTimeout(() => {
-                if (window.location.pathname.includes('login')) {
-                    window.location.href = '../pages/dashboard.html';
-                }
-            }, 1000);
-        }
-    } else if (event === 'SIGNED_OUT') {
+    console.log('User signed in:', session?.user?.email);
+    this.showSuccessMessage(this.translate('welcome_back'));
+    
+    // DO NOT redirect here at all
+    // Let the signIn method handle the redirect
+} else if (event === 'SIGNED_OUT') {
         this.showInfoMessage(this.translate('logout_success'));
         window.redirectInProgress = false;
     }
@@ -136,6 +110,8 @@ class AuthManager {
     // Sign in user - Improved with consistent redirect
 async signIn(email, password) {
     try {
+        console.log('Signing in...');
+        
         const { data, error } = await this.supabase.auth.signInWithPassword({
             email,
             password
@@ -143,31 +119,15 @@ async signIn(email, password) {
         
         if (error) throw error;
         
-        // Immediately set current user and update UI
-        this.currentUser = data.user;
-        this.updateAuthUI();
-        
         // Show success message
         this.showSuccessMessage(this.translate('welcome_back'));
         
-        // Check if we're on a login page
-        const currentPath = window.location.pathname;
-        const isLoginPage = currentPath.includes('login') && 
-                           (currentPath.endsWith('login') || 
-                            currentPath.includes('login.html'));
+        // Wait a moment for session to settle
+        await new Promise(resolve => setTimeout(resolve, 300));
         
-        // IMPORTANT: Only redirect if we're on a login page
-        // AND we're not already on the dashboard
-        if (isLoginPage) {
-            console.log('Redirecting to dashboard from signIn...');
-            // Use a short timeout to allow UI updates
-            setTimeout(() => {
-                // Check if we're already on dashboard to prevent loops
-                if (!window.location.pathname.includes('dashboard.html')) {
-                    window.location.href = '../pages/dashboard.html';
-                }
-            }, 500);
-        }
+        // ALWAYS redirect to dashboard after successful login
+        // No conditions, just redirect
+        window.location.href = '../pages/dashboard.html';
         
         return { success: true, data };
     } catch (error) {

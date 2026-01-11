@@ -1427,3 +1427,377 @@ footer {
 #reset-success .btn-primary {
     margin-top: 1rem;
 }
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 50px auto;
+    padding: 0;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s ease;
+    overflow: hidden;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    color: white;
+    font-family: var(--font-heading);
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.modal-close:hover {
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* Journey Steps */
+.journey-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.journey-step {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid var(--spiritual-purple);
+    transition: transform 0.3s ease;
+}
+
+.journey-step:hover {
+    transform: translateX(5px);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, var(--spiritual-purple), var(--accent-color));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h3 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.step-content p {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+/* Step Actions */
+.step-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.step-action {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+}
+
+/* Service Options */
+.service-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.service-option {
+    background: rgba(142, 68, 173, 0.1);
+    padding: 0.8rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.service-option:hover {
+    background: rgba(142, 68, 173, 0.2);
+    border-color: var(--spiritual-purple);
+    transform: translateY(-2px);
+}
+
+.service-option i {
+    font-size: 1.5rem;
+    color: var(--spiritual-purple);
+}
+
+.service-option span {
+    font-size: 0.9rem;
+    text-align: center;
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
+/* Intention Selection - Modal specific */
+#journey-modal .intention-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+#journey-modal .intention-option {
+    background: rgba(52, 152, 219, 0.1);
+    padding: 0.8rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+#journey-modal .intention-option:hover {
+    background: rgba(52, 152, 219, 0.2);
+    transform: translateY(-2px);
+}
+
+#journey-modal .intention-option.selected {
+    background: rgba(52, 152, 219, 0.3);
+    border-color: var(--secondary-color);
+}
+
+#journey-modal .intention-option i {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+}
+
+#journey-modal .intention-option span {
+    font-size: 0.9rem;
+    text-align: center;
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
+#journey-modal .selected-intention {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background: rgba(142, 68, 173, 0.1);
+    border-radius: 8px;
+    border-left: 3px solid var(--spiritual-purple);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    display: none; /* Hide by default */
+}
+
+#journey-modal .selected-intention span:first-child {
+    font-weight: bold;
+    color: var(--spiritual-purple);
+}
+
+#journey-modal #selected-intention-text {
+    color: var(--dark-color);
+}
+
+/* Practice Tips */
+.practice-tips {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.tip {
+    background: rgba(39, 174, 96, 0.1);
+    padding: 0.8rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.tip:hover {
+    background: rgba(39, 174, 96, 0.2);
+    transform: translateY(-2px);
+}
+
+.tip i {
+    font-size: 1.2rem;
+    color: var(--success-color);
+}
+
+.tip span {
+    font-size: 0.9rem;
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
+/* Start Practice Button */
+#journey-modal .start-practice {
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+/* Contact Guide Button */
+#journey-modal .contact-guide {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+/* Journey Footer */
+#journey-modal .journey-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+    text-align: center;
+    color: #666;
+}
+
+#journey-modal .journey-footer p {
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustments for modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 20px auto;
+        max-height: 95vh;
+    }
+    
+    .journey-step {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .step-number {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .step-actions {
+        flex-direction: column;
+    }
+    
+    .step-action {
+        width: 100%;
+    }
+    
+    .service-options {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    #journey-modal .intention-selection {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .practice-tips {
+        grid-template-columns: 1fr;
+    }
+    
+    #journey-modal .start-practice {
+        padding: 12px 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-header {
+        padding: 1rem;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .service-options {
+        grid-template-columns: 1fr;
+    }
+    
+    #journey-modal .intention-selection {
+        grid-template-columns: 1fr;
+    }
+}

@@ -45,7 +45,7 @@
         <div class="hero-content">
             <h2 data-i18n="hero_title">Find Your Inner Peace</h2>
             <p data-i18n="hero_subtitle">Journey through ancient wisdom and modern spiritual practices</p>
-            <a href="pages/login.html" class="btn-primary" data-i18n="hero_cta">Begin Your Journey</a>
+            <button class="btn-primary" id="open-journey-modal" data-i18n="hero_cta">Begin Your Journey</button>
         </div>
         <div class="hero-image">
     <div class="sacred-geometry">
@@ -123,6 +123,108 @@
             </div>
         </div>
     </footer>
+<!-- Journey Path Modal -->
+<div class="modal" id="journey-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 data-i18n="journey_modal_title">Begin Your Spiritual Journey</h2>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="journey-steps">
+                <!-- Step 1 -->
+                <div class="journey-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 data-i18n="step1_title">Create Your Account</h3>
+                        <p data-i18n="step1_desc">Sign up for free and create your personal spiritual profile</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="journey-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 data-i18n="step2_title">Choose Your Path</h3>
+                        <p data-i18n="step2_desc">Select from our spiritual services that resonate with you</p>
+                        <div class="service-options">
+                            <div class="service-option">
+                                <i class="fas fa-moon"></i>
+                                <span data-i18n="service_meditation">Guided Meditations</span>
+                            </div>
+                            <div class="service-option">
+                                <i class="fas fa-book-open"></i>
+                                <span data-i18n="service_wisdom">Wisdom Library</span>
+                            </div>
+                            <div class="service-option">
+                                <i class="fas fa-users"></i>
+                                <span data-i18n="service_community">Community Circles</span>
+                            </div>
+                            <div class="service-option">
+                                <i class="fas fa-chart-line"></i>
+                                <span data-i18n="service_tracking">Growth Tracking</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="journey-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 data-i18n="step3_title">Set Your Intentions</h3>
+                        <p data-i18n="step3_desc">Define your spiritual goals and daily practice preferences</p>
+                        <div class="intention-selection">
+                            <div class="intention-option" data-intention="mindfulness">
+                                <i class="fas fa-brain"></i>
+                                <span data-i18n="intention_mindfulness">Mindfulness</span>
+                            </div>
+                            <div class="intention-option" data-intention="compassion">
+                                <i class="fas fa-heart"></i>
+                                <span data-i18n="intention_compassion">Compassion</span>
+                            </div>
+                            <div class="intention-option" data-intention="growth">
+                                <i class="fas fa-seedling"></i>
+                                <span data-i18n="intention_growth">Personal Growth</span>
+                            </div>
+                            <div class="intention-option" data-intention="balance">
+                                <i class="fas fa-balance-scale"></i>
+                                <span data-i18n="intention_balance">Balance</span>
+                            </div>
+                        </div>
+                        <div class="selected-intention" style="display: none;">
+                            <span data-i18n="selected_intention">Selected:</span>
+                            <span id="selected-intention-text"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="journey-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 data-i18n="step4_title">Begin Your Practice</h3>
+                        <p data-i18n="step4_desc">Start with guided sessions and track your progress</p>
+                        <div class="practice-tips">
+                            <div class="tip">
+                                <i class="fas fa-calendar-check"></i>
+                                <span data-i18n="tip_daily">Daily 10-minute practice</span>
+                            </div>
+                            <div class="tip">
+                                <i class="fas fa-journal-whills"></i>
+                                <span data-i18n="tip_journal">Keep a spiritual journal</span>
+                            </div>
+                            <div class="tip">
+                                <i class="fas fa-comments"></i>
+                                <span data-i18n="tip_community">Join community discussions</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -135,24 +237,134 @@
     document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('current-year').textContent = new Date().getFullYear();
         
-        // Force auth check and potential redirect
+        // Wait a bit for auth to initialize, then update UI
         setTimeout(() => {
-            // Check if user is logged in but on wrong page
-            if (window.auth && window.auth.currentUser) {
-                const currentPath = window.location.pathname;
-                const isIndexPage = currentPath.endsWith('index.html') || 
-                                   currentPath.endsWith('/') || 
-                                   currentPath === '' || 
-                                   currentPath.endsWith('/index');
-                
-                // If logged in and on index page, redirect to dashboard
-                if (isIndexPage) {
-                    console.log('User is logged in on index page, redirecting to dashboard...');
-                    window.location.href = 'pages/dashboard.html';
+            if (window.auth && typeof window.auth.updateAuthUI === 'function') {
+                window.auth.updateAuthUI();
+            } else {
+                console.warn('Auth not initialized properly');
+                // Fallback: update the user status manually
+                const userStatus = document.getElementById('user-status');
+                if (userStatus) {
+                    userStatus.innerHTML = '<p>' + window.t('guest_message') + '</p>';
                 }
             }
-        }, 1000); // 1 second delay to ensure auth is initialized
+        }, 500);
     });
+document.addEventListener('DOMContentLoaded', function() {
+    // Get modal elements
+    const journeyModal = document.getElementById('journey-modal');
+    const openModalBtn = document.getElementById('open-journey-modal');
+    const closeModalBtn = document.querySelector('.modal-close');
+    
+    // Modal open/close functions
+    function openModal() {
+        journeyModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = getScrollbarWidth() + 'px';
+    }
+    
+    function closeModal() {
+        journeyModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        document.body.style.paddingRight = '0';
+    }
+    
+    // Calculate scrollbar width to prevent layout shift
+    function getScrollbarWidth() {
+        return window.innerWidth - document.documentElement.clientWidth;
+    }
+    
+    // Open modal when button is clicked
+    if (openModalBtn) {
+        openModalBtn.addEventListener('click', openModal);
+    }
+    
+    // Close modal when close button is clicked
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
+    }
+    
+    // Close modal when clicking outside the modal content
+    journeyModal.addEventListener('click', function(event) {
+        if (event.target === journeyModal) {
+            closeModal();
+        }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && journeyModal.style.display === 'block') {
+            closeModal();
+        }
+    });
+    
+    // Step 3: Intention selection (keep this functionality)
+    const intentionOptions = document.querySelectorAll('.intention-option');
+    const selectedIntentionDiv = document.querySelector('.selected-intention');
+    const selectedIntentionText = document.getElementById('selected-intention-text');
+    
+    intentionOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            // Remove selected class from all options
+            intentionOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            this.classList.add('selected');
+            
+            // Get the intention text
+            const intention = this.querySelector('span').textContent;
+            selectedIntentionText.textContent = intention;
+            
+            // Show the selected intention display
+            selectedIntentionDiv.style.display = 'flex';
+            
+            // Save to localStorage for later use
+            localStorage.setItem('selectedIntention', this.getAttribute('data-intention'));
+        });
+    });
+    
+    // Load previously selected intention if any
+    const savedIntention = localStorage.getItem('selectedIntention');
+    if (savedIntention) {
+        const intentionOption = document.querySelector(`.intention-option[data-intention="${savedIntention}"]`);
+        if (intentionOption) {
+            intentionOption.classList.add('selected');
+            selectedIntentionText.textContent = intentionOption.querySelector('span').textContent;
+            selectedIntentionDiv.style.display = 'flex';
+        }
+    }
+});
     </script>
+<script>
+    // Mobile menu toggle functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                // Toggle active class on hamburger
+                hamburger.classList.toggle('active');
+                
+                // Toggle active class on nav menu
+                navMenu.classList.toggle('active');
+                
+                // Optional: Prevent body scroll when menu is open
+                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            });
+            
+            // Close menu when clicking on a link (optional)
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+    });
+</script>
 </body>
 </html>

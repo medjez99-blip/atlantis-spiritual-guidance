@@ -24,15 +24,17 @@
         </div>
 
         <nav class="sidebar-nav">
-            <ul>
-                <li class="active"><a href="#"><i class="fas fa-home"></i> <span data-i18n="dashboard_home">Dashboard</span></a></li>
-                <li><a href="#meditations"><i class="fas fa-moon"></i> <span data-i18n="nav_meditations">Meditations</span></a></li>
-                <li><a href="#journal"><i class="fas fa-book"></i> <span data-i18n="journal_title">Spiritual Journal</span></a></li>
-                <li><a href="#progress"><i class="fas fa-chart-line"></i> <span data-i18n="progress_title">Progress</span></a></li>
-                <li><a href="#community"><i class="fas fa-users"></i> <span data-i18n="nav_community">Community</span></a></li>
-                <li><a href="#settings"><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></a></li>
-            </ul>
-        </nav>
+    <ul>
+        <!-- Add Home link at the top -->
+        <li><a href="../index.html" id="sidebar-home"><i class="fas fa-home"></i> <span data-i18n="nav_home">Home</span></a></li>
+        <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> <span data-i18n="dashboard_home">Dashboard</span></a></li>
+        <li><a href="#meditations"><i class="fas fa-moon"></i> <span data-i18n="nav_meditations">Meditations</span></a></li>
+        <li><a href="#journal"><i class="fas fa-book"></i> <span data-i18n="journal_title">Spiritual Journal</span></a></li>
+        <li><a href="#progress"><i class="fas fa-chart-line"></i> <span data-i18n="progress_title">Progress</span></a></li>
+        <li><a href="#community"><i class="fas fa-users"></i> <span data-i18n="nav_community">Community</span></a></li>
+        <li><a href="#settings"><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></a></li>
+    </ul>
+</nav>
 
         <div class="sidebar-footer">
             <button id="dashboard-logout" class="btn-outline">
@@ -45,20 +47,24 @@
     <!-- Main Content -->
     <div class="dashboard-main">
         <div class="dashboard-header">
-            <div class="header-left">
-                <h2 data-i18n="dashboard_welcome">Welcome, <span id="welcome-name">Seeker</span></h2>
-                <p data-i18n="dashboard_date" id="current-date"></p>
-            </div>
-            <div class="header-right">
-                <div class="language-switcher">
-                    <button id="dashboard-lang-en" class="lang-btn active">EN</button>
-                    <button id="dashboard-lang-ar" class="lang-btn">العربية</button>
-                </div>
-                <button class="notifications">
-                    <i class="fas fa-bell"></i>
-                </button>
-            </div>
+    <div class="header-left">
+        <!-- Add small home icon -->
+        <a href="../index.html" class="home-link" style="margin-right: 15px; color: var(--primary-color);">
+            <i class="fas fa-home"></i>
+        </a>
+        <h2 data-i18n="dashboard_welcome">Welcome, <span id="welcome-name">Seeker</span></h2>
+        <p data-i18n="dashboard_date" id="current-date"></p>
+    </div>
+    <div class="header-right">
+        <div class="language-switcher">
+            <button id="dashboard-lang-en" class="lang-btn active">EN</button>
+            <button id="dashboard-lang-ar" class="lang-btn">العربية</button>
         </div>
+        <button class="notifications">
+            <i class="fas fa-bell"></i>
+        </button>
+    </div>
+</div>
 
         <div class="dashboard-content">
             <!-- Daily Meditation -->

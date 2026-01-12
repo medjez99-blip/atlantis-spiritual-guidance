@@ -148,15 +148,29 @@
     <script src="../js/supabase.js"></script>
     <script src="../js/auth.js"></script>
     <script>
+// Global flag to track redirect state
+window.authRedirected = false;
         document.addEventListener('DOMContentLoaded', async () => {
-            // Set current date
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
-            
-            // Load user data
-            await loadUserData();
+    // Set current date
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
+    
+    // Wait for auth to be ready
+    if (window.auth && !window.auth.initialized) {
+        await new Promise(resolve => {
+            const checkAuth = setInterval(() => {
+                if (window.auth.initialized) {
+                    clearInterval(checkAuth);
+                    resolve();
+                }
+            }, 100);
         });
+    }
+    
+    // Load user data
+    await loadUserData();
+});
     </script>
 </body>
 </html>

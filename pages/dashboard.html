@@ -16,57 +16,56 @@
                 <span class="subtitle" data-i18n="site_subtitle">Spiritual Guidance</span>
             </div>
         </div>
-        
         <div class="user-profile">
-            <div class="avatar" id="user-avatar">S</div>
-            <h3 id="user-name">Loading...</h3>
-            <p class="user-email" id="user-email">loading@example.com</p>
-        </div>
-
+    <div class="avatar" id="user-avatar">S</div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <h3 id="user-name">Loading...</h3>
+        <span id="admin-badge" class="admin-badge" style="display: none; font-size: 0.8rem; background: #ffd700; color: #000; padding: 2px 8px; border-radius: 10px; font-weight: bold;">
+            ADMIN
+        </span>
+    </div>
+    <p class="user-email" id="user-email">loading@example.com</p>
+</div>
         <nav class="sidebar-nav">
     <ul>
-        <!-- Add Home link at the top -->
-        <li><a href="../index.html" id="sidebar-home"><i class="fas fa-home"></i> <span data-i18n="nav_home">Home</span></a></li>
         <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> <span data-i18n="dashboard_home">Dashboard</span></a></li>
-        <!-- Replace anchor links with actual page links or create sections -->
         <li><a href="../index.html#meditations"><i class="fas fa-moon"></i> <span data-i18n="nav_meditations">Meditations</span></a></li>
         <li><a href="#journal-section" id="journal-link"><i class="fas fa-book"></i> <span data-i18n="journal_title">Spiritual Journal</span></a></li>
         <li><a href="#progress-section" id="progress-link"><i class="fas fa-chart-line"></i> <span data-i18n="progress_title">Progress</span></a></li>
         <li><a href="../index.html#community"><i class="fas fa-users"></i> <span data-i18n="nav_community">Community</span></a></li>
         <li><a href="#settings-section" id="settings-link"><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></a></li>
+        <!-- Add Admin Link (only for admin users) -->
+        <li class="admin-link" style="display: none;">
+            <a href="admin.html"><i class="fas fa-crown"></i> <span data-i18n="nav_admin">Admin Panel</span></a>
+        </li>
     </ul>
 </nav>
-
-        <div class="sidebar-footer">
-            <button id="dashboard-logout" class="btn-outline">
-                <i class="fas fa-sign-out-alt"></i>
-                <span data-i18n="nav_logout">Logout</span>
-            </button>
-        </div>
     </div>
-
     <!-- Main Content -->
     <div class="dashboard-main">
         <div class="dashboard-header">
-    <div class="header-left">
-        <!-- Add small home icon -->
-        <a href="../index.html" class="home-link" style="margin-right: 15px; color: var(--primary-color);">
-            <i class="fas fa-home"></i>
-        </a>
-        <h2 data-i18n="dashboard_welcome">Welcome, <span id="welcome-name">Seeker</span></h2>
-        <p data-i18n="dashboard_date" id="current-date"></p>
+            <div class="header-left">
+                <!-- Kept only this Home icon - clear and prominent -->
+                <a href="../index.html" class="home-link" title="Return to Home" style="margin-right: 15px; color: var(--primary-color); font-size: 1.2rem;">
+                    <i class="fas fa-home"></i>
+                </a>
+                <h2 data-i18n="dashboard_welcome">Welcome, <span id="welcome-name">Seeker</span></h2>
+                <p data-i18n="dashboard_date" id="current-date"></p>
+            </div>
+            <div class="header-right">
+    <div class="language-switcher">
+        <button id="dashboard-lang-en" class="lang-btn active">EN</button>
+        <button id="dashboard-lang-ar" class="lang-btn">العربية</button>
     </div>
-    <div class="header-right">
-        <div class="language-switcher">
-            <button id="dashboard-lang-en" class="lang-btn active">EN</button>
-            <button id="dashboard-lang-ar" class="lang-btn">العربية</button>
-        </div>
-        <button class="notifications">
-            <i class="fas fa-bell"></i>
-        </button>
-    </div>
+    <!-- Add Admin Button (only for admin users) -->
+    <a href="admin.html" class="admin-header-btn" style="display: none; margin-right: 15px;" title="Admin Panel">
+        <i class="fas fa-crown"></i>
+    </a>
+    <button class="notifications">
+        <i class="fas fa-bell"></i>
+    </button>
 </div>
-
+        </div>
         <div class="dashboard-content">
             <!-- Daily Meditation -->
             <div class="dashboard-card" id="meditations-section">
@@ -87,7 +86,6 @@
                     <a href="#" data-i18n="view_all_meditations">View All Meditations →</a>
                 </div>
             </div>
-
             <!-- Spiritual Journal -->
             <div class="dashboard-card" id="journal-section">
                 <div class="card-header">
@@ -107,7 +105,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Progress Stats -->
             <div class="dashboard-card stats-card" id="progress-section">
                 <h3 data-i18n="spiritual_progress">Your Spiritual Progress</h3>
@@ -126,7 +123,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Recent Wisdom -->
             <div class="dashboard-card" id="recent-wisdom">
                 <h3 data-i18n="recent_wisdom_title">Recent Wisdom</h3>
@@ -142,122 +138,123 @@
                 </div>
             </div>
     
-    <!-- Add a Settings Card -->
-    <div class="dashboard-card" id="settings-section">
-        <div class="card-header">
-            <h3 data-i18n="settings_title">Settings</h3>
-        </div>
-        <div class="settings-content">
-            <div class="setting-item">
-                <span data-i18n="language_setting">Language</span>
-                <select id="language-selector">
-                    <option value="en">English</option>
-                    <option value="ar">العربية</option>
-                </select>
+            <!-- Settings Card -->
+            <div class="dashboard-card" id="settings-section">
+                <div class="card-header">
+                    <h3 data-i18n="settings_title">Settings</h3>
+                </div>
+                <div class="settings-content">
+                    <div class="setting-item">
+                        <span data-i18n="language_setting">Language</span>
+                        <select id="language-selector">
+                            <option value="en">English</option>
+                            <option value="ar">العربية</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <span data-i18n="notifications_setting">Notifications</span>
+                        <label class="switch">
+                            <input type="checkbox" id="notifications-toggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <button class="btn-outline" id="save-settings" data-i18n="save_settings">Save Settings</button>
+                </div>
             </div>
-            <div class="setting-item">
-                <span data-i18n="notifications_setting">Notifications</span>
-                <label class="switch">
-                    <input type="checkbox" id="notifications-toggle" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <button class="btn-outline" id="save-settings" data-i18n="save_settings">Save Settings</button>
         </div>
     </div>
-        </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/utils.js"></script>
     <script src="../js/supabase.js"></script>
     <script src="../js/auth.js"></script>
     <script>
-// Global flag to track redirect state
-window.authRedirected = false;
+        // Global flag to track redirect state
+        window.authRedirected = false;
+        
         document.addEventListener('DOMContentLoaded', async () => {
-    // Set current date
-    const now = new Date();
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
-    
-    // Wait for auth to be ready
-    if (window.auth && !window.auth.initialized) {
-        await new Promise(resolve => {
-            const checkAuth = setInterval(() => {
-                if (window.auth.initialized) {
-                    clearInterval(checkAuth);
-                    resolve();
-                }
-            }, 100);
-        });
-    }
-    
-    // Load user data
-    await loadUserData();
-});
-document.addEventListener('DOMContentLoaded', () => {
-    // Smooth scrolling for dashboard anchor links
-    const journalLink = document.getElementById('journal-link');
-    const progressLink = document.getElementById('progress-link');
-    const settingsLink = document.getElementById('settings-link');
-    
-    if (journalLink) {
-        journalLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('journal-section').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
-        });
-    }
-    
-    if (progressLink) {
-        progressLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('progress-section').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
-        });
-    }
-    
-    if (settingsLink) {
-        settingsLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('settings-section').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
-        });
-    }
-    
-    // Settings functionality
-    const saveSettingsBtn = document.getElementById('save-settings');
-    if (saveSettingsBtn) {
-        saveSettingsBtn.addEventListener('click', async () => {
-            const language = document.getElementById('language-selector').value;
-            const notifications = document.getElementById('notifications-toggle').checked;
+            // Set current date
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
             
-            // Save to localStorage or Supabase
-            localStorage.setItem('userLanguage', language);
-            localStorage.setItem('userNotifications', notifications);
-            
-            // Show success message
-            if (window.auth && window.auth.showSuccessMessage) {
-                window.auth.showSuccessMessage('settings_saved');
+            // Wait for auth to be ready
+            if (window.auth && !window.auth.initialized) {
+                await new Promise(resolve => {
+                    const checkAuth = setInterval(() => {
+                        if (window.auth.initialized) {
+                            clearInterval(checkAuth);
+                            resolve();
+                        }
+                    }, 100);
+                });
             }
             
-            // If language changed, refresh translations
-            if (language !== localStorage.getItem('language')) {
-                localStorage.setItem('language', language);
-                if (window.i18n && window.i18n.changeLanguage) {
-                    window.i18n.changeLanguage(language);
-                }
+            // Load user data
+            await loadUserData();
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling for dashboard anchor links
+            const journalLink = document.getElementById('journal-link');
+            const progressLink = document.getElementById('progress-link');
+            const settingsLink = document.getElementById('settings-link');
+            
+            if (journalLink) {
+                journalLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.getElementById('journal-section').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                });
+            }
+            
+            if (progressLink) {
+                progressLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.getElementById('progress-section').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                });
+            }
+            
+            if (settingsLink) {
+                settingsLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.getElementById('settings-section').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                });
+            }
+            
+            // Settings functionality
+            const saveSettingsBtn = document.getElementById('save-settings');
+            if (saveSettingsBtn) {
+                saveSettingsBtn.addEventListener('click', async () => {
+                    const language = document.getElementById('language-selector').value;
+                    const notifications = document.getElementById('notifications-toggle').checked;
+                    
+                    // Save to localStorage or Supabase
+                    localStorage.setItem('userLanguage', language);
+                    localStorage.setItem('userNotifications', notifications);
+                    
+                    // Show success message
+                    if (window.auth && window.auth.showSuccessMessage) {
+                        window.auth.showSuccessMessage('settings_saved');
+                    }
+                    
+                    // If language changed, refresh translations
+                    if (language !== localStorage.getItem('language')) {
+                        localStorage.setItem('language', language);
+                        if (window.i18n && window.i18n.changeLanguage) {
+                            window.i18n.changeLanguage(language);
+                        }
+                    }
+                });
             }
         });
-    }
-});
     </script>
 </body>
 </html>

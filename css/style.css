@@ -1007,14 +1007,121 @@ footer {
     flex: 1;
     padding: 2rem;
 }
+/* Admin Navigation Links */
+.admin-quick-links {
+    padding: 0 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+}
+/* Admin link styling */
+.nav-admin {
+    background-color: rgba(255, 215, 0, 0.1);
+    border-radius: 4px;
+    margin: 0 5px;
+}
+
+.nav-admin a {
+    color: #ffd700 !important;
+    font-weight: bold;
+}
+
+.admin-link a {
+    color: #ffd700 !important;
+    font-weight: bold;
+}
+
+.admin-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+    border-left: 3px solid #ffd700;
+    margin-top: 10px;
+}
+
+.admin-header-btn {
+    color: #ffd700;
+    font-size: 1.2rem;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: rgba(255, 215, 0, 0.1);
+}
+
+.admin-header-btn:hover {
+    background-color: rgba(255, 215, 0, 0.2);
+    transform: scale(1.1);
+}
+
+/* Crown icon styling */
+.fa-crown {
+    color: #ffd700;
+    margin-right: 5px;
+}
+
+.admin-link:hover {
+    background-color: var(--hover-color);
+    color: var(--primary-color);
+}
+
+.admin-link i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Admin Breadcrumb */
+.admin-breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 8px;
+}
+
+.admin-breadcrumb a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.admin-breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    margin: 0 8px;
+    color: var(--text-secondary);
+}
+
+.admin-breadcrumb .current {
+    color: var(--text-color);
+    font-weight: 500;
+}
 
 .admin-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
     padding-bottom: 1rem;
     border-bottom: 2px solid #eee;
+}
+
+.admin-header-left {
+    flex: 1;
+}
+
+.admin-actions .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .admin-stats {
@@ -1045,13 +1152,89 @@ footer {
     color: white;
     font-size: 1.2rem;
 }
+/* Smooth scrolling for anchor links */
+
+.dashboard-card:target {
+    animation: highlight 1.5s ease;
+}
 
 .admin-section {
+    scroll-margin-top: 20px;
+    margin-bottom: 30px;
+    padding: 20px;
     background: white;
-    padding: 1.5rem;
     border-radius: 10px;
-    margin-bottom: 2rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.admin-section:target {
+    animation: highlight 1.5s ease;
+}
+
+@keyframes highlight {
+    0% { background-color: transparent; }
+    50% { background-color: rgba(255, 235, 59, 0.2); }
+    100% { background-color: transparent; }
+}
+
+/* Settings styling */
+.settings-content {
+    padding: 20px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Toggle switch for settings */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
 }
 
 .table-container {

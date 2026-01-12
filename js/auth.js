@@ -179,21 +179,41 @@ async signIn(email, password) {
 	
     // Sign out user
     async signOut() {
-        try {
+    try {
+        // First check if we have a valid session
+        const { data: sessionData } = await this.supabase.auth.getSession();
+        
+        // Only call signOut if we have an active session
+        if (sessionData?.session) {
             const { error } = await this.supabase.auth.signOut();
             if (error) throw error;
-            
+        }
+        
+        // Clear local user data
+        this.currentUser = null;
+        localStorage.removeItem('selectedIntention');
+        
+        // Show logout message
+        this.showSuccessMessage(this.translate('logout_success'));
+        
+        // Wait a moment before redirecting to show the message
+        setTimeout(() => {
             // Redirect based on current page
             if (window.location.pathname.includes('dashboard.html') || 
                 window.location.pathname.includes('admin.html')) {
                 window.location.href = '../index.html';
-				} else {
+            } else {
                 window.location.reload();
-			}
-			} catch (error) {
-            console.error('Sign out error:', error);
-		}
-	}
+            }
+        }, 1000);
+        
+    } catch (error) {
+        console.warn('Sign out warning:', error);
+        // Even if there's an error, still redirect to home
+        this.currentUser = null;
+        window.location.href = '../index.html';
+    }
+}
 	
     // Reset password
     async resetPassword(email) {
@@ -293,30 +313,57 @@ async signIn(email, password) {
             console.error('Error creating profile:', error);
 		}
 	}
+async updateAdminUI() {
+    if (!this.currentUser) {
+        // Hide all admin elements
+        document.querySelectorAll('.nav-admin, .admin-link, .admin-header-btn, .admin-badge').forEach(el => {
+            if (el) el.style.display = 'none';
+        });
+        return;
+    }
+    
+    // Check if user is admin
+    const isAdmin = await this.isAdmin();
+    
+    // Show/hide admin links
+    document.querySelectorAll('.nav-admin, .admin-link, .admin-header-btn').forEach(el => {
+        if (el) {
+            el.style.display = isAdmin ? 'block' : 'none';
+        }
+    });
+    
+    // Add admin badge to user info (optional)
+    const adminBadge = document.getElementById('admin-badge');
+    if (adminBadge) {
+        adminBadge.style.display = isAdmin ? 'inline-block' : 'none';
+    }
+}
 	
     // Update auth UI
     updateAuthUI() {
-		const loginBtn = document.querySelector('.nav-auth a[href*="login"]');
-		const logoutBtn = document.getElementById('logout-btn');
-		const userStatus = document.getElementById('user-status');
-		
-		if (this.currentUser) {
-			if (loginBtn) loginBtn.style.display = 'none';
-			if (logoutBtn) logoutBtn.style.display = 'inline-block';
-			if (userStatus) {
-				// Use translation for welcome message
-				const welcomeMessage = window.t('welcome_user', 'Welcome back, ') + this.currentUser.email;
-				userStatus.innerHTML = `<p>${welcomeMessage}</p>`;
-			}
-			} else {
-			if (loginBtn) loginBtn.style.display = 'inline-block';
-			if (logoutBtn) logoutBtn.style.display = 'none';
-			if (userStatus) {
-				// Use translation key for guest message
-				userStatus.innerHTML = `<p>${window.t('guest_message', 'You are browsing as a guest. <a href="pages/login.html">Login</a> for personalized guidance.')}</p>`;
-			}
-		}
-	}
+    const loginBtn = document.querySelector('.nav-auth a[href*="login"]');
+    const logoutBtn = document.getElementById('logout-btn');
+    const userStatus = document.getElementById('user-status');
+    
+    if (this.currentUser) {
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'inline-block';
+        if (userStatus) {
+            const welcomeMessage = window.t('welcome_user', 'Welcome back, ') + this.currentUser.email;
+            userStatus.innerHTML = `<p>${welcomeMessage}</p>`;
+        }
+        // Also update admin UI
+        this.updateAdminUI();
+    } else {
+        if (loginBtn) loginBtn.style.display = 'inline-block';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (userStatus) {
+            userStatus.innerHTML = `<p>${window.t('guest_message', 'You are browsing as a guest. <a href="pages/login.html">Login</a> for personalized guidance.')}</p>`;
+        }
+        // Hide admin links
+        this.updateAdminUI();
+    }
+}
 	
     // Show message functions (keep as is)
     showSuccessMessage(message) {
@@ -503,8 +550,23 @@ async function checkAdminAccess() {
 document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => auth.signOut());
-	}
+        // Prevent multiple clicks
+        let isLoggingOut = false;
+        logoutBtn.addEventListener('click', async () => {
+            if (isLoggingOut) return;
+            isLoggingOut = true;
+            
+            // Disable button and show loading
+            logoutBtn.disabled = true;
+            logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + 
+                                  (window.t ? window.t('logging_out', 'Logging out...') : 'Logging out...');
+            
+            await auth.signOut();
+            
+            // Re-enable button (though redirect should happen)
+            isLoggingOut = false;
+        });
+    }
     
     const dashboardLogout = document.getElementById('dashboard-logout');
     if (dashboardLogout) {

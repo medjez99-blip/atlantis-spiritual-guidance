@@ -1,329 +1,357 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | Atlantis</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="admin-page">
-    <div class="admin-container">
-        <!-- Admin Sidebar -->
-        <div class="admin-sidebar">
-            <div class="admin-logo">
-                <h2>Atlantis</h2>
-                <span>Admin Panel</span>
-            </div>
-            
-            <nav class="admin-nav">
-    <ul>
-        <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-        <li><a href="#users-section"><i class="fas fa-users"></i> Users</a></li>
-        <li><a href="#content-section"><i class="fas fa-book"></i> Content</a></li>
-        <li><a href="#meditations-section"><i class="fas fa-moon"></i> Meditations</a></li>
-        <li><a href="#translations-section"><i class="fas fa-language"></i> Translations</a></li>
-        <li><a href="#analytics-section"><i class="fas fa-chart-bar"></i> Analytics</a></li>
-    </ul>
-</nav>
-            
-            <div class="admin-user">
-                <div class="admin-avatar">A</div>
-                <div class="admin-user-info">
-                    <span id="admin-email">admin@atlantis.com</span>
-                    <button id="admin-logout" class="btn-sm">Logout</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Admin Main Content -->
-        <div class="admin-main">
-            <div class="admin-header">
-        <h1>Admin Dashboard</h1>
-        <div class="admin-actions">
-            <button class="btn-primary" id="refresh-data">
-                <i class="fas fa-sync-alt"></i> Refresh
-            </button>
-        </div>
-    </div>
-
-            <!-- Stats Overview -->
-            <div class="admin-stats" id="dashboard-section">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="total-users">0</h3>
-                        <p>Total Users</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-moon"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="active-sessions">0</h3>
-                        <p>Active Sessions</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="total-content">0</h3>
-                        <p>Content Items</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="languages-count">2</h3>
-                        <p>Languages</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Users Table -->
-            <div class="admin-section" id="users-section">
-                <h2>Recent Users</h2>
-                <div class="table-container">
-                    <table id="users-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Joined</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Users will be populated here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Content Management -->
-            <div class="admin-section" id="content-section">
-                <h2>Content Management</h2>
-                <div class="content-controls">
-                    <button class="btn-primary" id="add-content">
-                        <i class="fas fa-plus"></i> Add New Content
-                    </button>
-                    <button class="btn-outline" id="refresh-content">
-                        <i class="fas fa-redo"></i> Refresh
-                    </button>
-                </div>
-                
-                <div class="content-list" id="content-list">
-                    <!-- Content items will be loaded here -->
-                </div>
-            </div>
-    
-    <!-- Meditations Management -->
-    <div class="admin-section" id="meditations-section">
-        <h2>Meditations Management</h2>
-        <div class="meditation-controls">
-            <button class="btn-primary" id="add-meditation">
-                <i class="fas fa-plus"></i> Add New Meditation
-            </button>
-            <div class="meditation-list" id="meditation-list">
-                <!-- Meditations will be loaded here -->
-                <p>No meditations added yet.</p>
-            </div>
-        </div>
-    </div>
-
-            <!-- Language Management -->
-            <div class="admin-section" id="translations-section">
-                <h2>Language Management</h2>
-                <div class="language-management">
-                    <div class="current-languages">
-                        <h3>Current Languages</h3>
-                        <div class="language-tags">
-                            <span class="language-tag">
-                                English (EN)
-                                <button class="tag-close">&times;</button>
-                            </span>
-                            <span class="language-tag">
-                                العربية (AR)
-                                <button class="tag-close">&times;</button>
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="add-language">
-                        <h3>Add New Language</h3>
-                        <div class="add-language-form">
-                            <input type="text" id="new-language-name" placeholder="Language Name">
-                            <input type="text" id="new-language-code" placeholder="Language Code (e.g., ES)">
-                            <button id="add-language-btn" class="btn-primary">Add Language</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-    <!-- Analytics -->
-    <div class="admin-section" id="analytics-section">
-        <h2>Analytics</h2>
-        <div class="analytics-charts">
-            <div class="chart-container">
-                <h3>User Growth</h3>
-                <canvas id="user-growth-chart"></canvas>
-            </div>
-            <div class="chart-container">
-                <h3>Meditation Usage</h3>
-                <canvas id="meditation-usage-chart"></canvas>
-            </div>
-        </div>
-    </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/supabase.js"></script>
-    <script src="../js/auth.js"></script>
-    <script src="../js/admin.js"></script>
-    <script>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Admin Panel | Atlantis</title>
+		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	</head>
+	<body class="admin-page">
+		<div class="admin-container">
+			<!-- Admin Sidebar -->
+			<div class="admin-sidebar">
+				<div class="admin-logo">
+					<h2>Atlantis</h2>
+					<span>Admin Panel</span>
+				</div>
+				<!-- ADDED NAVIGATION LINKS -->
+				<div class="admin-quick-links">
+					<a href="../index.html" class="admin-link">
+						<i class="fas fa-home"></i> Main Site
+					</a>
+					<a href="../pages/dashboard.html" class="admin-link">
+						<i class="fas fa-tachometer-alt"></i> User Dashboard
+					</a>
+				</div>
+				<nav class="admin-nav">
+					<ul>
+						<li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+						<li><a href="#users-section"><i class="fas fa-users"></i> Users</a></li>
+						<li><a href="#content-section"><i class="fas fa-book"></i> Content</a></li>
+						<li><a href="#meditations-section"><i class="fas fa-moon"></i> Meditations</a></li>
+						<li><a href="#translations-section"><i class="fas fa-language"></i> Translations</a></li>
+						<li><a href="#analytics-section"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+					</ul>
+				</nav>
+				<div class="admin-user">
+					<div class="admin-avatar">A</div>
+					<div class="admin-user-info">
+						<span id="admin-email">admin@atlantis.com</span>
+						<button id="admin-logout" class="btn-sm">Logout</button>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Admin Main Content -->
+			<div class="admin-main">
+				<div class="admin-header">
+					<div class="admin-header-left">
+						<h1>Admin Dashboard</h1>
+						<!-- ADDED BREADCRUMB NAVIGATION -->
+						<div class="admin-breadcrumb">
+							<a href="../index.html">Main Site</a> 
+							<span class="breadcrumb-separator">/</span>
+							<a href="../pages/dashboard.html">Dashboard</a> 
+							<span class="breadcrumb-separator">/</span>
+							<span class="current">Admin Panel</span>
+						</div>
+					</div>
+					<div class="admin-actions">
+						<a href="../index.html" class="btn-outline" style="margin-right: 10px;">
+							<i class="fas fa-home"></i> Main Site
+						</a>
+						<a href="../pages/dashboard.html" class="btn-outline" style="margin-right: 10px;">
+							<i class="fas fa-user"></i> User View
+						</a>
+						<button class="btn-primary" id="refresh-data">
+							<i class="fas fa-sync-alt"></i> Refresh
+						</button>
+					</div>
+				</div>
+				
+				<!-- Stats Overview -->
+				<div class="admin-stats" id="dashboard-section">
+					<div class="stat-card">
+						<div class="stat-icon">
+							<i class="fas fa-users"></i>
+						</div>
+						<div class="stat-info">
+							<h3 id="total-users">0</h3>
+							<p>Total Users</p>
+						</div>
+					</div>
+					<div class="stat-card">
+						<div class="stat-icon">
+							<i class="fas fa-moon"></i>
+						</div>
+						<div class="stat-info">
+							<h3 id="active-sessions">0</h3>
+							<p>Active Sessions</p>
+						</div>
+					</div>
+					<div class="stat-card">
+						<div class="stat-icon">
+							<i class="fas fa-book"></i>
+						</div>
+						<div class="stat-info">
+							<h3 id="total-content">0</h3>
+							<p>Content Items</p>
+						</div>
+					</div>
+					<div class="stat-card">
+						<div class="stat-icon">
+							<i class="fas fa-globe"></i>
+						</div>
+						<div class="stat-info">
+							<h3 id="languages-count">2</h3>
+							<p>Languages</p>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Recent Users Table -->
+				<div class="admin-section" id="users-section">
+					<h2>Recent Users</h2>
+					<div class="table-container">
+						<table id="users-table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Joined</th>
+									<th>Status</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- Users will be populated here -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<!-- Content Management -->
+				<div class="admin-section" id="content-section">
+					<h2>Content Management</h2>
+					<div class="content-controls">
+						<button class="btn-primary" id="add-content">
+							<i class="fas fa-plus"></i> Add New Content
+						</button>
+						<button class="btn-outline" id="refresh-content">
+							<i class="fas fa-redo"></i> Refresh
+						</button>
+					</div>
+					
+					<div class="content-list" id="content-list">
+						<!-- Content items will be loaded here -->
+					</div>
+				</div>
+				
+				<!-- Meditations Management -->
+				<div class="admin-section" id="meditations-section">
+					<h2>Meditations Management</h2>
+					<div class="meditation-controls">
+						<button class="btn-primary" id="add-meditation">
+							<i class="fas fa-plus"></i> Add New Meditation
+						</button>
+						<div class="meditation-list" id="meditation-list">
+							<!-- Meditations will be loaded here -->
+							<p>No meditations added yet.</p>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Language Management -->
+				<div class="admin-section" id="translations-section">
+					<h2>Language Management</h2>
+					<div class="language-management">
+						<div class="current-languages">
+							<h3>Current Languages</h3>
+							<div class="language-tags">
+								<span class="language-tag">
+									English (EN)
+									<button class="tag-close">&times;</button>
+								</span>
+								<span class="language-tag">
+									العربية (AR)
+									<button class="tag-close">&times;</button>
+								</span>
+							</div>
+						</div>
+						
+						<div class="add-language">
+							<h3>Add New Language</h3>
+							<div class="add-language-form">
+								<input type="text" id="new-language-name" placeholder="Language Name">
+								<input type="text" id="new-language-code" placeholder="Language Code (e.g., ES)">
+								<button id="add-language-btn" class="btn-primary">Add Language</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Analytics -->
+				<div class="admin-section" id="analytics-section">
+					<h2>Analytics</h2>
+					<div class="analytics-charts">
+						<div class="chart-container">
+							<h3>User Growth</h3>
+							<canvas id="user-growth-chart"></canvas>
+						</div>
+						<div class="chart-container">
+							<h3>Meditation Usage</h3>
+							<canvas id="meditation-usage-chart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+		<script src="../js/supabase.js"></script>
+		<script src="../js/auth.js"></script>
+		<script src="../js/admin.js"></script>
+		<script>
+        // Global flag to track redirect state
+        window.authRedirected = false;
         document.addEventListener('DOMContentLoaded', () => {
             // Check admin privileges
             checkAdminAccess();
-            
             // Load admin data
             loadAdminData();
-            
             // Event listeners
             document.getElementById('refresh-data').addEventListener('click', loadAdminData);
             document.getElementById('add-language-btn').addEventListener('click', addNewLanguage);
             document.getElementById('admin-logout').addEventListener('click', logout);
-        });
-document.addEventListener('DOMContentLoaded', () => {
-    // Smooth scrolling for admin anchor links
-    const adminNavLinks = document.querySelectorAll('.admin-nav a');
-    
-    adminNavLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const href = link.getAttribute('href');
             
-            // Only handle anchor links
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                
-                // Remove active class from all links
-                adminNavLinks.forEach(l => l.parentElement.classList.remove('active'));
-                // Add active class to clicked link
-                link.parentElement.classList.add('active');
-                
-                const targetId = href.substring(1);
-                const targetSection = document.getElementById(targetId);
-                
-                if (targetSection) {
-                    // Scroll to section
-                    targetSection.scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    
-                    // Update URL hash without scrolling
-                    history.pushState(null, null, href);
-                }
+            // ADDED: Load admin email if user is logged in
+            if (window.auth && window.auth.currentUser) {
+                document.getElementById('admin-email').textContent = window.auth.currentUser.email;
             }
         });
-    });
-    
-    // Handle hash on page load
-    if (window.location.hash) {
-        const hash = window.location.hash;
-        const targetLink = document.querySelector(`.admin-nav a[href="${hash}"]`);
-        if (targetLink) {
-            // Remove active class from all links
-            adminNavLinks.forEach(l => l.parentElement.classList.remove('active'));
-            // Add active class to current hash link
-            targetLink.parentElement.classList.add('active');
-            
-            // Scroll to section
-            const targetSection = document.getElementById(hash.substring(1));
-            if (targetSection) {
-                setTimeout(() => {
-                    targetSection.scrollIntoView({ block: 'start' });
-                }, 100);
-            }
-        }
-    }
-    
-    // Add meditation functionality
-    const addMeditationBtn = document.getElementById('add-meditation');
-    if (addMeditationBtn) {
-        addMeditationBtn.addEventListener('click', () => {
-            // Open meditation editor modal or form
-            openMeditationEditor();
-        });
-    }
+			document.addEventListener('DOMContentLoaded', () => {
+				// Smooth scrolling for admin anchor links
+				const adminNavLinks = document.querySelectorAll('.admin-nav a');
+				
+				adminNavLinks.forEach(link => {
+					link.addEventListener('click', (e) => {
+						const href = link.getAttribute('href');
+						
+						// Only handle anchor links
+						if (href && href.startsWith('#')) {
+							e.preventDefault();
+							
+							// Remove active class from all links
+							adminNavLinks.forEach(l => l.parentElement.classList.remove('active'));
+							// Add active class to clicked link
+							link.parentElement.classList.add('active');
+							
+							const targetId = href.substring(1);
+							const targetSection = document.getElementById(targetId);
+							
+							if (targetSection) {
+								// Scroll to section
+								targetSection.scrollIntoView({ 
+									behavior: 'smooth',
+									block: 'start'
+								});
+								
+								// Update URL hash without scrolling
+								history.pushState(null, null, href);
+							}
+						}
+					});
+				});
+				
+				// Handle hash on page load
+				if (window.location.hash) {
+					const hash = window.location.hash;
+					const targetLink = document.querySelector(`.admin-nav a[href="${hash}"]`);
+					if (targetLink) {
+						// Remove active class from all links
+						adminNavLinks.forEach(l => l.parentElement.classList.remove('active'));
+						// Add active class to current hash link
+						targetLink.parentElement.classList.add('active');
+						
+						// Scroll to section
+						const targetSection = document.getElementById(hash.substring(1));
+						if (targetSection) {
+							setTimeout(() => {
+								targetSection.scrollIntoView({ block: 'start' });
+							}, 100);
+						}
+					}
+				}
+				
+				// Add meditation functionality
+				const addMeditationBtn = document.getElementById('add-meditation');
+				if (addMeditationBtn) {
+					addMeditationBtn.addEventListener('click', () => {
+						// Open meditation editor modal or form
+						openMeditationEditor();
+					});
+				}
+			});
+			
+			function openMeditationEditor() {
+				// Create modal for adding/editing meditations
+				const modalHTML = `
+				<div class="modal" id="meditation-modal">
+				<div class="modal-content">
+                <div class="modal-header">
+			<h2>Add New Meditation</h2>
+			<button class="modal-close">&times;</button>
+		</div>
+		<div class="modal-body">
+			<form id="meditation-form">
+				<div class="form-group">
+					<label for="meditation-title">Title</label>
+					<input type="text" id="meditation-title" required>
+				</div>
+				<div class="form-group">
+					<label for="meditation-description">Description</label>
+					<textarea id="meditation-description" rows="3"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="meditation-duration">Duration (minutes)</label>
+					<input type="number" id="meditation-duration" min="1" max="60" value="10">
+				</div>
+				<div class="form-group">
+					<label for="meditation-language">Language</label>
+					<select id="meditation-language">
+						<option value="en">English</option>
+						<option value="ar">Arabic</option>
+						<option value="both">Both</option>
+					</select>
+				</div>
+				<button type="submit" class="btn-primary">Save Meditation</button>
+			</form>
+		</div>
+	</div>
+</div>
+`;
+
+// Add modal to page and show it
+document.body.insertAdjacentHTML('beforeend', modalHTML);
+const modal = document.getElementById('meditation-modal');
+modal.style.display = 'block';
+
+// Handle modal close
+modal.querySelector('.modal-close').addEventListener('click', () => {
+modal.remove();
 });
 
-function openMeditationEditor() {
-    // Create modal for adding/editing meditations
-    const modalHTML = `
-        <div class="modal" id="meditation-modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Add New Meditation</h2>
-                    <button class="modal-close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form id="meditation-form">
-                        <div class="form-group">
-                            <label for="meditation-title">Title</label>
-                            <input type="text" id="meditation-title" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="meditation-description">Description</label>
-                            <textarea id="meditation-description" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="meditation-duration">Duration (minutes)</label>
-                            <input type="number" id="meditation-duration" min="1" max="60" value="10">
-                        </div>
-                        <div class="form-group">
-                            <label for="meditation-language">Language</label>
-                            <select id="meditation-language">
-                                <option value="en">English</option>
-                                <option value="ar">Arabic</option>
-                                <option value="both">Both</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn-primary">Save Meditation</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    // Add modal to page and show it
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-    const modal = document.getElementById('meditation-modal');
-    modal.style.display = 'block';
-    
-    // Handle modal close
-    modal.querySelector('.modal-close').addEventListener('click', () => {
-        modal.remove();
-    });
-    
-    // Handle form submission
-    modal.querySelector('#meditation-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        // Save meditation logic here
-        // This would typically make an API call to Supabase
-        alert('Meditation saved! (Implementation depends on your backend)');
-        modal.remove();
-    });
+// Handle form submission
+modal.querySelector('#meditation-form').addEventListener('submit', async (e) => {
+e.preventDefault();
+// Save meditation logic here
+// This would typically make an API call to Supabase
+alert('Meditation saved! (Implementation depends on your backend)');
+modal.remove();
+});
 }
-    </script>
+</script>
 </body>
 </html>

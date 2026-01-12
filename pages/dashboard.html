@@ -28,11 +28,12 @@
         <!-- Add Home link at the top -->
         <li><a href="../index.html" id="sidebar-home"><i class="fas fa-home"></i> <span data-i18n="nav_home">Home</span></a></li>
         <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> <span data-i18n="dashboard_home">Dashboard</span></a></li>
-        <li><a href="#meditations"><i class="fas fa-moon"></i> <span data-i18n="nav_meditations">Meditations</span></a></li>
-        <li><a href="#journal"><i class="fas fa-book"></i> <span data-i18n="journal_title">Spiritual Journal</span></a></li>
-        <li><a href="#progress"><i class="fas fa-chart-line"></i> <span data-i18n="progress_title">Progress</span></a></li>
-        <li><a href="#community"><i class="fas fa-users"></i> <span data-i18n="nav_community">Community</span></a></li>
-        <li><a href="#settings"><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></a></li>
+        <!-- Replace anchor links with actual page links or create sections -->
+        <li><a href="../index.html#meditations"><i class="fas fa-moon"></i> <span data-i18n="nav_meditations">Meditations</span></a></li>
+        <li><a href="#journal-section" id="journal-link"><i class="fas fa-book"></i> <span data-i18n="journal_title">Spiritual Journal</span></a></li>
+        <li><a href="#progress-section" id="progress-link"><i class="fas fa-chart-line"></i> <span data-i18n="progress_title">Progress</span></a></li>
+        <li><a href="../index.html#community"><i class="fas fa-users"></i> <span data-i18n="nav_community">Community</span></a></li>
+        <li><a href="#settings-section" id="settings-link"><i class="fas fa-cog"></i> <span data-i18n="settings_title">Settings</span></a></li>
     </ul>
 </nav>
 
@@ -68,7 +69,7 @@
 
         <div class="dashboard-content">
             <!-- Daily Meditation -->
-            <div class="dashboard-card">
+            <div class="dashboard-card" id="meditations-section">
                 <div class="card-header">
                     <h3 data-i18n="daily_meditation_title">Daily Meditation</h3>
                     <span class="card-badge" data-i18n="recommended">Recommended</span>
@@ -88,7 +89,7 @@
             </div>
 
             <!-- Spiritual Journal -->
-            <div class="dashboard-card">
+            <div class="dashboard-card" id="journal-section">
                 <div class="card-header">
                     <h3 data-i18n="today_journal_title">Today's Journal</h3>
                 </div>
@@ -108,7 +109,7 @@
             </div>
 
             <!-- Progress Stats -->
-            <div class="dashboard-card stats-card">
+            <div class="dashboard-card stats-card" id="progress-section">
                 <h3 data-i18n="spiritual_progress">Your Spiritual Progress</h3>
                 <div class="stats-grid">
                     <div class="stat-item">
@@ -127,7 +128,7 @@
             </div>
 
             <!-- Recent Wisdom -->
-            <div class="dashboard-card">
+            <div class="dashboard-card" id="recent-wisdom">
                 <h3 data-i18n="recent_wisdom_title">Recent Wisdom</h3>
                 <div class="wisdom-list">
                     <div class="wisdom-item">
@@ -140,6 +141,30 @@
                     </div>
                 </div>
             </div>
+    
+    <!-- Add a Settings Card -->
+    <div class="dashboard-card" id="settings-section">
+        <div class="card-header">
+            <h3 data-i18n="settings_title">Settings</h3>
+        </div>
+        <div class="settings-content">
+            <div class="setting-item">
+                <span data-i18n="language_setting">Language</span>
+                <select id="language-selector">
+                    <option value="en">English</option>
+                    <option value="ar">العربية</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <span data-i18n="notifications_setting">Notifications</span>
+                <label class="switch">
+                    <input type="checkbox" id="notifications-toggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <button class="btn-outline" id="save-settings" data-i18n="save_settings">Save Settings</button>
+        </div>
+    </div>
         </div>
     </div>
 
@@ -170,6 +195,68 @@ window.authRedirected = false;
     
     // Load user data
     await loadUserData();
+});
+document.addEventListener('DOMContentLoaded', () => {
+    // Smooth scrolling for dashboard anchor links
+    const journalLink = document.getElementById('journal-link');
+    const progressLink = document.getElementById('progress-link');
+    const settingsLink = document.getElementById('settings-link');
+    
+    if (journalLink) {
+        journalLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('journal-section').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    }
+    
+    if (progressLink) {
+        progressLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('progress-section').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    }
+    
+    if (settingsLink) {
+        settingsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('settings-section').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    }
+    
+    // Settings functionality
+    const saveSettingsBtn = document.getElementById('save-settings');
+    if (saveSettingsBtn) {
+        saveSettingsBtn.addEventListener('click', async () => {
+            const language = document.getElementById('language-selector').value;
+            const notifications = document.getElementById('notifications-toggle').checked;
+            
+            // Save to localStorage or Supabase
+            localStorage.setItem('userLanguage', language);
+            localStorage.setItem('userNotifications', notifications);
+            
+            // Show success message
+            if (window.auth && window.auth.showSuccessMessage) {
+                window.auth.showSuccessMessage('settings_saved');
+            }
+            
+            // If language changed, refresh translations
+            if (language !== localStorage.getItem('language')) {
+                localStorage.setItem('language', language);
+                if (window.i18n && window.i18n.changeLanguage) {
+                    window.i18n.changeLanguage(language);
+                }
+            }
+        });
+    }
 });
     </script>
 </body>

@@ -198,14 +198,34 @@ async signIn(email, password) {
         
         // Wait a moment before redirecting to show the message
         setTimeout(() => {
-            // Redirect based on current page
-            if (window.location.pathname.includes('dashboard.html') || 
-                window.location.pathname.includes('admin.html')) {
-                window.location.href = '../index.html';
-            } else {
-                window.location.reload();
+    // Check if we're on admin page specifically
+    const isAdminPage = window.location.pathname.includes('admin.html');
+    
+    if (isAdminPage) {
+        // SPECIAL HANDLING FOR ADMIN PAGE LOGOUT
+        // Clear ALL Supabase localStorage items more aggressively
+        Object.keys(localStorage).forEach(key => {
+            if (key.includes('supabase') || 
+                key.includes('sb-') || 
+                key.includes('auth') ||
+                key.startsWith('supabase.')) {
+                localStorage.removeItem(key);
             }
-        }, 1000);
+        });
+        
+        // Use replace() to prevent back button issues
+        // Add cache-busting parameters specifically for admin
+        const timestamp = Date.now();
+        window.location.replace('../index.html?admin_logout=true&t=' + timestamp);
+        
+    } else if (window.location.pathname.includes('dashboard.html')) {
+        // Regular dashboard logout
+        window.location.href = '../index.html';
+    } else {
+        // Main site or other pages
+        window.location.reload();
+    }
+}, 1000);
         
     } catch (error) {
         console.warn('Sign out warning:', error);
@@ -574,9 +594,48 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
     
     const adminLogout = document.getElementById('admin-logout');
-    if (adminLogout) {
-        adminLogout.addEventListener('click', () => auth.signOut());
-	}
+if (adminLogout) {
+    adminLogout.addEventListener('click', async (e) => {
+        // Prevent multiple clicks
+        if (adminLogout.disabled) return;
+        
+        // Show loading state
+        const originalText = adminLogout.textContent;
+        adminLogout.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging out...';
+        adminLogout.disabled = true;
+        
+        // SPECIAL ADMIN LOGOUT SEQUENCE
+        try {
+            // Clear all local data first
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            // Force Supabase to forget the session
+            if (window.supabaseClient && window.supabaseClient.auth) {
+                await window.supabaseClient.auth.signOut();
+            }
+            
+            // Add a flag to prevent auto-login on next page
+            localStorage.setItem('force_logout', 'true');
+            localStorage.setItem('logout_time', Date.now().toString());
+            
+            // Clear any timeouts/intervals
+            if (window.auth && window.auth._authStateChangeSubscription) {
+                window.auth._authStateChangeSubscription.unsubscribe();
+            }
+            
+            // Redirect with cache busting
+            setTimeout(() => {
+                window.location.replace('../index.html?admin_logout=true&nocache=' + Date.now());
+            }, 800);
+            
+        } catch (error) {
+            console.warn('Admin logout error:', error);
+            // Force redirect anyway
+            window.location.replace('../index.html');
+        }
+    });
+}
     
     // Initial check for dashboard/admin pages
     if (window.location.pathname.includes('dashboard.html') || 

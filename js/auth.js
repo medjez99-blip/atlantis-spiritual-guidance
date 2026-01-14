@@ -364,24 +364,40 @@ async updateAdminUI() {
     const loginBtn = document.querySelector('.nav-auth a[href*="login"]');
     const logoutBtn = document.getElementById('logout-btn');
     const userStatus = document.getElementById('user-status');
+    const dashboardLink = document.querySelector('.nav-dashboard');
+    const adminLink = document.querySelector('.nav-admin');
     
     if (this.currentUser) {
+        // Hide login, show logout
         if (loginBtn) loginBtn.style.display = 'none';
         if (logoutBtn) logoutBtn.style.display = 'inline-block';
+        
+        // Show dashboard link
+        if (dashboardLink) dashboardLink.style.display = 'block';
+        
+        // Update user status message
         if (userStatus) {
             const welcomeMessage = window.t('welcome_user', 'Welcome back, ') + this.currentUser.email;
             userStatus.innerHTML = `<p>${welcomeMessage}</p>`;
         }
-        // Also update admin UI
+        
+        // Also update admin UI (which will show/hide admin link)
         this.updateAdminUI();
     } else {
+        // Show login, hide logout
         if (loginBtn) loginBtn.style.display = 'inline-block';
         if (logoutBtn) logoutBtn.style.display = 'none';
+        
+        // Hide dashboard link
+        if (dashboardLink) dashboardLink.style.display = 'none';
+        
+        // Hide admin link
+        if (adminLink) adminLink.style.display = 'none';
+        
+        // Show guest message
         if (userStatus) {
             userStatus.innerHTML = `<p>${window.t('guest_message', 'You are browsing as a guest. <a href="pages/login.html">Login</a> for personalized guidance.')}</p>`;
         }
-        // Hide admin links
-        this.updateAdminUI();
     }
 }
 	

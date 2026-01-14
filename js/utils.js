@@ -189,7 +189,8 @@ translate(key, defaultText = '') {
 "reset_request_failed": "Failed to send reset email. Please try again.",
 "password_update_failed": "Failed to update password. Please try again.",
 "nav_admin": "Admin",
-"admin_panel": "Admin Panel"
+"admin_panel": "Admin Panel",
+"nav_dashboard": "Dashboard"
             },
             ar: {
                 "site_name": "أتلانتس",
@@ -336,7 +337,8 @@ translate(key, defaultText = '') {
 "reset_request_failed": "فشل إرسال بريد إعادة التعيين. يرجى المحاولة مرة أخرى.",
 "password_update_failed": "فشل تحديث كلمة المرور. يرجى المحاولة مرة أخرى.",
 "nav_admin": "مدير",
-"admin_panel": "لوحة الإدارة"
+"admin_panel": "لوحة الإدارة",
+"nav_dashboard": "لوحة التحكم"
             }
         }[this.currentLang] || {};
     }

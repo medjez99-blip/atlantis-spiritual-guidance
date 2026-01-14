@@ -202,7 +202,7 @@ class FormManager {
         submitBtn.disabled = false;
 		
         if (result.success) {
-            auth.showSuccessMessage('Password reset email sent! Please check your inbox.');
+            auth.showSuccessMessage('reset_email_sent');
             this.showForm('login');
 			} else {
             auth.showErrorMessage(result.error || 'Failed to send reset email. Please try again.');
